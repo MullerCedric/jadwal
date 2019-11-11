@@ -1,0 +1,13 @@
+.guest-header {
+    box-sizing: content-box;
+    margin: -2.25rem -2.25rem 1rem;
+    padding: 1rem 2.25rem 1.5rem;
+    background: linear-gradient(to bottom right, $primary, $secondary);
+    border-radius: 1rem 1rem 0 0;
+    color: $white;
+    text-align: left;
+
+    &__heading {
+        font-size: $biggerSize;
+    }
+}

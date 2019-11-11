@@ -1,16 +1,19 @@
-a {
+a, .link {
     display: inline-block;
+    margin: 0;
     text-decoration: underline;
     color: $primary;
     font-style: normal;
     vertical-align: middle;
+    background: none;
+    border: none;
 
     &:hover, &:focus {
         cursor: pointer;
         color: $secondary;
     }
-}
 
-a[disabled] {
-    cursor: not-allowed;
+    &[disabled] {
+        cursor: not-allowed;
+    }
 }

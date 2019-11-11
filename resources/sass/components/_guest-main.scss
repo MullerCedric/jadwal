@@ -1,0 +1,37 @@
+.guest-main {
+    flex: 0;
+    max-width: $wrapperMini;
+    padding: 2.25rem 2.25rem 5rem;
+    margin: 1em auto 1.5em;
+    background-color: $white;
+    border-radius: 1rem;
+    box-shadow: 0 .25rem 1rem $shadow;
+    position: relative;
+    text-align: center;
+
+    &:after {
+        content: '';
+        display: block;
+        height: .75rem;
+        border-radius: 0 0 1rem 1rem;
+        background: linear-gradient(to left, $lightPrimary, $secondary);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &__form_group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5em;
+    }
+
+    &__form_input {
+        flex: 1;
+    }
+
+    &__form_label {
+        margin-right: .75em;
+    }
+}
