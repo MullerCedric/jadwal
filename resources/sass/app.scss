@@ -1,8 +1,6 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Organisation based on ITCSS: settings, tools, generic, base, objects, components, utilities
+@import "settings/all";
+@import "generic/all";
+@import "base/all";
+@import "objects/all";
+@import "utilities/all";

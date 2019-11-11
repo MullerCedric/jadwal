@@ -1,0 +1,36 @@
+html,
+body {
+    height: 100%;
+    font-size: $baseSize;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+}
+
+body {
+    background-color: $lightGrey;
+    background-image: linear-gradient(to bottom, $lighterGrey, $lightGrey);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: $black;
+    position: relative;
+}
+
+body, body * {
+    font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
+    font-size: $mainSize;
+    font-weight: 400;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
+    max-width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+::selection {
+    background-color: $primary;
+    color: $white;
+}

@@ -1,0 +1,27 @@
+.o-media {
+  display: flex;
+  &__img {
+    margin: 0 1.5em 0 0;
+  }
+  &__text {
+    flex: 1;
+    & h2 {
+      text-align: left;
+      font-size: $bigSize;
+    }
+  }
+  &--right {
+    flex-direction: row-reverse;
+    & .o-media {
+      &__img {
+        margin: 0 0 0 1.5em;
+      }
+      &__text h2 {
+        text-align: right;
+      }
+    }
+  }
+  &--center {
+    align-items: center;
+  }
+}

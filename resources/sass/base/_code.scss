@@ -1,0 +1,18 @@
+code, pre, kbd {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    color: $white;
+    background-color: $darkGrey;
+    white-space: pre;
+    padding: .25em .33em;
+    border-radius: .25em;
+}
+
+pre {
+    margin-bottom: .75em;
+}
+
+kbd {
+    background-color: $darkGrey;
+    border-bottom: .25em solid $black;
+    border-right: .2em solid $black;
+}

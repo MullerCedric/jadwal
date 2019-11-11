@@ -1,0 +1,22 @@
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+main ol, main ul {
+    line-height: 1.75;
+    padding: 1.5em;
+    border-radius: 1em;
+}
+
+main li {
+    padding: .2em 1em;
+    background-color: $white;
+
+    &:nth-child(odd) {
+        background-color: $lightGrey;
+    }
+}

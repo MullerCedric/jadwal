@@ -1,0 +1,16 @@
+a {
+    display: inline-block;
+    text-decoration: underline;
+    color: $primary;
+    font-style: normal;
+    vertical-align: middle;
+
+    &:hover, &:focus {
+        cursor: pointer;
+        color: $secondary;
+    }
+}
+
+a[disabled] {
+    cursor: not-allowed;
+}

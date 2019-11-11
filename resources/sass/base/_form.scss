@@ -1,0 +1,47 @@
+::placeholder {
+    color: inherit;
+    opacity: .55;
+}
+
+label, input, select, button {
+    display: inline-block;
+}
+
+input, select {
+    min-width: 25%;
+    font-size: 1em;
+    padding: .5em 1.5em;
+    border-bottom: .2em solid $primary;
+    background-color: $white;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        border-color: $secondary;
+        border-bottom-width: .125em;
+    }
+}
+
+input[type="submit"], button {
+    font-size: 1.5em;
+    display: block;
+    padding: 1em 1.75em;
+    margin: 2em auto;
+    border: none;
+    background-color: $lightPrimary;
+    background-image: linear-gradient(to right, transparent, $secondary);
+    color: white;
+    box-shadow: 0 .1em .75em $shadow;
+
+    &:focus, &:hover {
+        border: none;
+        background-color: $darkSecondary;
+        box-shadow: 0 .15em 1.25em $tintedShadow;
+    }
+}
+
+input[disabled], button[disabled] {
+    cursor: not-allowed;
+}

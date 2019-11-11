@@ -1,0 +1,16 @@
+.o-grid {
+  &__container {
+    display: grid;
+    column-gap: $colGap;
+    row-gap: $rowGap;
+    & > * {
+      margin: 0; // grid gap should take care of the spacing
+    }
+  }
+  &__3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    &--full {
+      grid-column: 1 / 4;
+    }
+  }
+}

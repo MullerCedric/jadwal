@@ -1,0 +1,21 @@
+h1, h2, h3, h4 {
+    font-family: "Dosis", cursive;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    margin: .5em 0 .33em;
+}
+
+h1 {
+    font-size: $biggestSize;
+    letter-spacing: .125em;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: $biggerSize;
+}
+
+h3 {
+    font-size: $bigSize;
+    margin-top: 1.25em;
+}

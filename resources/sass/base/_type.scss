@@ -1,0 +1,56 @@
+strong, b {
+    font-weight: 700;
+}
+
+em, i, cite {
+    font-style: italic;
+}
+
+p, dl, ol, ul, blockquote, pre, table {
+    margin: 0 auto .75em;
+    line-height: 1.5;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+p {
+    &:empty {
+        display: none
+    }
+}
+
+blockquote {
+    border-left: .25em solid $primary;
+    font-size: $bigSize;
+    padding: 0.5em 1.25em;
+    max-width: 80%;
+}
+
+dt {
+    font-weight: 700;
+}
+
+dd {
+    margin-left: 1.25em;
+}
+
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
+abbr {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+small {
+    font-size: $smallSize;
+}
