@@ -27,6 +27,7 @@ return [
     'send_password_reset_link' => 'Send Password Reset Link',
     'register' => 'Register',
     'name' => 'Name',
+    'already_registered' => 'Already have an account?',
     'verify_your_email' => 'Verify Your Email Address',
     'verification_link_sent' => 'A fresh verification link has been sent to your email address',
     'check_for_verification_link' => 'Before proceeding, please check your email for a verification link',

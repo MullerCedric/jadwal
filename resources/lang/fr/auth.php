@@ -26,6 +26,7 @@ return [
     'send_password_reset_link' => 'Envoyer un lien de réinitialisation',
     'register' => 'S\'enregistrer',
     'name' => 'Nom',
+    'already_registered' => 'Déjà un compte ?',
     'verify_your_email' => 'Verifier votre adresse e-mail',
     'verification_link_sent' => 'Un nouvel e-mail de vérification vous a été envoyé',
     'check_for_verification_link' => 'Avant de continuer, merci de vérifier votre adresse e-mail',
