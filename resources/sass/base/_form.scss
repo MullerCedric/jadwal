@@ -5,6 +5,10 @@
 
 label, input, select, button {
     display: inline-block;
+    font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
+    font-size: $mainSize;
+    font-weight: 400;
+    color: $black;
 }
 
 input:not([type="checkbox"]), select {
@@ -40,7 +44,7 @@ input[type="submit"], button:not(.link) {
     border: none;
     border-radius: 2em;
     background-color: $lightPrimary;
-    background-image: linear-gradient(to right, transparent, $primary);
+    background-image: linear-gradient(to right, transparent, $lightPrimary);
     color: white;
     box-shadow: 0 .1em .75em $shadow;
 

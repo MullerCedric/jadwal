@@ -1,0 +1,19 @@
+.o-layout {
+    &--holy {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: start;
+    }
+    &--centered {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+    }
+}
+.sidebar {
+    position: sticky;
+    top: $rowGap;
+    margin-top: $rowGap;
+    margin-left: $colGap;
+}

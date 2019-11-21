@@ -1,0 +1,29 @@
+.c-form {
+    display: grid;
+    grid-template-columns: max-content minmax(auto, 2fr);
+    grid-gap: 1.75em 1em;
+    align-items: center;
+    margin-bottom: 1.75em;
+
+    &__group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5em;
+    }
+
+    &__input {
+    }
+
+    &__label {
+        text-align: right;
+    }
+
+    &__error {
+        grid-column: 1 / -1;
+    }
+
+    &__submit {
+        text-align: center;
+        grid-column: 1 / -1;
+    }
+}

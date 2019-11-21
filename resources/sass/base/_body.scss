@@ -12,14 +12,14 @@ body {
     background-image: linear-gradient(to bottom, $lighterGrey, $lightGrey);
     background-repeat: no-repeat;
     background-attachment: fixed;
+    font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
+    font-size: $mainSize;
+    font-weight: 400;
     color: $black;
     position: relative;
 }
 
 body, body * {
-    font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
-    font-size: $mainSize;
-    font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
     box-sizing: border-box;

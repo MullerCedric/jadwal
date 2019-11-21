@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') - {{ config('app.name', 'Jadwal') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,13 +19,24 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<div class="o-wrapper guest-main">
-    <header class="guest-header">
-        <h1 class="guest-header__heading">@yield('title')</h1>
-    </header>
-    <main id="content">
-        @yield('content')
-    </main>
+<div class="content o-layout--centered">
+    <div class="c-app-name">
+        @if (Route::has('login'))
+            <a href="{{ route('login') }}" class="c-app-name__link">
+                {{ config('app.name', 'Jadwal') }}
+            </a>
+        @else
+            <span class="c-app-name__link">{{ config('app.name', 'Jadwal') }}</span>
+        @endif
+    </div>
+    <div class="o-wrapper guest-main">
+        <header class="guest-header">
+            <h1 class="guest-header__heading">@yield('title')</h1>
+        </header>
+        <main id="content">
+            @yield('content')
+        </main>
+    </div>
 </div>
 </body>
 </html>

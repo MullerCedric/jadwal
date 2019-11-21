@@ -20,18 +20,4 @@
         left: 0;
         right: 0;
     }
-
-    &__form_group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5em;
-    }
-
-    &__form_input {
-        flex: 1;
-    }
-
-    &__form_label {
-        margin-right: .75em;
-    }
 }

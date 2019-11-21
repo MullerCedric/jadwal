@@ -1,0 +1,16 @@
+.c-app-name {
+    text-align: center;
+    &__link {
+        margin: .5em 0 0;
+        font-family: "Dosis", cursive;
+        font-size: $biggestSize * 2;
+        font-weight: 600;
+        letter-spacing: 0.025em;
+        text-decoration: none;
+        color: $darkGrey;
+        opacity: .9;
+        &:hover {
+            color: $primary;
+        }
+    }
+}
