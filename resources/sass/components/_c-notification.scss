@@ -1,0 +1,33 @@
+.c-notification {
+    &__list {
+        position: fixed;
+        top: $rowGap;
+        right: $colGap;
+        width: 90%;
+        max-width: 540px;
+    }
+
+    padding: 0;
+    margin-top: 1em;
+    opacity: 0;
+    height: 0;
+    background-color: $white;
+    border-radius: .5em .5em;
+    box-shadow: 0 .25em 1em $shadow;
+    font-size: $smallSize;
+    color: $black;
+    animation-name: fadeAndSlideInAndOut;
+    animation-duration: 6s;
+    animation-delay: .5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+
+    &--success {
+
+    }
+}
