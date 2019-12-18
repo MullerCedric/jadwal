@@ -11,9 +11,9 @@
 
     <p>{{ __('auth.check_for_verification_link') }}</p>
     <p>{{ __('auth.if_email_not_received') }},</p>
-    <form class="d-inline" method="POST" action="{{--{{ route('verification.resend') }}--}}" class="c-form">
+    <form class="d-inline" method="POST" action="{{--{{ route('verification.resend') }}--}}" class="o-form">
         @csrf
-        <button class="c-form__submit" type="submit">
+        <button class="o-form__submit" type="submit">
             {{ __('auth.click_to_send_another') }}
         </button>
     </form>

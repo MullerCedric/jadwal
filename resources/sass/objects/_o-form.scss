@@ -1,9 +1,10 @@
-.c-form {
+.o-form {
     display: grid;
     grid-template-columns: max-content minmax(auto, 2fr);
     grid-gap: 1.75em 1em;
-    align-items: center;
+    align-items: start;
     margin-bottom: 1.75em;
+    text-align: left;
 
     &__group {
         display: flex;
@@ -11,19 +12,21 @@
         margin-bottom: 1.5em;
     }
 
-    &__input {
-    }
-
     &__label {
         text-align: right;
+        padding: .75em 0;
     }
 
-    &__error {
-        grid-column: 1 / -1;
+    &__input {
+        align-self: center;
     }
 
     &__submit {
         text-align: center;
+    }
+
+    &__full, &__error, &__submit {
         grid-column: 1 / -1;
+        width: 100%;
     }
 }

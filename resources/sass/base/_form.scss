@@ -1,9 +1,9 @@
 ::placeholder {
     color: inherit;
-    opacity: .55;
+    opacity: .5;
 }
 
-label, input, select, button {
+label, input, select, button, textarea {
     display: inline-block;
     font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
     font-size: $mainSize;
@@ -11,9 +11,8 @@ label, input, select, button {
     color: $black;
 }
 
-input:not([type="checkbox"]), select {
+input:not([type="checkbox"]):not([type="radio"]), select, textarea {
     min-width: 25%;
-    font-size: 1em;
     padding: .5em 1.5em;
     border: none;
     border-bottom: .15em solid $primary;
@@ -27,6 +26,11 @@ input:not([type="checkbox"]), select {
         border-color: $secondary;
         background-color: $lighterGrey;
     }
+}
+
+textarea {
+    min-height: 6em;
+    resize: vertical;
 }
 
 input[type="submit"], button:not(.link) {

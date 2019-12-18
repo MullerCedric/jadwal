@@ -5,20 +5,20 @@
 @section('content')
     {{ __('auth.please_confirm_password') }}
 
-    <form method="POST" action="{{ route('password.confirm') }}" class="c-form">
+    <form method="POST" action="{{ route('password.confirm') }}" class="o-form">
         @csrf
 
-        <label for="password" class="c-form__label">{{ __('auth.password') }}</label>
+        <label for="password" class="o-form__label">{{ __('auth.password') }}</label>
         <input id="password" type="password" name="password"
-               class="c-form__input @error('password') is-invalid @enderror"
+               class="o-form__input @error('password') is-invalid @enderror"
                placeholder="•••••••••" required autocomplete="current-password">
         @error('password')
-        <span class="c-form__error" role="alert">
+        <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
 
-        <button class="c-form__submit" type="submit">
+        <button class="o-form__submit" type="submit">
             {{ __('auth.confirm_password') }}
         </button>
     </form>
