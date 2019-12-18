@@ -7,9 +7,10 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Teacher::class, function (Faker $faker) {
+    $now = new DateTime();
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'token' => $faker->password . '' . $faker->password
+        'token' => Str::random(5) . '' . substr($now->getTimestamp(), -7) . '' . Str::random(4)
     ];
 });

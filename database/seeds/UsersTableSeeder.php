@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
         User::all()->each(function ($user) {
             $createExamSession = ($user->id == 1 || rand(0, 2) > 1);
             if ($createExamSession) {
-                for ($i = 1; $i <= rand(1, 3); $i++) {
+                for ($i = 1; $i <= rand(2, 6); $i++) {
                     $user->examSessions()->save(factory(App\ExamSession::class)->make());
                 }
             }

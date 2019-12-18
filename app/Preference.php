@@ -2,15 +2,22 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Preference extends Model
 {
     protected $fillable = [
-        'teacher_id', 'exam_session_id', 'values', 'state'
+        'teacher_id', 'exam_session_id', 'values', 'is_validated', 'sent_at'
     ];
 
-    public function author()
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'sent_at'
+    ];
+
+    public function teacher()
     {
         return $this->belongsTo('App\Teacher');
     }
@@ -18,5 +25,19 @@ class Preference extends Model
     public function examSession()
     {
         return $this->belongsTo('App\ExamSession');
+    }
+
+    public function getValuesAttribute($value) {
+        return json_decode($value);
+    }
+
+    public function isValidated()
+    {
+        return $this->is_validated;
+    }
+
+    public function isSent()
+    {
+        return $this->sent_at ? $this->sent_at->startOfDay() <= Carbon::now()->startOfDay() : false;
     }
 }

@@ -17,11 +17,12 @@ class CreateExamSessionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('location_id');
-            $table->string('title');
-            $table->string('slug');
+            $table->string('title')->default('Brouillon');
+            $table->string('slug')->default('brouillon');
             $table->text('indications')->nullable();
             $table->dateTime('deadline');
-            $table->enum('state', ['draft', 'published'])->default('draft');
+            $table->boolean('is_validated')->default(false);
+            $table->dateTime('sent_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

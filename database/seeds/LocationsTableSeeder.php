@@ -11,6 +11,9 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Location::class, 3)->create();
+        // Since the factory check for existence, we need to call it several times manually
+        for ($i = 0; $i < 3; $i++) {
+            factory(App\Location::class, 1)->create();
+        }
     }
 }

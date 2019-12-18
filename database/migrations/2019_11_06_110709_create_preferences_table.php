@@ -18,7 +18,9 @@ class CreatePreferencesTable extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('exam_session_id');
             $table->jsonb('values');
-            $table->enum('state', ['draft', 'published'])->default('draft');
+            $table->text('about')->nullable();
+            $table->boolean('is_validated')->default(false);
+            $table->dateTime('sent_at')->nullable();
             $table->timestamps();
 
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');

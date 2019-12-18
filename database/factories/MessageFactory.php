@@ -11,6 +11,6 @@ $factory->define(Message::class, function (Faker $faker) {
         'exam_session_id' => ExamSession::all()->random(1)->first()->id,
         'title' => $faker->realText(55),
         'body' => $faker->paragraphs(3, true),
-        'state' => $faker->randomElement(['draft', 'published', 'prototype']),
+        'is_validated' => $faker->randomElement([true, false]),
     ];
 });

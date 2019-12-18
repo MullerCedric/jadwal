@@ -24,16 +24,20 @@ $factory->define(Preference::class, function (Faker $faker) {
             'course_name' => $faker->realText(25),
             'groups' => implode(', ', $faker->randomElements($groupsNames, $faker->numberBetween(1, 4))),
             'type' => $faker->randomElement(['oral', 'written']),
-            'room' => implode(', ', $faker->randomElements($roomsNames, $faker->numberBetween(1, 5))),
+            'rooms' => implode(', ', $faker->randomElements($roomsNames, $faker->numberBetween(1, 5))),
             'duration' => $faker->randomElement([2, 4, 8]),
             'watched_by' => Teacher::all()->random(1)->first()->name
         ];
     }
+    $is_validated = $faker->randomElement([true, false]);
+    $sent_at = $is_validated ? $faker->dateTimeInInterval('now', '+ 1 month') : null;
 
     return [
         'teacher_id' => Teacher::all()->random(1)->first()->id,
         'exam_session_id' => ExamSession::all()->random(1)->first()->id,
         'values' => json_encode($values),
-        'state' => $faker->randomElement(['draft', 'published']),
+        'about' => $faker->randomElement([null, $faker->realText(30), null]),
+        'is_validated' => $is_validated,
+        'sent_at' => $sent_at
     ];
 });
