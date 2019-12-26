@@ -20,3 +20,5 @@ phpunit.xml
 public/css/
 
 public/js/
+
+public/
