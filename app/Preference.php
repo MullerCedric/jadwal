@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Preference extends Model
 {
     protected $fillable = [
-        'teacher_id', 'exam_session_id', 'values', 'is_validated', 'sent_at'
+        'teacher_id', 'exam_session_id', 'values', 'about', 'is_validated', 'sent_at'
     ];
 
     protected $dates = [
