@@ -30,7 +30,7 @@ class DraftExamSessionStoreRequest extends FormRequest
             'title' => 'nullable|string',
             'slug' => 'nullable|string',
             'indications' => 'nullable|string',
-            'deadline' => 'nullabl|date'
+            'deadline' => 'nullable|date'
         ];
     }
 }
