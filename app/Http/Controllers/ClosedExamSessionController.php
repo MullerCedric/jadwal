@@ -15,7 +15,8 @@ class ClosedExamSessionController extends Controller
             'location.teachers'
         ])->get();
         $today = \Carbon\Carbon::now()->startOfDay();
-        return view('exam_sessions.index', compact('examSessions', 'today'));
+        $currentTab = 'closed';
+        return view('exam_sessions.index', compact('examSessions', 'today', 'currentTab'));
     }
 
     public function store(ExamSession $examSession)

@@ -33,7 +33,7 @@
     @endif
 </header>
 <div id="content" class="content o-wrapper o-layout--holy">
-    <main class="main-main">
+    <main class="main-main @yield('main-type')">
         @yield('content')
     </main>
     @if(View::hasSection('sidebar'))

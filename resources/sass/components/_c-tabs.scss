@@ -1,0 +1,49 @@
+.c-tabs {
+    text-align: center;
+    margin: .5em auto 1.5em;
+
+    &__tab {
+        font-size: $mainSize;
+        font-weight: 700;
+        font-variant: all-small-caps;
+        text-decoration: none;
+        letter-spacing: .33em;
+        color: $darkGrey;
+        padding: .2em .75em;
+        position: relative;
+        opacity: .8;
+
+        & + .c-tabs__tab {
+            margin-left: .75em;
+        }
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 0;
+            height: .2em;
+            margin: 0 auto;
+            background-color: transparent;
+        }
+
+        &:hover, &:focus {
+            opacity: 1;
+
+            &:after {
+                width: 50%;
+                background-color: $secondary;
+            }
+        }
+
+        &--current {
+            &:after {
+                width: 65%;
+                background-color: $lightPrimary;
+            }
+        }
+    }
+}

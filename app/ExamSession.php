@@ -42,6 +42,38 @@ class ExamSession extends Model
         return $this->hasMany('App\Preference');
     }
 
+    public function scopeOfType($q, $type = 'basic')
+    {
+        $today = Carbon::now()->startOfDay();
+
+        if ($type !== 'hot') {
+            return $q->basic();
+        }
+
+        return $q->hot();
+    }
+
+    public function scopeBasic($q)
+    {
+        $today = Carbon::now()->startOfDay();
+
+        return $q->whereDate('deadline', '>', $today)
+            ->orWhere(function ($q) use ($today) {
+                $q->where('is_validated', false)
+                    ->orWhereNull('sent_at')
+                    ->orWhereDate('sent_at', '>', $today);
+            });
+    }
+
+    public function scopeHot($q)
+    {
+        $today = Carbon::now()->startOfDay();
+
+        return $q->whereDate('deadline', '<=', $today)
+            ->where('is_validated', true)
+            ->whereDate('sent_at', '<=', $today);
+    }
+
     public function isValidated()
     {
         return $this->is_validated;
@@ -50,5 +82,10 @@ class ExamSession extends Model
     public function isSent()
     {
         return $this->sent_at ? $this->sent_at->startOfDay() <= Carbon::now()->startOfDay() : false;
+    }
+
+    public function percent()
+    {
+        return floor($this->sent_preferences_count / $this->location->teachers->count() * 100);
     }
 }

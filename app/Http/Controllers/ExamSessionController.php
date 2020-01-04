@@ -23,12 +23,28 @@ class ExamSessionController extends Controller
             ->withCount([
                 'preferences as sent_preferences_count' => function ($q) {
                     $q->where('is_validated', '=', true)->whereNotNull('sent_at');
-                }
+                },
             ])
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('deadline', 'asc')
+            ->orderBy('is_validated', 'desc')
+            ->orderBy('sent_at', 'asc')
             ->get();
+        $examSessions->each(function ($examSession) {
+            $examSession->location->teachers->loadCount([
+                'preferences as preferences_are_sent' => function ($q) use ($examSession) {
+                    $q->where('exam_session_id', "=", $examSession->id)->where('is_validated', '=', true)->whereNotNull('sent_at');
+                },
+            ]);
+            $examSession->location->sentTeachers = $examSession->location->teachers->reduce(function($carry, $item) {
+                if($item->preferences_are_sent) {
+                    $carry[] = $item;
+                }
+                return $carry;
+            }, []);
+        });
         $today = Carbon::now();
-        return view('exam_sessions.index', compact('examSessions', 'today'));
+        $currentTab = 'opened';
+        return view('exam_sessions.index', compact('examSessions', 'today', 'currentTab'));
     }
 
     public function create()

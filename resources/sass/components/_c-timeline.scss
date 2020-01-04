@@ -1,13 +1,14 @@
 $timelineHeight: .5rem;
 $timelineMargin: $timelineHeight * 3;
-$labelHeight: .75rem * 2 + 1.5rem;
-$offset: $timelineHeight + $timelineMargin * 2 + $labelHeight;
+$labelHeight: .75rem * 2 + 1.25rem * 1.5 + .1rem; // padding * 2 + font-size * line-height
+$infoDiam: 2.6667rem; // 32px
+$offset: $timelineMargin + $timelineHeight + $infoDiam / 2 + $labelHeight;
 
 
 .c-timeline {
     position: relative;
     height: $timelineHeight;
-    margin: ($offset - $timelineHeight) 0 $timelineMargin;
+    margin: ($offset - $timelineHeight) ($infoDiam / 2) $timelineMargin;
 
     &__event {
         position: absolute;
@@ -33,11 +34,12 @@ $offset: $timelineHeight + $timelineMargin * 2 + $labelHeight;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 2.6667rem; // 32px
-        height: 2.6667rem;
+        width: $infoDiam;
+        height: $infoDiam;
         margin-right: .25rem;
         background-color: $darkGrey;
         border-radius: 100%;
+
         &--tmln {
             position: absolute;
             top: 50%;
@@ -45,12 +47,15 @@ $offset: $timelineHeight + $timelineMargin * 2 + $labelHeight;
             cursor: help;
             transform: translateX(-50%) translateY(-50%);
         }
+
         &--today {
             background-color: $lightPrimary;
         }
+
         &--deadline {
             background-color: $darkSecondary;
         }
+
         &--created_at {
             background-color: $primary;
         }
@@ -84,11 +89,13 @@ $offset: $timelineHeight + $timelineMargin * 2 + $labelHeight;
     &__captions {
         display: none;
     }
+
     // ---- MEDIA QUERIES petit écran
-    /*&__caption {
+    &__caption {
         display: block;
+
         & + .c-timeline__caption {
             margin-top: 1rem;
         }
-    }*/
+    }
 }

@@ -1,7 +1,7 @@
 <nav class="o-wrapper c-main-nav" id="main-nav">
     <h2 class="sr-only">Navigation rapide</h2>
+    <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
     <ul class="c-main-nav__list">
-        <li class="sr-only"><a href="#content">Revenir au contenu</a></li>
         @auth
             @if (Route::has('dashboard'))
                 <li class="c-main-nav__item">

@@ -1,0 +1,75 @@
+.c-card {
+    background-color: $white;
+    box-shadow: 0 .25em .5em $shadow;
+    padding: .75em 1.5em 1.25em;
+    border-radius: .75em;
+
+    + .c-card {
+        margin-top: 2em;
+    }
+
+    &__header, &__footer {
+        display: flex;
+        align-items: center;
+        overflow-wrap: normal;
+
+        & :first-child {
+            flex: 1;
+        }
+    }
+
+    & h2 {
+        margin: 0;
+    }
+
+    &__title a, &__subtitle a {
+        text-decoration: none;
+    }
+
+    &__subtitle {
+        margin-top: -.5em;
+
+        & a {
+            font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
+            font-size: $mainSize;
+            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: .3em;
+            opacity: .7;
+        }
+    }
+
+    &__main {
+        margin: 1.25em 0;
+    }
+
+    &__percent {
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+
+        &:before {
+            content: '';
+            display: inline-block;
+            height: .5em;
+            width: .5em;
+            border-radius: 100%;
+            margin-right: .33em;
+            background-color: $darkGrey;
+        }
+
+        &--low {
+            color: $darkSecondary;
+            &:before {
+                background-color: $darkSecondary;
+            }
+        }
+
+        &--high {
+            color: $success;
+            &:before {
+                background-color: $success;
+            }
+        }
+    }
+}

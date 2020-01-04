@@ -5,4 +5,11 @@
     background-color: $white;
     border-radius: 1rem 1rem 0 0;
     box-shadow: 0 .25rem 1rem $shadow;
+
+    &--index {
+        margin-top: 0;
+        padding: $rowGap 0 18rem;
+        box-shadow: none;
+        background-color: transparent;
+    }
 }

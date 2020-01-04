@@ -1,0 +1,16 @@
+.c-more {
+    &__link {
+        border-radius: 100%;
+        height: 2em;
+        width: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+
+        &:hover, &:focus {
+            background-color: $lighterGrey;
+            border: 1px solid $lightGrey;
+        }
+    }
+}

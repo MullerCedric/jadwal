@@ -72,8 +72,7 @@ ksort($timelineAsc);
 <div class="c-timeline__captions">
     @foreach($timelineAsc as $key => $val)
         <time datetime="" class="c-timeline__caption">
-            <div class="c-timeline__info c-timeline__info--{{ $val['slug'] }}"
-                 title="{{ $val['name'] . ' ' . $val['text'] }}">
+            <div class="c-timeline__info c-timeline__info--{{ $val['slug'] }}">
                 @svg($val['icon'], 'c-timeline__icon')
             </div>
             {{ $val['name'] . ' ' . $val['text'] . ' (' . $val['date']->format('d/m') . ')' }}

@@ -1,7 +1,7 @@
 .o-layout {
     &--holy {
         display: grid;
-        grid-template-columns: 1fr fit-content(25%);
+        grid-template-columns: 1fr minmax(23%, 28%);
         align-items: start;
     }
     &--centered {

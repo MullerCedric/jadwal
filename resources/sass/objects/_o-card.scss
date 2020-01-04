@@ -1,0 +1,8 @@
+.o-card {
+    &__track {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(26em, 1fr));
+        row-gap: $rowGap;
+        column-gap: $colGap;
+    }
+}
