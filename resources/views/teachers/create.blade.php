@@ -44,7 +44,7 @@
             <a href="{{ route('locations.create') }}">créer une nouvelle implantation</a>
         </div>
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             Ajouter le professeur
         </button>
     </form>

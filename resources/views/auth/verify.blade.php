@@ -13,7 +13,7 @@
     <p>{{ __('auth.if_email_not_received') }},</p>
     <form class="d-inline" method="POST" action="{{--{{ route('verification.resend') }}--}}" class="o-form">
         @csrf
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             {{ __('auth.click_to_send_another') }}
         </button>
     </form>

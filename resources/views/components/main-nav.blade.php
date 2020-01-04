@@ -27,7 +27,7 @@
             <li class="c-main-nav__item">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="c-main-nav__form">
                     @csrf
-                    <button class="link c-main-nav__link">{{ __('auth.logout') }}</button>
+                    <button type="submit" class="link c-main-nav__link">{{ __('auth.logout') }}</button>
                 </form>
             </li>
         @endauth

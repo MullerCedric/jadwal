@@ -31,7 +31,7 @@
         <input id="password-confirm" type="password" name="password_confirmation" class="o-form__input"
                placeholder="•••••••••" required autocomplete="new-password">
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             {{ __('auth.reset_password') }}
         </button>
     </form>

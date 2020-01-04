@@ -44,12 +44,12 @@
         @enderror
         <input type="hidden" name="id" value="{{ $email->id }}">
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             Enregistrer les modifications
         </button>
         <p class="o-form__full">
             ou
-            <button class="link" type="submit" formaction="{{ route('draft_messages.store') }}">
+            <button type="submit" class="link" formaction="{{ route('draft_messages.store') }}">
                 enregistrer en tant que brouillon
             </button>
         </p>

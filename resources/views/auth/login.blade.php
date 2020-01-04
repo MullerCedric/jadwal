@@ -29,7 +29,7 @@
         <input type="checkbox" name="remember" id="remember" class="o-form__input"
             {{ old('remember') ? 'checked' : '' }}>
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             {{ __('auth.login') }}
         </button>
     </form>

@@ -18,7 +18,7 @@
             </span>
         @enderror
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             {{ __('auth.confirm_password') }}
         </button>
     </form>

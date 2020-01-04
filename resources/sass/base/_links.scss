@@ -6,10 +6,16 @@ a, .link {
     font-style: normal;
     background: none;
     border: none;
+    box-shadow: none;
 
     &:hover, &:focus {
         cursor: pointer;
         color: $secondary;
+        box-shadow: none;
+        background: none;
+    }
+    &:focus {
+        text-transform: uppercase;
     }
 
     &[disabled] {

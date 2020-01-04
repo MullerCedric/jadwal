@@ -1,0 +1,38 @@
+::placeholder {
+    color: inherit;
+    opacity: .5;
+}
+
+label, input, select, button, textarea {
+    display: inline-block;
+    font-family: "Open Sans", Roboto, Helvetica, Arial, sans-serif;
+    font-size: $mainSize;
+    font-weight: 400;
+    color: $black;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select, textarea {
+    min-width: 25%;
+    padding: .5em 1.5em;
+    border: none;
+    border-bottom: .15em solid $primary;
+    background-color: $lightGrey;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        border-color: $secondary;
+        background-color: $lighterGrey;
+    }
+}
+
+textarea {
+    min-height: 6em;
+    resize: vertical;
+}
+
+input[disabled], button[disabled] {
+    cursor: not-allowed;
+}

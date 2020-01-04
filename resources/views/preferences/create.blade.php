@@ -97,7 +97,7 @@
             </li>
         </ul>
         <p>
-            <button class="link" type="submit" formaction="{{ route('draft_preferences.store') }}">
+            <button type="submit" class="link" formaction="{{ route('draft_preferences.store') }}">
                 Ajouter un cours
             </button>
         </p>
@@ -117,12 +117,12 @@
             <input type="hidden" name="token" value="{{ $token }}">
             <input type="hidden" name="exam_session" value="{{ $examSession->id }}">
 
-            <button class="o-form__submit" type="submit">
+            <button type="submit" class="o-form__submit cta">
                 Prévisualier
             </button>
             <p class="o-form__full">
                 ou
-                <button class="link" type="submit" formaction="{{ route('draft_preferences.store') }}">
+                <button type="submit" class="link" formaction="{{ route('draft_preferences.store') }}">
                     enregistrer en tant que brouillon
                 </button>
             </p>

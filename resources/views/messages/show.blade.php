@@ -32,7 +32,7 @@
                 </p>
             @elseif($message->isValidated() && !$message->isSent())
                 <p>
-                    <button type="submit">
+                    <button type="submit" class="cta">
                         Envoyer les formulaires
                     </button>
                 </p>

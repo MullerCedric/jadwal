@@ -86,7 +86,7 @@
                                     <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
                                           method="POST">
                                         @csrf
-                                        <button type="submit">Envoyer à nouveau</button>
+                                        <button type="submit" class="cta">Envoyer à nouveau</button>
                                     </form>
                                 @endif
                             </td>
@@ -100,7 +100,7 @@
                                 <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
                                       method="POST">
                                     @csrf
-                                    <button type="submit">Envoyer</button>
+                                    <button type="submit" class="cta">Envoyer</button>
                                 </form>
                             </td>
                         @else

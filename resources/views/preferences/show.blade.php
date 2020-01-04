@@ -61,7 +61,7 @@
             </p>
         @elseif($preference->isValidated() && !$preference->isSent())
             <p>
-                <button type="submit">
+                <button type="submit" class="cta">
                     Envoyer ces préférences
                 </button>
             </p>

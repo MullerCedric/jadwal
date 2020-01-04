@@ -68,7 +68,7 @@
                 </span>
         @enderror
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             Enregistrer l'implantation
         </button>
     </form>

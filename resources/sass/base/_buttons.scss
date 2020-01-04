@@ -1,0 +1,64 @@
+[type="submit"]:not(.link), button:not(.link), .button, .cta {
+    display: inline-block;
+    padding: 1em 1.75em;
+    font-size: 1em;
+    line-height: 1;
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    border-radius: 2em;
+    box-shadow: 0 .15em .75em $shadow;
+
+    &:focus, &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        text-transform: inherit;
+        transform: scale(1.1);
+    }
+}
+
+button, .button {
+    width: auto;
+    background-color: $white;
+    border: 1px solid $grey;
+    background-image: linear-gradient(to right, transparent, $white);
+
+    &:focus, &:hover {
+        border-color: $success;
+        background-color: $lighterGrey;
+        background-image: linear-gradient(to right, transparent, $white);
+        color: $darkSecondary;
+        box-shadow: 0 .15em 1em $successTintedShadow;
+    }
+}
+
+.cta {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: $lightPrimary;
+    background-image: linear-gradient(to right, transparent, $lightPrimary);
+    color: white;
+    border: none;
+
+    &:focus, &:hover {
+        color: $white;
+        border: none;
+        background-color: $darkSecondary;
+        background-image: linear-gradient(to right, transparent, $lightPrimary);
+        box-shadow: 0 .15em 1.25em $tintedShadow;
+    }
+}
+
+[type="submit"].button--small, button.button--small, .cta.button--small, .button--small {
+    display: inline-block;
+    padding: .5em 1.25em;
+
+    & + [type="submit"].button--small, & + button.button--small, & + .cta.button--small, & + .button--small {
+        margin-left: .75em;
+    }
+}

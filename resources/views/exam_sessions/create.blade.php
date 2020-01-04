@@ -52,11 +52,11 @@
             </span>
         @enderror
 
-        <button class="o-form__submit" type="submit">
+        <button type="submit" class="o-form__submit cta">
             Passer à l'étape suivante
         </button>
         <p class="o-form__full">
-            ou <button class="link" type="submit" formaction="{{ route('draft_exam_sessions.store') }}">enregistrer en tant que brouillon</button>
+            ou <button type="submit" class="link" formaction="{{ route('draft_exam_sessions.store') }}">enregistrer en tant que brouillon</button>
         </p>
     </form>
 @endsection
