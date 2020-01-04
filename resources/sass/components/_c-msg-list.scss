@@ -1,0 +1,67 @@
+.c-msg-list {
+    display: grid;
+    grid-template-columns: max-content max-content 1fr;
+    border-radius: 1em;
+    overflow: hidden;
+
+    & a {
+        text-decoration: none;
+    }
+
+    & > div {
+        background-color: $white;
+        padding: .75em .5em;
+
+        &:nth-child(3n+1) {
+            padding-left: 1em;
+        }
+
+        &:nth-child(3n+3) {
+            padding-right: 1em;
+        }
+
+        &:nth-child(6n+1),
+        &:nth-child(6n+2),
+        &:nth-child(6n+3) {
+            background-color: $lighterGrey;
+        }
+
+        &:nth-child(3n+4),
+        &:nth-child(3n+5),
+        &:nth-child(3n+6) {
+            border-top: 1px solid $lightGrey;
+        }
+    }
+
+    &__state, &__to {
+        display: flex;
+        align-items: center;
+    }
+
+    &__state {
+        &-elem {
+            display: flex;
+            align-items: center;
+            padding: .25em .5em;
+            background-color: $lightGrey;
+            border-radius: 2.5em;
+            border: 1px solid $grey;
+            font-size: $smallSize;
+            font-style: italic;
+            color: $darkGrey;
+        }
+    }
+
+    &__icon {
+        height: $smallSize;
+    }
+
+    &__session {
+        opacity: .7;
+        font-size: $smallSize;
+    }
+
+    &__actions {
+        text-align: right;
+    }
+}

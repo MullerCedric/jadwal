@@ -1,73 +1,68 @@
 @extends('layouts.app')
 
-@section('title', 'Les messages')
+@section('title', 'Vos messages envoyés')
 
 @section('content')
-    @if ($messages && !$messages->isEmpty())
-        @foreach($messages as $message)
-            <article class="c-session-short">
-                <header class="c-session-short__head">
-                    <h2 class="c-session-short__heading">
-                        <span>
-                            <a href="{{ route('messages.show', ['message' => $message->id]) }}">
-                                {{ $message->title }}
-                            </a>
-                        </span>
-                    </h2>
-                    <div>
-                        <form method="POST"
-                              action="{{ route('messages.destroy', ['message' => $message->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="link">Supprimer</button>
-                        </form>
-                    </div>
-                </header>
-                <main>
-                    @if($message->examSession->isValidated())
-                        <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
-                              method="POST">
-                            @csrf
-                            @if($message->isValidated() && $message->isSent())
-                                <p>
-                                    Ce message a été envoyé le {{ $message->sent_at->format('d/m/y') }} pour
-                                    "<a href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}">
-                                        {{ $message->examSession->title }}
-                                    </a>"
-                                </p>
-                            @elseif($message->isValidated() && !$message->isSent())
-                                <p>
-                                    Ce message est à l'état de brouillon. Vous pouvez
-                                    <button type="submit" class="link">l'envoyer</button>
-                                    ou <a href="{{ route('messages.edit', ['message' => $message->id]) }}">le
-                                        modifier</a>
-                                </p>
-                            @else
-                                <p>
-                                    Ce message est à l'état de brouillon. Vous pouvez encore <a
-                                        href="{{ route('messages.edit', ['message' => $message->id]) }}">le modifier</a>
-                                </p>
-                            @endif
-                        </form>
+    <div class="c-msg-list">
+        @forelse($messages as $message)
+            <div class="c-msg-list__state">
+                <div class="c-msg-list__state-elem">
+                    @if($message->isValidated() && $message->isSent())
+                        @svg('send', 'c-msg-list__icon') {{ $message->sent_at->format('d/m/y') }}
                     @else
-                        <p>
-                            La <a
-                                href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}">
-                                session
-                            </a> associée à ce message est toujours à l'état de brouillon. <a
-                                href="{{ route('exam_sessions.edit', ['exam_session' => $message->examSession->id]) }}">
-                                Cliquez ici pour la terminer
-                            </a> afin de pouvoir procéder à l'envoi des formulaires
-                        </p>
+                        @svg('draft', 'c-msg-list__icon') brouillon
                     @endif
-                </main>
-            </article>
-        @endforeach
-    @else
-        <div>
-            Aucun message actuellement
-        </div>
-    @endif
+                </div>
+            </div>
+            <div class="c-msg-list__to">
+                @if($message->examSession->location)
+                    <a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}">
+                        {{ $message->examSession->location->name }}
+                    </a>
+                @else
+                    <span>/</span>
+                @endif
+            </div>
+            <div class="c-msg-list__infos">
+                <div>
+                    <a href="{{ route('messages.show', ['message' => $message->id]) }}"
+                       class="c-msg-list__title">
+                        {{ $message->title }}
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}"
+                       class="c-msg-list__session">
+                        {{ $message->examSession->title }}
+                        @if(!$message->examSession->isValidated())
+                            <span title="Cette session est toujours à l'état de brouillon"> ⚠️</span>
+                        @endif
+                    </a>
+                </div>
+                <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
+                      method="POST" class="c-msg-list__actions">
+                    @csrf
+                    @if($message->examSession->isValidated() && $message->isValidated() && !$message->isSent())
+                        <button type="submit" class="button--small cta">Envoyer</button>
+                    @endif
+                    @if(!$message->isSent())
+                        <a href="{{ route('messages.edit', ['message' => $message->id]) }}"
+                           class="button button--small">
+                            Modifier
+                        </a>
+                    @endif
+                    <a href="{{ route('messages.show', ['message' => $message->id]) }}"
+                       class="button button--small">
+                        Voir
+                    </a>
+                </form>
+            </div>
+        @empty
+            <div>
+                Aucun message actuellement
+            </div>
+        @endforelse
+    </div>
 @endsection
 
 @section('sidebar')

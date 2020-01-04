@@ -13,7 +13,7 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::with(['examSession'])
+        $messages = Message::with(['examSession', 'examSession.location'])
             ->orderBy('updated_at', 'desc')
             ->get();
         return view('messages.index', compact('messages'));
