@@ -28,8 +28,17 @@
             'deleted_at' => $examSession->deleted_at])
             @endcomponent
             @component('components/listing-teachers', [
-            'sent_preferences_count' => $examSession->sent_preferences_count,
+            'total_count' => $examSession->sent_preferences_count,
             'teachers' => $examSession->location->sentTeachers])
+                    @slot('none')
+                        Aucun professeur n'a envoyé ses préférences
+                    @endslot
+                    @slot('singular')
+                        a envoyé ses préférences
+                    @endslot
+                    @slot('plural')
+                        ont envoyé leurs préférences
+                    @endslot
             @endcomponent
         @else
             <p>

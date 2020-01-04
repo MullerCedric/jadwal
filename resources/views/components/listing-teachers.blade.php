@@ -1,6 +1,6 @@
 <p>
-    @if($sent_preferences_count > 0)
-        @if($sent_preferences_count > 3)
+    @if($total_count > 0)
+        @if($total_count > 3)
             @foreach($teachers as $teacher)
                 @if($loop->iteration > 2) @break @endif
                 <a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}"
@@ -8,7 +8,7 @@
                     explode(' ',trim($teacher->name))[0]
                 }}</a>@if($loop->first), @endif
             @endforeach
-            et {{ $sent_preferences_count - 2 }} autres ont envoyé leurs préférences
+            et {{ $total_count - 2 }} autres {{ $plural }}
         @else
             @foreach($teachers as $teacher)
                 <a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}"
@@ -17,9 +17,9 @@
                 }}</a>@if($loop->count > 2 && $loop->remaining >= 2), @endif
                 @if($loop->remaining === 1) et @endif
             @endforeach
-            @if($sent_preferences_count == '1') a envoyé ses @else ont envoyé leurs @endif préférences
+            {{ $total_count == '1' ? $singular : $plural }}
         @endif
     @else
-        Aucun professeur n'a envoyé ses préférences actuellement
+        {{ $none }}
     @endif
 </p>

@@ -1,4 +1,6 @@
 .c-card {
+    display: flex;
+    flex-direction: column;
     background-color: $white;
     box-shadow: 0 .25em .5em $shadow;
     padding: .75em 1.5em 1.25em;
@@ -22,10 +24,6 @@
         margin: 0;
     }
 
-    &__title a, &__subtitle a {
-        text-decoration: none;
-    }
-
     &__subtitle {
         margin-top: -.5em;
 
@@ -40,6 +38,7 @@
     }
 
     &__main {
+        flex: 1;
         margin: 1.25em 0;
     }
 

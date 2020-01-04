@@ -1,8 +1,9 @@
 .o-layout {
     &--holy {
         display: grid;
-        grid-template-columns: 1fr minmax(23%, 28%);
+        grid-template-columns: 72% 28%;
         align-items: start;
+        column-gap: $colGap * 2;
     }
     &--centered {
         display: grid;
@@ -15,5 +16,4 @@
     position: sticky;
     top: $rowGap;
     margin-top: $rowGap;
-    margin-left: $colGap;
 }
