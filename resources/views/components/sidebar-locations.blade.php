@@ -1,11 +1,13 @@
 <div class="c-side-nav__group">
     @if (Route::has('locations.create'))
-        <a href="{{ route('locations.create') }}" class="c-side-nav__link">
+        <a href="{{ route('locations.create') }}"
+           class="c-side-nav__link{{ $current === 'create' ? ' c-side-nav__link--current' : '' }}">
             Ajouter une implantation
         </a>
     @endif
     @if (Route::has('locations.index'))
-        <a href="{{ route('locations.index') }}" class="c-side-nav__link">
+        <a href="{{ route('locations.index') }}"
+           class="c-side-nav__link{{ $current === 'index' ? ' c-side-nav__link--current' : '' }}">
             Gérer les implantations
         </a>
     @endif

@@ -1,0 +1,33 @@
+.c-side-nav {
+    &__link {
+        display: block;
+        padding: .2em .75em;
+        border-radius: .2em;
+        border: 1px solid transparent;
+        border-left-width: .2em;
+
+        &:nth-child(n+2) {
+            margin-top: .5em;
+        }
+
+        &:hover {
+            border-left-color: $secondary;
+        }
+
+        &--current {
+            background-color: $white;
+            border-color: $lightGrey;
+            border-left-color: $primary;
+
+            &:hover {
+                background-color: $white;
+            }
+        }
+    }
+
+    &__group {
+        &:nth-child(n+2) {
+            margin-top: 2.25em;
+        }
+    }
+}

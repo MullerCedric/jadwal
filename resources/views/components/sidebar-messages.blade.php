@@ -1,11 +1,13 @@
 <div class="c-side-nav__group">
     @if (Route::has('messages.create'))
-        <a href="{{ route('messages.create') }}" class="c-side-nav__link">
+        <a href="{{ route('messages.create') }}"
+           class="c-side-nav__link{{ $current === 'create' ? ' c-side-nav__link--current' : '' }}">
             Écrire un nouveau message
         </a>
     @endif
     @if (Route::has('messages.index'))
-        <a href="{{ route('messages.index') }}" class="c-side-nav__link">
+        <a href="{{ route('messages.index') }}"
+           class="c-side-nav__link{{ $current === 'index' ? ' c-side-nav__link--current' : '' }}">
             Gérer les messages
         </a>
     @endif

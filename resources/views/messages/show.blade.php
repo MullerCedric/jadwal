@@ -61,6 +61,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-messages', ['current' => 'show'])
+    @component('components/sidebar-messages', ['current' => 'show', 'resource' => $message->title])
     @endcomponent
 @endsection

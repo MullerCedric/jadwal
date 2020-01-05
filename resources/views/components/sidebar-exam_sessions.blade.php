@@ -1,16 +1,19 @@
 <div class="c-side-nav__group">
     @if (Route::has('exam_sessions.create'))
-        <a href="{{ route('exam_sessions.create') }}" class="c-side-nav__link">
+        <a href="{{ route('exam_sessions.create') }}"
+           class="c-side-nav__link{{ $current === 'create' ? ' c-side-nav__link--current' : '' }}">
             {{ __('exam_sessions.new_session') }}
         </a>
     @endif
     @if (Route::has('exam_sessions.index'))
-        <a href="{{ route('exam_sessions.index') }}" class="c-side-nav__link">
+        <a href="{{ route('exam_sessions.index') }}"
+           class="c-side-nav__link{{ $current === 'index' ? ' c-side-nav__link--current' : '' }}">
             {{ __('exam_sessions.curr_and_future_sessions') }}
         </a>
     @endif
     @if (Route::has('closed_exam_sessions.index'))
-        <a href="{{ route('closed_exam_sessions.index') }}" class="c-side-nav__link">
+        <a href="{{ route('closed_exam_sessions.index') }}"
+           class="c-side-nav__link{{ $current === 'closed-index' ? ' c-side-nav__link--current' : '' }}">
             {{ __('exam_sessions.closed_sessions') }}
         </a>
     @endif
