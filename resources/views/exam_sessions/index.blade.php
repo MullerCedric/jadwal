@@ -27,7 +27,12 @@
             Aucune session actuellement
         </div>
     @endforelse
-    {{ $examSessions->onEachSide(2)->appends(request()->input())->links() }}
+    <div class="c-pagination">
+        <a href="{{ route('exam_sessions.create') }}" class="button button--small">
+            {{ __('exam_sessions.new_session') }}
+        </a>
+        {{ $examSessions->onEachSide(2)->appends(request()->input())->links() }}
+    </div>
 @endsection
 
 @section('sidebar')

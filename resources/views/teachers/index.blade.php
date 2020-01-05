@@ -42,7 +42,12 @@
             </li>
         @endforelse
     </ul>
-    {{ $teachers->onEachSide(2)->appends(request()->input())->links() }}
+    <div class="c-pagination">
+        <a href="{{ route('teachers.create') }}" class="button button--small">
+            Ajouter un professeur
+        </a>
+        {{ $teachers->onEachSide(2)->appends(request()->input())->links() }}
+    </div>
 @endsection
 
 @section('sidebar')

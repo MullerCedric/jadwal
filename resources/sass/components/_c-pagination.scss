@@ -1,5 +1,13 @@
 .c-pagination {
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5em;
+
+    &--top {
+        margin-top: 0;
+    }
 
     &__link {
         display: inline-block;
@@ -17,7 +25,6 @@
         display: inline-flex;
         font-size: 1em;
         line-height: 1;
-        margin-top: 1.5em;
         white-space: nowrap;
         border-radius: 2em;
         box-shadow: 0 .15em .75em $shadow;

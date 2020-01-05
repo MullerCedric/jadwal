@@ -17,7 +17,12 @@
             @endforelse
         </div>
     </div>
-    {{ $locations->onEachSide(2)->appends(request()->input())->links() }}
+    <div class="c-pagination">
+        <a href="{{ route('locations.create') }}" class="button button--small">
+            Ajouter une implantation
+        </a>
+        {{ $locations->onEachSide(2)->appends(request()->input())->links() }}
+    </div>
 @endsection
 
 @section('sidebar')

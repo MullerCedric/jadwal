@@ -63,7 +63,12 @@
             </div>
         @endforelse
     </div>
-    {{ $messages->onEachSide(2)->appends(request()->input())->links() }}
+    <div class="c-pagination">
+        <a href="{{ route('messages.create') }}" class="button button--small">
+            Écrire un nouveau message
+        </a>
+        {{ $messages->onEachSide(2)->appends(request()->input())->links() }}
+    </div>
 @endsection
 
 @section('sidebar')

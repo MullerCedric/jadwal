@@ -1,4 +1,4 @@
-<div class="c-pagination">
+<div class="c-pagination c-pagination--top">
     @foreach ($letters as $letter => $count)
         @if($count >= 1)
             <a href="{{ route('teachers.index', ['currLetter' => $letter]) }}" title="{{ $count }} professeur(s)"
