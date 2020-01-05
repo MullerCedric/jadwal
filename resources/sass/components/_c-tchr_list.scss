@@ -1,0 +1,26 @@
+.c-tchr-list {
+    border-radius: 1em;
+    overflow: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    &__item {
+        padding: .75em 1.25em 1.25em;
+    }
+
+    &__title {
+        & a {
+            text-decoration: none;
+        }
+    }
+
+    &__locations {
+        opacity: .7;
+        font-size: $smallSize;
+    }
+
+    &__actions {
+        text-align: right;
+    }
+}

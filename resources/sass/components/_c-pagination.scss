@@ -1,0 +1,14 @@
+.c-pagination {
+    text-align: center;
+
+    &__link {
+        font-variant: all-small-caps;
+        margin-bottom: 1em;
+
+        &--current {
+            background-image: none;
+            border-color: $primary;
+            font-weight: 700;
+        }
+    }
+}

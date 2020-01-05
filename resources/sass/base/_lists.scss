@@ -16,7 +16,11 @@ main li {
     padding: .2em 1em;
     background-color: $white;
 
+    &:nth-child(n+2) {
+        border-top: 1px solid $lightGrey;
+    }
+
     &:nth-child(odd) {
-        background-color: $lightGrey;
+        background-color: $lighterGrey;
     }
 }

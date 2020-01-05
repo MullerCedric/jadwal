@@ -12,16 +12,31 @@ use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
+    protected $letters = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o'], ['p', 'q', 'r'], ['s', 't', 'u', 'v'], ['w', 'x', 'y', 'z']];
+
     public function index()
     {
+        $currLetter = $_GET['currLetter'] ?? (is_array($this->letters[0]) ? implode('', $this->letters[0]) : $this->letters[0]);
         $teachers = Teacher::with([
             'locations' => function ($query) {
                 $query->orderBy('name', 'asc');
             },
         ])
+            ->where(function ($query) use ($currLetter) {
+                foreach (str_split($currLetter) as $index => $letter) {
+                    if ($index === 0) {
+                        $query->where('name', 'like', $letter . '%');
+                    } else {
+                        $query->orWhere('name', 'like', $letter . '%');
+                    }
+                }
+
+            })
             ->orderBy('name', 'asc')
             ->get();
-        return view('teachers.index', compact('teachers'));
+
+        $letterPagination = $this->countAlphaTeachers();
+        return view('teachers.index', compact('currLetter', 'teachers', 'letterPagination'));
     }
 
     public function create()
@@ -50,7 +65,7 @@ class TeacherController extends Controller
         });
 
         $notifications = ['Le professeur a été ajouté'];
-        if($hasAddedLocations) {
+        if ($hasAddedLocations) {
             $notifications[] = $teacher->name . ' a été ajouté dans les implantations sélectionnées';
             $notifications[] = 'Vous pouvez maintenant planifier une session d\'examens';
         } else {
@@ -81,7 +96,7 @@ class TeacherController extends Controller
     public function update(TeacherUpdateRequest $request, Teacher $teacher)
     {
         $teacher->name = request('name');
-        if($teacher->email !== request('email')) {
+        if ($teacher->email !== request('email')) {
             $request->validate(['email' => 'unique:teachers']);
             $teacher->email = request('email');
         }
@@ -104,5 +119,27 @@ class TeacherController extends Controller
         $teacher->delete();
         Session::flash('notifications', ['Les données sur "' . $title . '"" ont été définitivement supprimées']);
         return redirect()->route('teachers.index');
+    }
+
+    protected function countAlphaTeachers()
+    {
+        $results = [];
+
+        foreach ($this->letters as $letter) {
+            if (is_array($letter)) {
+                $key = '';
+                $results['temp'] = 0;
+                foreach ($letter as $subLetter) {
+                    $key .= $subLetter;
+                    $results['temp'] += Teacher::where('name', 'like', $subLetter . '%')->count();
+                }
+                $results[$key] = $results['temp'];
+                unset($results['temp']);
+            } else {
+                $results[$letter] = Teacher::where('name', 'like', $letter . '%')->count();
+            }
+        }
+
+        return $results;
     }
 }

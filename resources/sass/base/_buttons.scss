@@ -28,11 +28,11 @@ button, .button {
     background-image: linear-gradient(to right, transparent, $white);
 
     &:focus, &:hover {
-        border-color: $success;
+        border-color: $lightSecondary;
         background-color: $lighterGrey;
         background-image: linear-gradient(to right, transparent, $white);
         color: $darkSecondary;
-        box-shadow: 0 .15em 1em $successTintedShadow;
+        box-shadow: 0 .15em 1em $tintedShadow;
     }
 }
 

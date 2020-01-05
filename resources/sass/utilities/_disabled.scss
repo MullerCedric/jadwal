@@ -1,0 +1,15 @@
+input[disabled], button[disabled], .disabled {
+    cursor: not-allowed !important;
+}
+
+button[disabled], .button.disabled {
+    border: 1px solid $darkGrey;
+    background-color: $grey;
+    background-image: none;
+    color: $black;
+    opacity: .5;
+
+    &:hover {
+        box-shadow: 0 .15em 1.25em $shadow
+    }
+}

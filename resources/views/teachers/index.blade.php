@@ -3,46 +3,45 @@
 @section('title', 'Les professeurs')
 
 @section('content')
-    @if ($teachers && !$teachers->isEmpty())
-        @foreach($teachers as $teacher)
-            <article class="c-session-short">
-                <header class="c-session-short__head">
-                    <h2 class="c-session-short__heading">
-                        <span>
-                            <a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}">
-                                {{ $teacher->name }}
-                            </a>
-                        </span>
-                    </h2>
-                    <div>
-                        <form method="POST"
-                              action="{{ route('teachers.destroy', ['teacher' => $teacher->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="link">Supprimer</button>
-                        </form>
-                    </div>
-                </header>
-                <main>
-                    <p>
-                        {{ $teacher->name }} enseigne dans implantations suivantes :
-                        @foreach($teacher->locations as $location)
-                            <a href="{{ route('locations.show', ['location' => $location->id]) }}">{{
+    @component('components/letter-pagination', [
+    'letters' => $letterPagination,
+    'currLetter' => $currLetter])
+    @endcomponent
+    <ul class="c-tchr-list">
+        @forelse($teachers as $teacher)
+            <li class="c-tchr-list__item">
+                <div class="c-tchr-list__title">
+                    <a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}">
+                        {{ $teacher->name }}
+                    </a>
+                </div>
+                <div class="c-tchr-list__locations">
+                    Enseigne dans implantations suivantes :
+                    @forelse($teacher->locations as $location)
+                        <a href="{{ route('locations.show', ['location' => $location->id]) }}">{{
                                 $location->name
                             }}</a>@if(!$loop->last), @endif
-                        @endforeach
-                    </p>
-                    <p>
-                        <a href="{{ route('teachers.edit', ['teacher' => $teacher->id]) }}">Modifier</a>
-                    </p>
-                </main>
-            </article>
-        @endforeach
-    @else
-        <div>
-            Aucun professeur actuellement
-        </div>
-    @endif
+                    @empty
+                        /
+                    @endforelse
+                </div>
+                <div class="c-tchr-list__actions">
+                    <a href="{{ route('teachers.edit', ['teacher' => $teacher->id]) }}"
+                       class="button button--small">
+                        Modifier
+                    </a>
+                    <a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}"
+                       class="button button--small">
+                        Voir
+                    </a>
+                </div>
+            </li>
+        @empty
+            <li>
+                Aucun professeur actuellement
+            </li>
+        @endforelse
+    </ul>
 @endsection
 
 @section('sidebar')
