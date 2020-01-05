@@ -28,6 +28,16 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select, t
     }
 }
 
+input[type="checkbox"], input[type="radio"] {
+    &:focus {
+        & + label {
+            font-style: italic;
+        }
+        outline: 2px solid $tintedShadow;
+        box-shadow: 0 0 .33em $tintedShadow;
+    }
+}
+
 textarea {
     min-height: 6em;
     resize: vertical;
