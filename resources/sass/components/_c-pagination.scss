@@ -2,6 +2,7 @@
     text-align: center;
 
     &__link {
+        display: inline-block;
         font-variant: all-small-caps;
         margin-bottom: 1em;
 
@@ -9,6 +10,48 @@
             background-image: none;
             border-color: $primary;
             font-weight: 700;
+        }
+    }
+
+    &__button {
+        display: inline-flex;
+        font-size: 1em;
+        line-height: 1;
+        margin-top: 1.5em;
+        white-space: nowrap;
+        border-radius: 2em;
+        box-shadow: 0 .15em .75em $shadow;
+        background-color: $white;
+
+        & .c-pagination__link {
+            padding: .75em .75em;
+            margin: 0;
+            border: 1px solid $grey;
+            text-decoration: none;
+
+            &--current {
+                background-color: $lightGrey;
+            }
+
+            &:nth-child(n+2) {
+                margin-left: -1px;
+            }
+
+            &:first-child {
+                padding-left: 1.25em;
+                border-radius: 2em 0 0 2em;
+            }
+
+            &:last-child {
+                padding-right: 1.25em;
+                border-radius: 0 2em 2em 0;
+            }
+
+            &:not(.disabled):hover, &:not(.disabled):focus {
+                background-color: $lightGrey;
+                border-color: $lightSecondary;
+                z-index: 1;
+            }
         }
     }
 }

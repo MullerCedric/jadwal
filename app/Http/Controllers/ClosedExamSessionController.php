@@ -10,10 +10,14 @@ class ClosedExamSessionController extends Controller
 {
     public function index()
     {
-        $examSessions = Auth::user()->examSessions()->onlyTrashed()->with([
-            'location',
-            'location.teachers'
-        ])->get();
+        $examSessions = Auth::user()
+            ->examSessions()
+            ->onlyTrashed()
+            ->with([
+                'location',
+                'location.teachers'
+            ])
+            ->paginate(5);
         $today = \Carbon\Carbon::now()->startOfDay();
         $currentTab = 'closed';
         return view('exam_sessions.index', compact('examSessions', 'today', 'currentTab'));

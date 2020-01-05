@@ -17,7 +17,7 @@ class LocationController extends Controller
         $locations = Location::with(['teachers'])
             ->withCount('teachers')
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(15);
         return view('locations.index', compact('locations'));
     }
 

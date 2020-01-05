@@ -28,7 +28,7 @@ class ExamSessionController extends Controller
             ->orderBy('deadline', 'asc')
             ->orderBy('is_validated', 'desc')
             ->orderBy('sent_at', 'asc')
-            ->get();
+            ->paginate(5);
         $examSessions->each(function ($examSession) {
             $examSession->location->teachers->loadCount([
                 'preferences as preferences_are_sent' => function ($q) use ($examSession) {

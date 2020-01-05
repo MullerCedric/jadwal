@@ -27,6 +27,7 @@
             Aucune session actuellement
         </div>
     @endforelse
+    {{ $examSessions->onEachSide(2)->appends(request()->input())->links() }}
 @endsection
 
 @section('sidebar')

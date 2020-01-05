@@ -33,7 +33,7 @@ class TeacherController extends Controller
 
             })
             ->orderBy('name', 'asc')
-            ->get();
+            ->paginate(20);
 
         $letterPagination = $this->countAlphaTeachers();
         return view('teachers.index', compact('currLetter', 'teachers', 'letterPagination'));

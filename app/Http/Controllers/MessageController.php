@@ -15,7 +15,7 @@ class MessageController extends Controller
     {
         $messages = Message::with(['examSession', 'examSession.location'])
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(15);
         return view('messages.index', compact('messages'));
     }
 

@@ -2,7 +2,7 @@ input[disabled], button[disabled], .disabled {
     cursor: not-allowed !important;
 }
 
-button[disabled], .button.disabled {
+button[disabled], .button.disabled, .c-pagination__link.disabled {
     border: 1px solid $darkGrey;
     background-color: $grey;
     background-image: none;

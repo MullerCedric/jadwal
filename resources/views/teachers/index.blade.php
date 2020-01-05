@@ -42,6 +42,7 @@
             </li>
         @endforelse
     </ul>
+    {{ $teachers->onEachSide(2)->appends(request()->input())->links() }}
 @endsection
 
 @section('sidebar')
