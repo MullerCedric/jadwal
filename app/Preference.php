@@ -17,6 +17,10 @@ class Preference extends Model
         'sent_at'
     ];
 
+    protected $casts = [
+        'is_validated' => 'boolean',
+    ];
+
     public function teacher()
     {
         return $this->belongsTo('App\Teacher');

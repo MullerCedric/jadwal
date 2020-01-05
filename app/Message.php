@@ -17,6 +17,10 @@ class Message extends Model
         'sent_at'
     ];
 
+    protected $casts = [
+        'is_validated' => 'boolean',
+    ];
+
     public function examSession()
     {
         return $this->belongsTo('App\ExamSession');

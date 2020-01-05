@@ -22,6 +22,10 @@ class ExamSession extends Model
         'deadline'
     ];
 
+    protected $casts = [
+        'is_validated' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\User');
