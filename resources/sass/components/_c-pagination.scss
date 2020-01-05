@@ -57,7 +57,7 @@
             &:not(.disabled):hover, &:not(.disabled):focus {
                 background-color: $lightGrey;
                 border-color: $lightSecondary;
-                z-index: 1;
+                z-index: z('hovered-elem');
             }
         }
     }

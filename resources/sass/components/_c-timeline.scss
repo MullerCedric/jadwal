@@ -43,7 +43,7 @@ $offset: $timelineMargin + $timelineHeight + $infoDiam / 2 + $labelHeight;
         &--tmln {
             position: absolute;
             top: 50%;
-            z-index: 3;
+            z-index: z('timeline-infos');
             cursor: help;
             transform: translateX(-50%) translateY(-50%);
         }

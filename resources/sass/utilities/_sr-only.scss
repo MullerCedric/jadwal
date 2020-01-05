@@ -25,7 +25,7 @@
         align-content: center;
         justify-content: center;
         padding: .75em 2em;
-        z-index: 999;
+        z-index: z('overlay');
         background-color: $overlay !important;
         transition: none;
     }

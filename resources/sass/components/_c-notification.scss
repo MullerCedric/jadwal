@@ -22,6 +22,7 @@
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     animation-play-state: running;
+    z-index: z('notification');
 
     &:hover {
         animation-play-state: paused;
