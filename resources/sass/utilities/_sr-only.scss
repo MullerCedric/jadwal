@@ -1,4 +1,4 @@
-.sr-only, .screen-reader-text, .sr-only-focusable:not(:focus) {
+.sr-only, .screen-reader-text, .sr-only-focusable:not(:focus), .sr-only-focusable__container:not(:focus-within) {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -11,8 +11,22 @@
 }
 
 .sr-only-focusable {
-    position: absolute;
-    display: block;
     padding: .75em 2em;
-    z-index: 999;
+    background-color: $white !important;
+    transition: color 0.28s cubic-bezier(.4, 0, .2, 1);
+
+    &__container {
+        position: fixed;
+        display: grid;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-content: center;
+        justify-content: center;
+        padding: .75em 2em;
+        z-index: 999;
+        background-color: $overlay !important;
+        transition: none;
+    }
 }

@@ -20,9 +20,13 @@
 </head>
 <body>
 <header class="main-header">
-    <a class="sr-only-focusable" href="#main-nav">Navigation rapide</a>
+    <div class="sr-only-focusable__container">
+        <a class="sr-only-focusable" href="#main-nav">Navigation rapide</a>
+    </div>
     @if(View::hasSection('sidebar'))
-        <a class="sr-only-focusable" href="#side-nav">Navigation secondaire</a>
+        <div class="sr-only-focusable__container">
+            <a class="sr-only-focusable" href="#side-nav">Navigation secondaire</a>
+        </div>
     @endif
     <div class="o-wrapper">
         <h1>@yield('title')</h1>
