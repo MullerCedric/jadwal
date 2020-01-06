@@ -55,7 +55,7 @@
         @if($preference->isValidated() && $preference->isSent())
             <p>
                 Ces préférences ont été envoyées le {{ $preference->sent_at->format('d/m/y') }} pour
-                "<a href="{{ route('exam_sessions.show', ['exam_session' => $examSession->id]) }}">
+                "<a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}">
                     {{ $examSession->title }}
                 </a>"
             </p>

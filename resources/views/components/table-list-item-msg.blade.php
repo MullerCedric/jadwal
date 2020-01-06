@@ -24,7 +24,7 @@
         </a>
     </div>
     <div>
-        <a href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}"
+        <a href="{{ route('exam_sessions.show', ['id' => $message->examSession->id]) }}"
            class="c-table-list__session">
             {{ $message->examSession->title }}
             @if(!$message->examSession->isValidated())

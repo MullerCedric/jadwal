@@ -2,7 +2,7 @@
     <header class="c-card__header">
         <h2>
             <div class="c-card__title">
-                <a href="{{ route('exam_sessions.show', ['exam_session' => $examSession->id]) }}">
+                <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}">
                     {{ $examSession->title }}<span class="sr-only">, </span>
                 </a>
             </div>
@@ -95,7 +95,7 @@
                         </a>
                     @endif
                 @endif
-                <a href="{{ route('exam_sessions.show', ['exam_session' => $examSession->id]) }}"
+                <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
                    class="button button--small">
                     Voir
                 </a>

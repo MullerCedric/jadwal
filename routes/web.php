@@ -64,10 +64,10 @@ Route::middleware(['auth'])->group(function () {
         'as' => 'exam_sessions.store',
         'uses' => 'ExamSessionController@store'
     ]);
-    Route::get('/exam_sessions/{exam_session}', [
+    Route::get('/exam_sessions/{id}', [
         'as' => 'exam_sessions.show',
         'uses' => 'ExamSessionController@show'
-    ])->where('exam_session', '[0-9]+');
+    ])->where('id', '[0-9]+');
     Route::get('/exam_sessions/{exam_session}/edit', [
         'as' => 'exam_sessions.edit',
         'uses' => 'ExamSessionController@edit'

@@ -35,8 +35,8 @@ class ExamSessionController extends Controller
                     $q->where('exam_session_id', "=", $examSession->id)->where('is_validated', '=', true)->whereNotNull('sent_at');
                 },
             ]);
-            $examSession->location->sentTeachers = $examSession->location->teachers->reduce(function($carry, $item) {
-                if($item->preferences_are_sent) {
+            $examSession->location->sentTeachers = $examSession->location->teachers->reduce(function ($carry, $item) {
+                if ($item->preferences_are_sent) {
                     $carry[] = $item;
                 }
                 return $carry;
@@ -72,12 +72,14 @@ class ExamSessionController extends Controller
         return redirect()->route('messages.create');
     }
 
-    public function show(ExamSession $examSession)
+    public function show($id)
     {
-        $examSession->load([
-            'messages',
-            'location',
-            'location.teachers']);
+        $examSession = ExamSession::withTrashed()
+            ->with([
+                'messages',
+                'location',
+                'location.teachers'])
+            ->findOrFail($id);
         $examSession->loadCount([
             'preferences as sent_preferences_count' => function ($q) {
                 $q->where('is_validated', '=', true)->whereNotNull('sent_at');

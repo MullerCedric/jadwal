@@ -26,7 +26,7 @@
             @if($message->isValidated() && $message->isSent())
                 <p>
                     Ce message a été envoyé le {{ $message->sent_at->format('d/m/y') }} pour
-                    "<a href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}">
+                    "<a href="{{ route('exam_sessions.show', ['id' => $message->examSession->id]) }}">
                         {{ $message->examSession->title }}
                     </a>"
                 </p>
@@ -50,7 +50,7 @@
     @else
         <p>
             La <a
-                href="{{ route('exam_sessions.show', ['exam_session' => $message->examSession->id]) }}">
+                href="{{ route('exam_sessions.show', ['id' => $message->examSession->id]) }}">
                 session
             </a> associée à ce message est toujours à l'état de brouillon. <a
                 href="{{ route('exam_sessions.edit', ['exam_session' => $message->examSession->id]) }}">
