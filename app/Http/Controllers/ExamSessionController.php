@@ -40,7 +40,7 @@ class ExamSessionController extends Controller
                     $carry[] = $item;
                 }
                 return $carry;
-            }, []);
+            }, collect([]));
         });
         $today = Carbon::now();
         $currentTab = 'opened';
