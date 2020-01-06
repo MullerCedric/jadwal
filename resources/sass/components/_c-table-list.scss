@@ -1,6 +1,6 @@
-.c-msg-list {
+.c-table-list {
     display: grid;
-    grid-template-columns: max-content max-content 1fr;
+    grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content) 1fr;
     border-radius: 1em;
     overflow: hidden;
 

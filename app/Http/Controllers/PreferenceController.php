@@ -6,7 +6,6 @@ use App\ExamSession;
 use App\Http\Requests\PreferenceStoreRequest;
 use App\Preference;
 use App\Teacher;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -14,7 +13,25 @@ class PreferenceController extends Controller
 {
     public function index($token)
     {
-
+        $teacher = Teacher::with('locations')->where('token', $token)->firstOrFail();
+        $teachersExamSessions = ExamSession::with([
+            'location',
+            'preferences' => function ($query) use ($teacher) {
+                $query->where('teacher_id', $teacher->id);
+            }])
+            ->whereNull('deleted_at')
+            ->whereHas('location', function ($query) use ($teacher) {
+                foreach ($teacher->locations as $index => $location) {
+                    if ($index === 0) {
+                        $query->where('id', $location->id);
+                    } else {
+                        $query->orWhere('id', $location->id);
+                    }
+                }
+            })
+            ->orderBy('deadline', 'asc')
+            ->paginate(15);
+        return view('preferences.index', compact('teacher', 'teachersExamSessions', 'token'));
     }
 
     public function create($token, ExamSession $examSession)
