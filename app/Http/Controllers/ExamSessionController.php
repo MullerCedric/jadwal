@@ -7,6 +7,7 @@ use App\Http\Requests\ExamSessionStoreRequest;
 use App\Location;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -69,7 +70,7 @@ class ExamSessionController extends Controller
         );
         Session::flash('notifications', ['La session a été enregistrée', 'Vous pouvez maintenant y associer un message']);
         Session::flash('payload', $examSession->id);
-        return redirect()->route('messages.create');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create' );
     }
 
     public function show($id)

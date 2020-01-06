@@ -7,6 +7,7 @@ use App\Http\Requests\MessageStoreRequest;
 use App\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class MessageController extends Controller
@@ -62,6 +63,6 @@ class MessageController extends Controller
         $title = $message->title;
         $message->delete();
         Session::flash('notifications', ['Le message "' . $title . '"" a été définitivement supprimé']);
-        return redirect()->route('messages.index');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.index' );
     }
 }

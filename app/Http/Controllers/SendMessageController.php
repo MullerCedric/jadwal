@@ -8,6 +8,7 @@ use App\Message;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class SendMessageController extends Controller
@@ -43,6 +44,6 @@ class SendMessageController extends Controller
         }
 
         Session::flash('notifications', ['Le message a bien été envoyé aux professeurs enseignant dans l\'implantation ' . $email->examSession->location->name]);
-        return redirect()->route('dashboard');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'dashboard' );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ExamSession;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class ClosedExamSessionController extends Controller
@@ -27,7 +28,7 @@ class ClosedExamSessionController extends Controller
     {
         $examSession->delete();
         Session::flash('notifications', ['La session "' . $examSession->title . '" a été clôturée']);
-        return redirect()->route('closed_exam_sessions.index');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
     }
 
     public function destroy(ExamSession $examSession)
@@ -35,6 +36,6 @@ class ClosedExamSessionController extends Controller
         $title = $examSession->title;
         $examSession->forceDelete();
         Session::flash('notifications', ['La session "' . $title . '" a été définitivement supprimée']);
-        return redirect()->route('closed_exam_sessions.index');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
     }
 }

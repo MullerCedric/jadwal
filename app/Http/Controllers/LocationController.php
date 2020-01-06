@@ -6,6 +6,7 @@ use App\Http\Requests\LocationStoreRequest;
 use App\Location;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -115,7 +116,7 @@ class LocationController extends Controller
         array_unshift($notifications, 'L\'implantation a été enregistrée');
 
         Session::flash('notifications', $notifications);
-        return redirect()->route($redirectTo);
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : $redirectTo);
     }
 
     public function show(Location $location)
@@ -216,6 +217,6 @@ class LocationController extends Controller
         $title = $location->name;
         $location->delete();
         Session::flash('notifications', ['L\'implantation "' . $title . '" a été définitivement supprimée']);
-        return redirect()->route('locations.index');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'locations.index' );
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\TeacherUpdateRequest;
 use App\Location;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -73,7 +74,7 @@ class TeacherController extends Controller
         }
 
         Session::flash('notifications', $notifications);
-        return redirect()->route('exam_sessions.create');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'exam_sessions.create' );
     }
 
     public function show(Teacher $teacher)
@@ -118,7 +119,7 @@ class TeacherController extends Controller
         $title = $teacher->name;
         $teacher->delete();
         Session::flash('notifications', ['Les données sur "' . $title . '"" ont été définitivement supprimées']);
-        return redirect()->route('teachers.index');
+        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index' );
     }
 
     protected function countAlphaTeachers()
