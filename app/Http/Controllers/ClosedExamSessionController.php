@@ -28,7 +28,7 @@ class ClosedExamSessionController extends Controller
     {
         $examSession->delete();
         Session::flash('notifications', ['La session "' . $examSession->title . '" a été clôturée']);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
     }
 
     public function destroy(ExamSession $examSession)
@@ -36,6 +36,6 @@ class ClosedExamSessionController extends Controller
         $title = $examSession->title;
         $examSession->forceDelete();
         Session::flash('notifications', ['La session "' . $title . '" a été définitivement supprimée']);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'closed_exam_sessions.index' );
     }
 }

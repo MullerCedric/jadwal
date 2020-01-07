@@ -63,6 +63,6 @@ class MessageController extends Controller
         $title = $message->title;
         $message->delete();
         Session::flash('notifications', ['Le message "' . $title . '"" a été définitivement supprimé']);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.index' );
     }
 }

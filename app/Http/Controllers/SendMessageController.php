@@ -44,6 +44,6 @@ class SendMessageController extends Controller
         }
 
         Session::flash('notifications', ['Le message a bien été envoyé aux professeurs enseignant dans l\'implantation ' . $email->examSession->location->name]);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'dashboard' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'dashboard' );
     }
 }

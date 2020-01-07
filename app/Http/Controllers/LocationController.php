@@ -116,7 +116,7 @@ class LocationController extends Controller
         array_unshift($notifications, 'L\'implantation a été enregistrée');
 
         Session::flash('notifications', $notifications);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : $redirectTo);
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : $redirectTo);
     }
 
     public function show(Location $location)
@@ -217,6 +217,6 @@ class LocationController extends Controller
         $title = $location->name;
         $location->delete();
         Session::flash('notifications', ['L\'implantation "' . $title . '" a été définitivement supprimée']);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'locations.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'locations.index' );
     }
 }

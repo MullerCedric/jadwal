@@ -74,7 +74,7 @@ class TeacherController extends Controller
         }
 
         Session::flash('notifications', $notifications);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'exam_sessions.create' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'exam_sessions.create' );
     }
 
     public function show(Teacher $teacher)
@@ -119,7 +119,7 @@ class TeacherController extends Controller
         $title = $teacher->name;
         $teacher->delete();
         Session::flash('notifications', ['Les données sur "' . $title . '"" ont été définitivement supprimées']);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index' );
     }
 
     protected function countAlphaTeachers()

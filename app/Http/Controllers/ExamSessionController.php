@@ -70,7 +70,7 @@ class ExamSessionController extends Controller
         );
         Session::flash('notifications', ['La session a été enregistrée', 'Vous pouvez maintenant y associer un message']);
         Session::flash('payload', $examSession->id);
-        return redirect()->route((Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create' );
     }
 
     public function show($id)
