@@ -16,8 +16,7 @@
         @if(session('lastAction') && session('lastAction')['resource']['type'] === 'examSession')
             <div class="o-form__label">Session d'examens concernée</div>
             <div class="o-form__input">
-                <a href="{{ route('exam_sessions.show', ['id' => session('lastAction')['resource']['value']->id]) }}"
-                   class="c-table-list__session">
+                <a href="{{ route('exam_sessions.show', ['id' => session('lastAction')['resource']['value']->id]) }}">
                     {{ session('lastAction')['resource']['value']->title }}
                 </a>
             </div>
