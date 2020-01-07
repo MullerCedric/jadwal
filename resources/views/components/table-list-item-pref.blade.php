@@ -38,7 +38,7 @@
         </form>
     @else
         <div class="c-table-list__actions">
-            <a href="{{ route('preferences.create', ['token' => $token, 'exam_session', $examSession->id]) }}"
+            <a href="{{ route('preferences.create', ['token' => $token, 'exam_session' => $examSession->id]) }}"
                class="button--small cta">
                 Compléter
             </a>
