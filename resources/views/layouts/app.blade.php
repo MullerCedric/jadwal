@@ -19,6 +19,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+@if(!empty(session('confirmBoxId')) && session('confirmBoxId') !== 'none')
+    @if(View::hasSection(session('confirmBoxId')))
+        @yield(session('confirmBoxId'))
+    @endif
+@endif
 <header class="main-header">
     <div class="sr-only-focusable__container">
         <a class="sr-only-focusable" href="#main-nav">Navigation rapide</a>

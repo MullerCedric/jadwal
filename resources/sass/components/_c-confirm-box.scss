@@ -1,0 +1,31 @@
+.c-confirm-box {
+    padding: 1.75em 3em;
+    background-color: $white;
+    transition: none;
+    border-radius: 1rem;
+
+    &__container {
+        position: fixed;
+        display: grid;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-content: center;
+        justify-content: center;
+        padding: .75em 2em;
+        z-index: z('confirm');
+        background-color: $overlay;
+        transition: none;
+    }
+
+    &__body {
+        margin: 1em auto;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
