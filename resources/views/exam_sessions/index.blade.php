@@ -24,13 +24,18 @@
         @endcomponent
     @empty
         <div>
-            Aucune session actuellement
+            {{ $currentTab !== 'closed'
+                ? 'Aucune session n\'a été créée actuellement'
+                : 'Aucune session n\'a été clôturée actuellement'
+            }}
         </div>
     @endforelse
     <div class="c-pagination">
-        <a href="{{ route('exam_sessions.create') }}" class="button button--small">
-            {{ __('exam_sessions.new_session') }}
-        </a>
+        @if($currentTab !== 'closed')
+            <a href="{{ route('exam_sessions.create') }}" class="button button--small">
+                {{ __('exam_sessions.new_session') }}
+            </a>
+        @endif
         {{ $examSessions->onEachSide(2)->appends(request()->input())->links() }}
     </div>
 @endsection
