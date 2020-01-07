@@ -96,7 +96,7 @@ class ExamSessionController extends Controller
                 $q->where('exam_session_id', "=", $examSession->id)->where('is_validated', '=', true)->whereNotNull('sent_at');
             },
             'preferences as preferences_are_draft' => function ($q) use ($examSession) {
-                $q->where('exam_session_id', "=", $examSession->id)->where('is_validated', '=', false);
+                $q->where('exam_session_id', "=", $examSession->id)->whereNull('sent_at');
             },
         ]);
         $today = Carbon::now();
