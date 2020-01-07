@@ -63,6 +63,7 @@ class DraftPreferenceController extends Controller
                 'is_validated' => false,
             ]
         );
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => true, 'resource' => ['type' => 'preference', 'value' => $preference]]);
         Session::flash('notifications', ['Le brouillon a été enregistré']);
         return redirect()->route('preferences.edit', ['preference' => $preference->id, 'token' => $token]);
     }

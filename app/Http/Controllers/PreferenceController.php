@@ -84,7 +84,6 @@ class PreferenceController extends Controller
             }
         }
 
-
         $preference = Preference::updateOrCreate(
             ['id' => $id],
             [
@@ -95,6 +94,8 @@ class PreferenceController extends Controller
                 'is_validated' => true,
             ]
         );
+
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'preference', 'value' => $preference]]);
         Session::flash('notifications', ['Vos préférences ont bien été enregistrées et envoyées']);
         return redirect()->route('preferences.show', ['preference' => $preference->id, 'token' => $token]);
     }

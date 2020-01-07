@@ -115,6 +115,7 @@ class LocationController extends Controller
 
         array_unshift($notifications, 'L\'implantation a été enregistrée');
 
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'location', 'value' => $location]]);
         Session::flash('notifications', $notifications);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : $redirectTo);
     }
@@ -208,6 +209,7 @@ class LocationController extends Controller
 
         array_unshift($notifications, 'L\'implantation a bien été modifiée');
 
+        Session::flash('lastAction', ['type' => 'update', 'isDraft' => false, 'resource' => ['type' => 'location', 'value' => $location]]);
         Session::flash('notifications', $notifications);
         return redirect()->route('locations.show', ['location' => $location->id]);
     }

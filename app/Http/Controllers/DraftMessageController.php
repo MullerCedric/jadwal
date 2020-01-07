@@ -21,6 +21,7 @@ class DraftMessageController extends Controller
                 'is_validated' => false,
             ]
         );
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => true, 'resource' => ['type' => 'message', 'value' => $message]]);
         Session::flash('notifications', ['Le brouillon a été enregistré']);
         return redirect()->route('messages.edit', ['message' => $message->id]);
     }

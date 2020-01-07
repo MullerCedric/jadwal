@@ -68,8 +68,8 @@ class ExamSessionController extends Controller
                 'is_validated' => true,
             ]
         );
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'examSession', 'value' => $examSession]]);
         Session::flash('notifications', ['La session a été enregistrée', 'Vous pouvez maintenant y associer un message']);
-        Session::flash('payload', $examSession->id);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create' );
     }
 

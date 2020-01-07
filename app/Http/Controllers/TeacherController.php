@@ -73,6 +73,7 @@ class TeacherController extends Controller
             $notifications[] = 'Pensez à l\'ajouter à des implantations !';
         }
 
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'teacher', 'value' => $teacher]]);
         Session::flash('notifications', $notifications);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'exam_sessions.create' );
     }

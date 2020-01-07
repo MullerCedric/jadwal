@@ -13,19 +13,26 @@
     </div>
     <form method="post" action="{{ route('messages.store') }}" class="o-form">
         @csrf
-        @if(!session('payload'))
+        @if(session('lastAction') && session('lastAction')['resource']['type'] === 'examSession')
+            <div class="o-form__label">Session d'examens concernée</div>
+            <div class="o-form__input">
+                <a href="{{ route('exam_sessions.show', ['id' => session('lastAction')['resource']['value']->id]) }}"
+                   class="c-table-list__session">
+                    {{ session('lastAction')['resource']['value']->title }}
+                </a>
+            </div>
+            <input type="hidden" name="exam_session" value="{{ session('lastAction')['resource']['value']->id }}"/>
+        @else
             <label for="exam_session" class="o-form__label">Session d'examens concernée</label>
             <select id="exam_session" name="exam_session" required
                     class="o-form__input @error('location') is-invalid @enderror">
                 @foreach($examSessions as $examSession)
                     <option value="{{ $examSession->id }}"
                         {{ (old('exam_session') ?? null) == $examSession->id ? 'selected':'' }}>
-                        {{ $examSession->location->name . ' | ' .$examSession->title }}
+                        {{ $examSession->title . ' | ' . $examSession->location->name }}
                     </option>
                 @endforeach
             </select>
-        @else
-            <input type="hidden" name="exam_session" value="{{ session('payload') }}"/>
         @endif
         @error('exam_session')
         <span class="o-form__error" role="alert">

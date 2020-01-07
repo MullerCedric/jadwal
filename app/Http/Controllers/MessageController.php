@@ -41,6 +41,7 @@ class MessageController extends Controller
                 'is_validated' => true,
             ]
         );
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'message', 'value' => $message]]);
         Session::flash('notifications', ['Le message a été enregistré', 'Vous pouvez maintenant envoyer les formulaires aux professeurs concernés']);
         return redirect()->route('messages.show', ['message' => $message->id]);
     }

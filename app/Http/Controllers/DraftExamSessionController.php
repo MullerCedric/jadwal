@@ -24,6 +24,7 @@ class DraftExamSessionController extends Controller
                 'is_validated' => false,
             ]
         );
+        Session::flash('lastAction', ['type' => 'store', 'isDraft' => true, 'resource' => ['type' => 'examSession', 'value' => $examSession]]);
         Session::flash('notifications', ['Le brouillon a été enregistré']);
         return redirect()->route('exam_sessions.edit', ['exam_session' => $examSession->id]);
     }
