@@ -1,5 +1,9 @@
 <div class="c-confirm-box__container">
-    <div class="c-confirm-box">
+    <form class="c-confirm-box" action="{{ $action ?? '#' }}" method="{{ $method ?? 'POST' }}">
+        @if(isset($method) && ($method === 'DELETE' || $method === 'PUT'))
+            @method($method)
+        @endif
+        @csrf
         <main class="c-confirm-box__body">
             {{ $slot ?? 'Êtes-vous sûr ?' }}
         </main>
@@ -10,5 +14,5 @@
                 Annuler
             </a>
         </div>
-    </div>
+    </form>
 </div>

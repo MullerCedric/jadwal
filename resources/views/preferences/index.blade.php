@@ -11,6 +11,8 @@
             @component('components/table-list-item-pref', [
                 'examSession' => $examSession,
                 'preference' => $examSession->preferences->firstWhere('teacher_id', $teacher->id),
+                'emptyExamSessions' => $emptyExamSessions,
+                'teacher' => $teacher,
                 'token' => $token])
             @endcomponent
         @empty
@@ -22,9 +24,4 @@
     <div class="c-pagination">
         {{ $teachersExamSessions->onEachSide(2)->appends(request()->input())->links() }}
     </div>
-@endsection
-
-@section('sidebar')
-    @component('components/sidebar-messages', ['current' => 'index'])
-    @endcomponent
 @endsection

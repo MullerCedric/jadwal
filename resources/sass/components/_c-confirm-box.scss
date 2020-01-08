@@ -3,6 +3,7 @@
     background-color: $white;
     transition: none;
     border-radius: 1rem;
+    max-width: $wrapperMini;
 
     &__container {
         position: fixed;

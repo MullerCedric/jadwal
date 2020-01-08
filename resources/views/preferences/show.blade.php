@@ -81,6 +81,11 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-exam_sessions', ['current' => 'show'])
-    @endcomponent
+    @if($token)
+        @component('components/sidebar-preferences', ['current' => 'show', 'resource' => $examSession->name, 'token' => $token])
+        @endcomponent
+    @else
+        @component('components/sidebar-exam_sessions', ['current' => 'show', 'resource' => $examSession->name])
+        @endcomponent
+    @endif
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ExamSession;
+use App\Http\Requests\PreferenceCopyRequest;
 use App\Http\Requests\PreferenceStoreRequest;
 use App\Preference;
 use App\Teacher;
@@ -31,13 +32,38 @@ class PreferenceController extends Controller
             })
             ->orderBy('deadline', 'asc')
             ->paginate(15);
-        return view('preferences.index', compact('teacher', 'teachersExamSessions', 'token'));
+
+        $emptyExamSessions = ExamSession::with([
+            'location',
+            'preferences' => function ($query) use ($teacher) {
+                $query->where('teacher_id', $teacher->id);
+            }])
+            ->whereNull('deleted_at')
+            ->whereHas('location', function ($query) use ($teacher) {
+                foreach ($teacher->locations as $index => $location) {
+                    if ($index === 0) {
+                        $query->where('id', $location->id);
+                    } else {
+                        $query->orWhere('id', $location->id);
+                    }
+                }
+            })
+            ->orderBy('deadline', 'asc')
+            ->get();
+        return view('preferences.index', compact('teacher', 'teachersExamSessions', 'emptyExamSessions', 'token'));
     }
 
     public function create($token, ExamSession $examSession)
     {
         $examSession->load('location');
-        $teacher = Teacher::where('token', $token)->firstOrFail();
+        $teacher = Teacher::with([
+            'preferences' => function ($query) {
+                $query->where('is_validated', true)
+                    ->orderBy('updated_at', 'desc')
+                    ->whereNotNull('sent_at');
+            }
+        ])
+            ->where('token', $token)->firstOrFail();
         return view('preferences.create', compact('examSession', 'teacher', 'token'));
     }
 
@@ -127,6 +153,35 @@ class PreferenceController extends Controller
             return 'Vous n\'êtes pas ' . $preference->teacher->name . ' ! Vous n\'avez donc pas accès à ces préférences';
         }
         $teacher = $preference->teacher;
+        $teacher->load([
+            'preferences' => function ($query) {
+                $query->where('is_validated', true)
+                    ->orderBy('updated_at', 'desc')
+                    ->whereNotNull('sent_at');
+            }
+        ]);
         return view('preferences.edit', compact('preference', 'examSession', 'teacher', 'token'));
+    }
+
+    public function copy(PreferenceCopyRequest $request, $token, Preference $preference)
+    {
+        $examSession = ExamSession::findOrFail(request('targeted_exam_session'));
+        $teacher = Teacher::where('token', $token)->firstOrFail();
+
+        $newPreference = Preference::updateOrCreate(
+            [
+                'teacher_id' => $teacher->id,
+                'exam_session_id' => request('targeted_exam_session'),
+            ],
+            [
+                'values' => json_encode($preference->values),
+                'about' => $preference->about,
+                'is_validated' => false,
+            ]
+        );
+
+        Session::flash('lastAction', ['type' => 'copy', 'isDraft' => true, 'resource' => ['type' => 'preference', 'value' => $preference]]);
+        Session::flash('notifications', ['Vos anciennes préférences ont bien été copiées pour <i>' . $examSession->title . '</i> en cours']);
+        return redirect()->route('preferences.edit', ['preference' => $newPreference->id, 'token' => $token]);
     }
 }

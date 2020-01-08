@@ -133,6 +133,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-preferences', ['current' => 'create'])
+    @component('components/sidebar-preferences', ['current' => 'create', 'token' => $token, 'examSession' => $examSession, 'preferences' => $teacher->preferences])
     @endcomponent
 @endsection
