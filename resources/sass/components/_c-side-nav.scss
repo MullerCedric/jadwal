@@ -1,4 +1,5 @@
 .c-side-nav {
+    z-index: z('main-content');
     &__link {
         display: block;
         padding: .2em .75em;

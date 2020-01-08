@@ -5,6 +5,7 @@
         right: $colGap;
         width: 90%;
         max-width: 540px;
+        z-index: z('notification');
     }
 
     padding: 0;
