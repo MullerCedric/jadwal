@@ -29,7 +29,7 @@ Route::delete('/locations/{location}', [
 ])->where('location', '[0-9]+');
 
 // LocationTeacher
-Route::delete('/locationsteachers/{location}', [
+Route::delete('/locationsteachers/{location}/{id?}', [
     'as' => 'locationsteachers.destroy',
     'uses' => 'LocationTeacherController@destroy'
-])->where('location', '[0-9]+');
+])->where(['location' => '[0-9]+', 'id' => '[0-9]+']);

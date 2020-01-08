@@ -7,6 +7,20 @@
 
     &__item {
         padding: .75em 1.25em 1.25em;
+
+        &--one-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & .c-tchr-list__actions {
+                display: none;
+            }
+
+            &:hover .c-tchr-list__actions, &:focus-within .c-tchr-list__actions {
+                display: block;
+            }
+        }
     }
 
     &__title {

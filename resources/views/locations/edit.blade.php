@@ -68,6 +68,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-locations', ['current' => 'create'])
+    @component('components/sidebar-locations', ['current' => 'edit', 'location' => $location])
     @endcomponent
 @endsection

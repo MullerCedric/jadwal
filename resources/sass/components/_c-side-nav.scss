@@ -1,7 +1,9 @@
 .c-side-nav {
     z-index: z('main-content');
+
     &__link {
-        display: block;
+        display: flex;
+        align-items: center;
         padding: .2em .75em;
         border-radius: .2em;
         border: 1px solid transparent;
@@ -24,6 +26,11 @@
                 background-color: $white;
             }
         }
+    }
+
+    &__icon {
+        height: 1em;
+        margin-right: .25em;
     }
 
     &__group {
