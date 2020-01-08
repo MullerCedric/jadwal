@@ -51,9 +51,11 @@
         </div>
     @endif
 </div>
-<footer class="main-footer">
-    @component('components/main-nav')
-    @endcomponent
-</footer>
+@auth
+    <footer class="main-footer">
+        @component('components/main-nav')
+        @endcomponent
+    </footer>
+@endauth
 </body>
 </html>
