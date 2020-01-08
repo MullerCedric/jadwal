@@ -37,7 +37,7 @@
         <h1>@yield('title')</h1>
     </div>
     @if(!empty(session('notifications')))
-        @component('components.notifications-list', ['notifications' => session('notifications')])
+        @component('components/notifications-list', ['notifications' => session('notifications')])
         @endcomponent
     @endif
 </header>
@@ -52,7 +52,7 @@
     @endif
 </div>
 <footer class="main-footer">
-    @component('components.main-nav')
+    @component('components/main-nav')
     @endcomponent
 </footer>
 </body>
