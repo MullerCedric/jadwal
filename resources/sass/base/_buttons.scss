@@ -11,32 +11,36 @@
     border-radius: 2em;
     box-shadow: 0 .15em .75em $shadow;
 
-    &:focus, &:hover {
-        cursor: pointer;
-    }
+    &:not([disabled]) {
+        &:focus, &:hover {
+            cursor: pointer;
+        }
 
-    &:focus {
-        text-transform: inherit;
-        transform: scale(1.1);
+        &:focus {
+            text-transform: inherit;
+            transform: scale(1.1);
+        }
     }
 }
 
-button, .button {
+button:not(.link), .button {
     width: auto;
     background-color: $white;
     border: 1px solid $grey;
     background-image: linear-gradient(to right, transparent, $white);
 
-    &:focus, &:hover {
-        border-color: $lightSecondary;
-        background-color: $lighterGrey;
-        background-image: linear-gradient(to right, transparent, $white);
-        color: $darkSecondary;
-        box-shadow: 0 .15em 1em $tintedShadow;
+    &:not([disabled]) {
+        &:focus, &:hover {
+            border-color: $lightSecondary;
+            background-color: $lighterGrey;
+            background-image: linear-gradient(to right, transparent, $white);
+            color: $darkSecondary;
+            box-shadow: 0 .15em 1em $tintedShadow;
+        }
     }
 }
 
-.cta {
+button.cta, .cta {
     width: auto;
     margin-left: auto;
     margin-right: auto;
@@ -45,12 +49,14 @@ button, .button {
     color: white;
     border: none;
 
-    &:focus, &:hover {
-        color: $white;
-        border: none;
-        background-color: $darkSecondary;
-        background-image: linear-gradient(to right, transparent, $lightPrimary);
-        box-shadow: 0 .15em 1.25em $tintedShadow;
+    &:not([disabled]) {
+        &:focus, &:hover {
+            color: $white;
+            border: none;
+            background-color: $darkSecondary;
+            background-image: linear-gradient(to right, transparent, $lightPrimary);
+            box-shadow: 0 .15em 1.25em $tintedShadow;
+        }
     }
 }
 

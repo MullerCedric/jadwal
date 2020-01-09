@@ -8,8 +8,4 @@ button[disabled], .button.disabled, .c-pagination__link.disabled {
     background-image: none;
     color: $black;
     opacity: .5;
-
-    &:hover {
-        box-shadow: 0 .15em 1.25em $shadow
-    }
 }
