@@ -1,10 +1,12 @@
 @if(isset($preference) && $teacher)
-    <a href="{{ route('preferences.show', ['preference' => $preference->id]) }}"
-       class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
-        @svg('eye', 'c-side-nav__icon')<span>Voir les préférences de <i
-                title="{{ $teacher->name }}">{{ explode(' ',trim($teacher->name))[0] }}</i></span>
-    </a>
-    @if($preference->isSent())
+    @if(Route::has('preferences.show'))
+        <a href="{{ route('preferences.show', ['preference' => $preference->id]) }}"
+           class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
+            @svg('eye', 'c-side-nav__icon')<span>Voir les préférences de <i
+                    title="{{ $teacher->name }}">{{ explode(' ',trim($teacher->name))[0] }}</i></span>
+        </a>
+    @endif
+    @if(Route::has('confirm.show') && Route::has('preferences.edit') && $preference->isSent())
         <a href="{{ route('confirm.show', ['confirmBoxId' => 'UpdatePreference' . $preference->id]) }}"
            class="c-side-nav__link{{ $current === 'edit' ? ' c-side-nav__link--current' : '' }}">
             @svg('edit-3', 'c-side-nav__icon')<span>Modifier les préférences de <i
@@ -30,17 +32,19 @@
     @endif
 @endif
 <div class="c-side-nav__group">
-    <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
-       class="c-side-nav__link">
-        @svg('activity', 'c-side-nav__icon')Revenir à la session
-    </a>
-    @if (Route::has('exam_sessions.index'))
+    @if(Route::has('exam_sessions.show'))
+        <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
+           class="c-side-nav__link">
+            @svg('activity', 'c-side-nav__icon')Revenir à la session
+        </a>
+    @endif
+    @if(Route::has('exam_sessions.index'))
         <a href="{{ route('exam_sessions.index') }}"
            class="c-side-nav__link">
             @svg('grid', 'c-side-nav__icon')Gérer les sessions
         </a>
     @endif
-    @if (Route::has('exam_sessions.create'))
+    @if(Route::has('exam_sessions.create'))
         <a href="{{ route('exam_sessions.create') }}"
            class="c-side-nav__link">
             @svg('plus-square', 'c-side-nav__icon'){{ __('exam_sessions.new_session') }}
@@ -48,13 +52,19 @@
     @endif
 </div>
 <div class="c-side-nav__group">
-    <a href="{{ route('locations.index') }}" class="c-side-nav__link">
-        @svg('map-pin', 'c-side-nav__icon')Gérer les implantations
-    </a>
-    <a href="{{ route('messages.index') }}" class="c-side-nav__link">
-        @svg('mail', 'c-side-nav__icon')Gérer les messages
-    </a>
-    <a href="{{ route('teachers.index') }}" class="c-side-nav__link">
-        @svg('users', 'c-side-nav__icon')Gérer les professeurs
-    </a>
+    @if(Route::has('locations.index'))
+        <a href="{{ route('locations.index') }}" class="c-side-nav__link">
+            @svg('map-pin', 'c-side-nav__icon')Gérer les implantations
+        </a>
+    @endif
+    @if(Route::has('messages.index'))
+        <a href="{{ route('messages.index') }}" class="c-side-nav__link">
+            @svg('mail', 'c-side-nav__icon')Gérer les messages
+        </a>
+    @endif
+    @if(Route::has('teachers.index'))
+        <a href="{{ route('teachers.index') }}" class="c-side-nav__link">
+            @svg('users', 'c-side-nav__icon')Gérer les professeurs
+        </a>
+    @endif
 </div>

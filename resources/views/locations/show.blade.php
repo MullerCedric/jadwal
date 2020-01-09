@@ -36,6 +36,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-locations', ['current' => 'show', 'resource' => $location->name, 'location' => $location])
+    @component('components/sidebar-locations', ['current' => 'show', 'location' => $location])
     @endcomponent
 @endsection
