@@ -1,15 +1,22 @@
 @extends('layouts.app')
 
-@section('title', 'Remplissez vos préférences (' . $examSession->title . ')')
+@section('title', 'Remplissez vos préférences')
 
 @section('content')
     <p>
         Haute École de la Province de Liège, {{ $examSession->location->name }}
     </p>
-    @markdown($examSession->indications)
+    <p>
+        {{ $examSession->title }}
+    </p>
     <p>
         Nom du professeur : {{ $teacher->name }}
     </p>
+    @if($examSession->indications)
+        <div class="c-message">
+            @markdown($examSession->indications)
+        </div>
+    @endif
     <form method="POST" action="{{ route('preferences.store') }}">
         @csrf
         <ul>
@@ -77,7 +84,7 @@
                     <input id="duration0" type="number" name="duration0" value="{{ old('duration0') }}"
                            class="o-form__input @error('duration0') is-invalid @enderror"
                            placeholder="2"
-                           step="2" min="2" max="8"> heures
+                           step="1" min="1" max="8"> heure(s)
                 </div>
                 @error('duration0')
                 <span class="o-form__error" role="alert">
@@ -97,13 +104,12 @@
             </li>
         </ul>
         <p>
-            <button type="submit" class="link" formaction="{{ route('draft_preferences.store') }}">
+            <button type="submit" class="link" name="add_course" value="true"
+                    formaction="{{ route('draft_preferences.store') }}">
                 Ajouter un cours
             </button>
         </p>
-
         <div class="o-form">
-
             <label for="about" class="o-form__full">Demandes particulières/indisponibilités/contraintes</label>
             <textarea id="about" name="about"
                       class="o-form__full @error('about') is-invalid @enderror"
@@ -128,11 +134,18 @@
             </p>
         </div>
     </form>
-    <p>Vous avez jusqu'au {{ $examSession->deadline->format('d/m/y') }} <strong>au plus tard</strong> pour envoyer vos
-        préférences</p>
+    <p>
+        Vous avez jusqu'au {{ $examSession->deadline->format('d/m/y') }} <strong>au plus tard</strong> pour envoyer vos
+        préférences
+    </p>
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-preferences', ['current' => 'create', 'token' => $token, 'examSession' => $examSession, 'preferences' => $teacher->preferences])
+    @component('components/sidebar-preferences', [
+    'current' => 'create',
+    'token' => $token,
+    'examSession' => $examSession,
+    'preferences' => $teacher->preferences
+    ])
     @endcomponent
 @endsection

@@ -36,7 +36,7 @@ class DraftPreferenceController extends Controller
                     ('groups_indications' . $i) => 'nullable|string',
                     ('type' . $i) => 'nullable|string',
                     ('rooms' . $i) => 'nullable|string',
-                    ('duration' . $i) => 'nullable|integer|min:0',
+                    ('duration' . $i) => 'nullable|integer|min:1',
                     ('watched_by' . $i) => 'nullable|string',
                 ]);
 
@@ -63,8 +63,18 @@ class DraftPreferenceController extends Controller
                 'is_validated' => false,
             ]
         );
+
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => true, 'resource' => ['type' => 'preference', 'value' => $preference]]);
-        Session::flash('notifications', ['Le brouillon a été enregistré']);
-        return redirect()->route('preferences.edit', ['preference' => $preference->id, 'token' => $token]);
+        $anchor = '';
+        if (request('add_course') == true) {
+            Session::flash('add_course', true);
+            $anchor = '#new-course';
+            Session::flash('notifications', ['Vos modifications ont été enregistrées']);
+        } else {
+            Session::flash('notifications', ['Le brouillon a été enregistré']);
+        }
+        return redirect()->to(route(
+                'preferences.edit', ['preference' => $preference->id, 'token' => $token]
+            ) . '' . $anchor);
     }
 }

@@ -29,6 +29,7 @@ class PreferenceStoreRequest extends FormRequest
             'exam_session_id' => 'exists:exam_sessions,id',
             'values' => 'nullable|json',
             'about' => 'nullable|string|min:4',
+            'add_course' => 'nullable|boolean'
         ];
     }
 }

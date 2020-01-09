@@ -2,9 +2,14 @@ table {
     width: 100%;
 }
 
+th {
+    &[scope="col"] {
+        padding: .5em .33em 1em;
+    }
+}
+
 td {
-    padding: .25em .33em;
-    margin: .5em .25em;
+    padding: .33em .33em .5em;
 }
 
 tr {

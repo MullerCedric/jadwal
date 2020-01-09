@@ -1,22 +1,38 @@
 @extends('layouts.app')
 
-@section('title', 'Préférences de ' . $preference->teacher->name . ' concernant ' . $preference->examSession->title)
+@if($token)
+    @section('title', 'Vos préférences concernant ' . $preference->examSession->title)
+@else
+    @section('title', 'Préférences de ' . $teacher->name)
+@endif
 
 @section('content')
     <p>
         Haute École de la Province de Liège, {{ $examSession->location->name }}
     </p>
-    @markdown($examSession->indications)
+    <p>
+        {{ $examSession->title }}
+    </p>
     <p>
         Nom du professeur : {{ $teacher->name }}
     </p>
+    @if($preference->isSent())
+        <p>
+            Ces préférences ont été envoyées le {{ $preference->sent_at->format('d/m/y') }}
+        </p>
+    @endif
+    @if($examSession->indications)
+        <div class="c-message">
+            @markdown($examSession->indications)
+        </div>
+    @endif
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">Intitulé EXACT du cours</th>
             <th scope="col">
                 <p>Groupes</p>
-                <p>Indications supplémentaires</p>
+                <p class="c-smaller">Indications supplémentaires</p>
             </th>
             <th scope="col">Type</th>
             <th scope="col">Locaux possibles</th>
@@ -49,43 +65,30 @@
         </section>
     @endif
 
-    <form action="{{ route('send_preferences.send', ['preference' => $preference->id, 'token' => $token]) }}"
-          method="POST">
-        @csrf
-        @if($preference->isValidated() && $preference->isSent())
-            <p>
-                Ces préférences ont été envoyées le {{ $preference->sent_at->format('d/m/y') }} pour
-                "<a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}">
-                    {{ $examSession->title }}
-                </a>"
-            </p>
-        @elseif($preference->isValidated() && !$preference->isSent())
-            <p>
-                <button type="submit" class="cta">
-                    Envoyer ces préférences
-                </button>
-            </p>
-            <p>
-                Ces préférences sont à l'état de brouillon. Vous pouvez encore <a
-                    href="{{ route('preferences.edit', ['preference' => $preference->id, 'token' => $token]) }}">les
-                    modifier</a>
-            </p>
-        @else
-            <p>
-                Ces préférences sont à l'état de brouillon. Vous pouvez encore <a
-                    href="{{ route('preferences.edit', ['preference' => $preference->id, 'token' => $token]) }}">les
-                    modifier</a>
-            </p>
-        @endif
-    </form>
+    @if($preference->isValidated() && !$preference->isSent())
+        <form action="{{ route('send_preferences.send', ['preference' => $preference->id, 'token' => $token]) }}"
+              method="POST">
+            @csrf
+            <button type="submit" class="cta">
+                @svg('send', 'c-side-nav__icon')Envoyer ces préférences
+            </button>
+        </form>
+    @endif
 @endsection
 
 @section('sidebar')
     @if($token)
-        @component('components/sidebar-preferences', ['current' => 'show', 'resource' => $examSession->name, 'token' => $token])
+        @component('components/sidebar-preferences', [
+            'current' => 'show',
+            'token' => $token,
+            'examSession' => $examSession,
+            'preference' => $preference,
+            'teacher' => $teacher,
+            'emptyExamSessions' => $emptyExamSessions
+        ])
         @endcomponent
     @else
-        @component('components/sidebar-exam_sessions', ['current' => 'show', 'resource' => $examSession->name])
+        @component('components/sidebar-exam_sessions', ['current' => 'show', 'examSession' => $examSession])
         @endcomponent
     @endif
 @endsection

@@ -15,41 +15,8 @@ class PreferenceController extends Controller
     public function index($token)
     {
         $teacher = Teacher::with('locations')->where('token', $token)->firstOrFail();
-        $teachersExamSessions = ExamSession::with([
-            'location',
-            'preferences' => function ($query) use ($teacher) {
-                $query->where('teacher_id', $teacher->id);
-            }])
-            ->whereNull('deleted_at')
-            ->whereHas('location', function ($query) use ($teacher) {
-                foreach ($teacher->locations as $index => $location) {
-                    if ($index === 0) {
-                        $query->where('id', $location->id);
-                    } else {
-                        $query->orWhere('id', $location->id);
-                    }
-                }
-            })
-            ->orderBy('deadline', 'asc')
-            ->paginate(15);
-
-        $emptyExamSessions = ExamSession::with([
-            'location',
-            'preferences' => function ($query) use ($teacher) {
-                $query->where('teacher_id', $teacher->id);
-            }])
-            ->whereNull('deleted_at')
-            ->whereHas('location', function ($query) use ($teacher) {
-                foreach ($teacher->locations as $index => $location) {
-                    if ($index === 0) {
-                        $query->where('id', $location->id);
-                    } else {
-                        $query->orWhere('id', $location->id);
-                    }
-                }
-            })
-            ->orderBy('deadline', 'asc')
-            ->get();
+        $teachersExamSessions = $this->getEmptySession($teacher, 15);
+        $emptyExamSessions = $this->getEmptySession($teacher);
         return view('preferences.index', compact('teacher', 'teachersExamSessions', 'emptyExamSessions', 'token'));
     }
 
@@ -94,7 +61,7 @@ class PreferenceController extends Controller
                     ('groups_indications' . $i) => 'nullable|string',
                     ('type' . $i) => 'required|in:oral,written',
                     ('rooms' . $i) => 'nullable|string',
-                    ('duration' . $i) => 'required|integer|min:0|max:8',
+                    ('duration' . $i) => 'required|integer|min:1|max:8',
                     ('watched_by' . $i) => 'nullable|string',
                 ]);
 
@@ -138,7 +105,8 @@ class PreferenceController extends Controller
             return 'Vous n\'êtes pas ' . $preference->teacher->name . ' ! Vous n\'avez donc pas accès à ces préférences';
         }
         $teacher = $preference->teacher;
-        return view('preferences.show', compact('preference', 'examSession', 'teacher', 'token'));
+        $emptyExamSessions = $this->getEmptySession($teacher);
+        return view('preferences.show', compact('preference', 'examSession', 'teacher', 'emptyExamSessions', 'token'));
     }
 
     public function edit(Preference $preference, $token = null)
@@ -183,5 +151,31 @@ class PreferenceController extends Controller
         Session::flash('lastAction', ['type' => 'copy', 'isDraft' => true, 'resource' => ['type' => 'preference', 'value' => $preference]]);
         Session::flash('notifications', ['Vos anciennes préférences ont bien été copiées pour <i>' . $examSession->title . '</i> en cours']);
         return redirect()->route('preferences.edit', ['preference' => $newPreference->id, 'token' => $token]);
+    }
+
+    protected function getEmptySession($teacher, $paginate = false)
+    {
+        $sessions = ExamSession::with([
+            'location',
+            'preferences' => function ($query) use ($teacher) {
+                $query->where('teacher_id', $teacher->id);
+            }])
+            ->whereNull('deleted_at')
+            ->whereHas('location', function ($query) use ($teacher) {
+                foreach ($teacher->locations as $index => $location) {
+                    if ($index === 0) {
+                        $query->where('id', $location->id);
+                    } else {
+                        $query->orWhere('id', $location->id);
+                    }
+                }
+            })
+            ->orderBy('deadline', 'asc');
+        if ($paginate && is_int($paginate) && $paginate > 0) {
+            $sessions = $sessions->paginate($paginate);
+        } else {
+            $sessions = $sessions->get();
+        }
+        return $sessions;
     }
 }
