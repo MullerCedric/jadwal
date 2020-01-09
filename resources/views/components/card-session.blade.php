@@ -27,9 +27,10 @@
             'deadline' => $examSession->deadline,
             'deleted_at' => $examSession->deleted_at])
             @endcomponent
-            @component('components/listing-teachers', [
-            'total_count' => $examSession->sent_preferences_count,
-            'teachers' => $examSession->location->sentTeachers])
+            <p>
+                @component('components/listing-teachers', [
+                'total_count' => $examSession->sent_preferences_count,
+                'teachers' => $examSession->location->sentTeachers])
                     @slot('none')
                         Aucun professeur n'a envoyé ses préférences
                     @endslot
@@ -39,7 +40,8 @@
                     @slot('plural')
                         ont envoyé leurs préférences
                     @endslot
-            @endcomponent
+                @endcomponent
+            </p>
         @else
             <p>
                 Cette session est à l'état de brouillon

@@ -32,21 +32,23 @@
             @endif
         </a>
     </div>
-    <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
-          method="POST" class="c-table-list__actions">
-        @csrf
-        @if($message->examSession->isValidated() && $message->isValidated() && !$message->isSent())
-            <button type="submit" class="button--small cta">Envoyer</button>
-        @endif
-        @if(!$message->isSent())
-            <a href="{{ route('messages.edit', ['message' => $message->id]) }}"
+    @if(!isset($showActions) || $showActions !== false)
+        <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
+              method="POST" class="c-table-list__actions">
+            @csrf
+            @if($message->examSession->isValidated() && $message->isValidated() && !$message->isSent())
+                <button type="submit" class="button--small cta">Envoyer</button>
+            @endif
+            @if(!$message->isSent())
+                <a href="{{ route('messages.edit', ['message' => $message->id]) }}"
+                   class="button button--small">
+                    Modifier
+                </a>
+            @endif
+            <a href="{{ route('messages.show', ['message' => $message->id]) }}"
                class="button button--small">
-                Modifier
+                Voir
             </a>
-        @endif
-        <a href="{{ route('messages.show', ['message' => $message->id]) }}"
-           class="button button--small">
-            Voir
-        </a>
-    </form>
+        </form>
+    @endif
 </div>

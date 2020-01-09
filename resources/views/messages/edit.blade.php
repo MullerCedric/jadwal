@@ -57,6 +57,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-messages', ['current' => 'create'])
+    @component('components/sidebar-messages', ['current' => 'edit', 'message' => $email])
     @endcomponent
 @endsection

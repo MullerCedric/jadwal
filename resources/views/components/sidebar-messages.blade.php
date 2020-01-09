@@ -1,25 +1,68 @@
+@if(isset($message))
+    <div class="c-side-nav__group">
+        @if($message->examSession->isValidated() && $message->isValidated() && !$message->isSent())
+            <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
+                  method="POST" class="link c-side-nav__link">
+                @csrf
+                <button type="submit" class="link">@svg('send', 'c-side-nav__icon')Envoyer le message</button>
+            </form>
+        @endif
+        <a href="{{ route('messages.show', ['message' => $message->id]) }}"
+           class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
+            @svg('eye', 'c-side-nav__icon')Voir le message
+        </a>
+        @if(!$message->isSent())
+            <a href="{{ route('messages.edit', ['message' => $message->id]) }}"
+               class="c-side-nav__link{{ $current === 'edit' ? ' c-side-nav__link--current' : '' }}">
+                @svg('edit-3', 'c-side-nav__icon')Modifier le message
+            </a>
+        @endif
+        <a href="{{ route('confirm.show', ['confirmBoxId' => 'deleteMessage']) }}"
+           class="c-side-nav__link">
+            @svg('trash-2', 'c-side-nav__icon')Supprimer le message
+
+            @section('deleteMessage')
+                @component('components/confirm-box', [
+                    'action' => route('messages.destroy', ['message' => $message->id]),
+                    'method' => 'DELETE',
+                    'cancelFirst' => true,
+                    ])
+                    <p>
+                        Voulez-vous définitivement supprimer ce message ?
+                    </p>
+                    <p class="c-smaller">
+                        Note: Si le message a déjà été envoyé, il sera toujours visible pour ses destinataires
+                    </p>
+                    @slot('actions')
+                        <button type="submit" class="button--small">Supprimer</button>
+                    @endslot
+                @endcomponent
+            @endsection
+        </a>
+    </div>
+@endif
 <div class="c-side-nav__group">
     @if (Route::has('messages.create'))
         <a href="{{ route('messages.create') }}"
            class="c-side-nav__link{{ $current === 'create' ? ' c-side-nav__link--current' : '' }}">
-            Écrire un nouveau message
+            @svg('plus-square', 'c-side-nav__icon')Écrire un nouveau message
         </a>
     @endif
     @if (Route::has('messages.index'))
         <a href="{{ route('messages.index') }}"
            class="c-side-nav__link{{ $current === 'index' ? ' c-side-nav__link--current' : '' }}">
-            Gérer les messages
+            @svg('list', 'c-side-nav__icon')Gérer les messages
         </a>
     @endif
 </div>
 <div class="c-side-nav__group">
     <a href="{{ route('locations.index') }}" class="c-side-nav__link">
-        Gérer les implantations
+        @svg('map-pin', 'c-side-nav__icon')Gérer les implantations
     </a>
     <a href="{{ route('exam_sessions.index') }}" class="c-side-nav__link">
-        Gérer les sessions
+        @svg('activity', 'c-side-nav__icon')Gérer les sessions
     </a>
     <a href="{{ route('teachers.index') }}" class="c-side-nav__link">
-        Gérer les professeurs
+        @svg('users', 'c-side-nav__icon')Gérer les professeurs
     </a>
 </div>
