@@ -47,6 +47,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-teachers', ['current' => 'create'])
+    @component('components/sidebar-teachers', ['current' => 'edit', 'teacher' => $teacher])
     @endcomponent
 @endsection

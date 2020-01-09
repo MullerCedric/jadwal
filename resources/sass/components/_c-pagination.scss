@@ -3,10 +3,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: 1.5em;
 
     &--top {
         margin-top: 0;
+        justify-content: center;
     }
 
     &__link {
