@@ -63,6 +63,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-exam_sessions', ['current' => 'create'])
+    @component('components/sidebar-exam_sessions', ['current' => 'edit', 'examSession' => $examSession, 'today' => $today])
     @endcomponent
 @endsection

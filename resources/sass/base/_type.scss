@@ -7,9 +7,15 @@ em, i, cite {
 }
 
 p, dl, ol, ul, blockquote, pre, table {
-    margin: 0 auto .75em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: .25em;
 
-    &:last-child {
+    &:nth-child(n+2) {
+        margin-top: .75em;
+    }
+
+    &:last-of-type {
         margin-bottom: 0;
     }
 }

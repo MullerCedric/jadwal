@@ -20,6 +20,12 @@ Route::get('/exam_sessions/{exam_session}/edit', [
     'uses' => 'ExamSessionController@edit'
 ])->where('exam_session', '[0-9]+');
 
+// Copy Exam Sessions
+Route::post('/exam_sessions/{id}/copy', [
+    'as' => 'exam_sessions.copy',
+    'uses' => 'ExamSessionController@copy'
+])->where('id', '[0-9]+');
+
 // Draft Exam Sessions
 Route::post('/draft_exam_sessions', [
     'as' => 'draft_exam_sessions.store',

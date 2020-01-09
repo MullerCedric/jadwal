@@ -162,12 +162,21 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-preferences', [
-    'current' => 'edit',
-    'token' => $token,
-    'examSession' => $examSession,
-    'preferences' => $teacher->preferences,
-    'preference' => $preference,
-    ])
-    @endcomponent
+    @if($token)
+        @component('components/sidebar-preferences', [
+        'current' => 'edit',
+        'token' => $token,
+        'examSession' => $examSession,
+        'preferences' => $teacher->preferences,
+        'preference' => $preference,
+        ])
+        @endcomponent
+    @else
+        @component('components/sidebar-preferences-user', [
+            'current' => 'show',
+            'preference' => $preference,
+            'examSession' => $examSession,
+            'teacher' => $teacher])
+        @endcomponent
+    @endif
 @endsection

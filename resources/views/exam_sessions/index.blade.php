@@ -41,6 +41,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-exam_sessions', ['current' => $currentTab === 'closed' ? 'closed-index' : 'index'])
+    @component('components/sidebar-exam_sessions', ['current' => 'index'])
     @endcomponent
 @endsection

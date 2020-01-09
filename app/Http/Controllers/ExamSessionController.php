@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ExamSession;
+use App\Http\Requests\ExamSessionCopyRequest;
 use App\Http\Requests\ExamSessionStoreRequest;
 use App\Location;
+use App\Message;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,7 +72,7 @@ class ExamSessionController extends Controller
         );
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'examSession', 'value' => $examSession]]);
         Session::flash('notifications', ['La session a été enregistrée', 'Vous pouvez maintenant y associer un message']);
-        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create');
     }
 
     public function show($id)
@@ -79,7 +81,10 @@ class ExamSessionController extends Controller
             ->with([
                 'messages',
                 'location',
-                'location.teachers'])
+                'location.teachers' => function ($query) {
+                    $query->orderBy('name', 'asc');
+                }
+            ])
             ->findOrFail($id);
         $examSession->loadCount([
             'preferences as sent_preferences_count' => function ($q) {
@@ -93,7 +98,7 @@ class ExamSessionController extends Controller
         ]);
         $examSession->location->teachers->loadCount([
             'preferences as preferences_are_sent' => function ($q) use ($examSession) {
-                $q->where('exam_session_id', "=", $examSession->id)->where('is_validated', '=', true)->whereNotNull('sent_at');
+                $q->where('exam_session_id', "=", $examSession->id)->whereNotNull('sent_at');
             },
             'preferences as preferences_are_draft' => function ($q) use ($examSession) {
                 $q->where('exam_session_id', "=", $examSession->id)->whereNull('sent_at');
@@ -106,6 +111,37 @@ class ExamSessionController extends Controller
     public function edit(ExamSession $examSession)
     {
         $locations = Location::all();
-        return view('exam_sessions.edit', compact('examSession', 'locations'));
+        $today = Carbon::now();
+        return view('exam_sessions.edit', compact('examSession', 'locations', 'today'));
+    }
+
+    public function copy(ExamSessionCopyRequest $request, $id)
+    {
+        $examSession = ExamSession::withTrashed()->with('messages')->findOrFail($id);
+
+        $newExamSession = new ExamSession();
+        $newExamSession->location_id = $examSession->location_id;
+        $newExamSession->title = $examSession->title . ' - copie';
+        $newExamSession->slug = $examSession->slug . '-copie';
+        $newExamSession->indications = $examSession->indications;
+        $newExamSession->deadline = $examSession->deadline;
+        $newExamSession->is_validated = false;
+        $newExamSession->sent_at = null;
+        Auth::user()->examSessions()->save($newExamSession);
+
+        if (request('keep_message')) {
+            foreach ($examSession->messages as $message) {
+                $newMessage = new Message();
+                $newMessage->title = $message->title . ' - copie';
+                $newMessage->body = $message->body;
+                $newMessage->is_validated = false;
+                $newMessage->sent_at = null;
+                $newExamSession->messages()->save($newMessage);
+            }
+        }
+
+        Session::flash('lastAction', ['type' => 'copy', 'isDraft' => true, 'resource' => ['type' => 'examSession', 'value' => $newExamSession]]);
+        Session::flash('notifications', ['<i>' . $examSession->title . '</i> a bien été copié']);
+        return redirect()->route('exam_sessions.edit', ['exam_session' => $newExamSession->id]);
     }
 }

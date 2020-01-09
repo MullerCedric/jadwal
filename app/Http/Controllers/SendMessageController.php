@@ -30,8 +30,10 @@ class SendMessageController extends Controller
         $sent_at = Carbon::now();
         $message->sent_at = $sent_at;
         $message->save();
-        $examSession->sent_at = $sent_at;
-        $examSession->save();
+        if(is_null($examSession->sent_at)) {
+            $examSession->sent_at = $sent_at;
+            $examSession->save();
+        }
 
         $sent_at->addSeconds(3);
         foreach ($email->examSession->location->teachers as $teacher) {

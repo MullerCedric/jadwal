@@ -88,7 +88,11 @@
         ])
         @endcomponent
     @else
-        @component('components/sidebar-exam_sessions', ['current' => 'show', 'examSession' => $examSession])
+        @component('components/sidebar-preferences-user', [
+            'current' => 'show',
+            'preference' => $preference,
+            'examSession' => $examSession,
+            'teacher' => $teacher])
         @endcomponent
     @endif
 @endsection

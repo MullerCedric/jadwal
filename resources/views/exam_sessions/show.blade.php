@@ -19,12 +19,6 @@
             {{ $examSession->sent_preferences_count }} des {{ $examSession->location->teachers->count() }} professeurs
             ont complété leurs préférences pour cette session.
         </p>
-        @if($examSession->sent_preferences_count < $examSession->location->teachers->count())
-            <a href="{{ route('messages.create') }}">
-                Écrire un message de rappel aux professeurs qui n'ont pas encore envoyé leurs
-                préférences
-            </a>
-        @endif
     @else
         <p>
             Cette session est à l'état de brouillon. Vous pouvez encore la
@@ -39,7 +33,7 @@
         <tr>
             <th scope="col">Nom du professeur</th>
             <th scope="col">Statut des préférences</th>
-            <th scope="col">Consulter les préférences</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -47,16 +41,19 @@
             <tr>
                 <td><a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}">{{ $teacher->name }}</a></td>
                 @if($teacher->preferences_are_sent)
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Complété</td>
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; <a
-                            href="{{ route('preferences.show', ['preference' => $teacher->preferences->first()->id]) }}">Consulter</a>
+                    <td>Complété</td>
+                    <td>
+                        <a href="{{ route('preferences.show', ['preference' => $teacher->preferences->first()->id]) }}"
+                           class="button button--small">
+                            Consulter
+                        </a>
                     </td>
                 @elseif($teacher->preferences_are_draft)
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; En cours de complétion</td>
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; X Consulter</td>
+                    <td>En cours de complétion</td>
+                    <td>/</td>
                 @else
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; Non complété</td>
-                    <td> &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; X Consulter</td>
+                    <td>Non complété</td>
+                    <td>/</td>
                 @endif
             </tr>
         @endforeach
@@ -75,7 +72,7 @@
                 </thead>
                 @foreach($examSession->messages as $message)
                     <tr>
-                        @if($message->sent_at)
+                        @if($message->isSent())
                             <td>
                                 <a href="{{ route('messages.show', ['message' => $message->id]) }}">{{ $message->title }}</a>
                             </td>
@@ -86,21 +83,27 @@
                                     <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
                                           method="POST">
                                         @csrf
-                                        <button type="submit" class="cta">Envoyer à nouveau</button>
+                                        <button type="submit" class="cta button--small">Envoyer à nouveau</button>
                                     </form>
                                 @endif
                             </td>
-                        @elseif($message->is_validated)
+                        @elseif($message->isValidated())
                             <td>
                                 <a href="{{ route('messages.show', ['message' => $message->id]) }}">{{ $message->title }}</a>
                             </td>
                             <td>Enregistré</td>
                             <td>
-                                <a href="{{ route('messages.show', ['message' => $message->id]) }}">Voir</a>
                                 <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
                                       method="POST">
                                     @csrf
-                                    <button type="submit" class="cta">Envoyer</button>
+                                    <a href="{{ route('messages.show', ['message' => $message->id]) }}"
+                                       class="button button--small">
+                                        Voir
+                                    </a>
+                                    <button type="submit"
+                                            class="cta button--small"{!! $examSession->isValidated() ? '' : 'title="La session est toujours à un brouillon" disabled' !!}>
+                                        Envoyer
+                                    </button>
                                 </form>
                             </td>
                         @else
@@ -129,6 +132,6 @@
 @endsection
 
 @section('sidebar')
-    @component('components/sidebar-exam_sessions', ['current' => 'show', 'resource' => $examSession->name])
+    @component('components/sidebar-exam_sessions', ['current' => 'show', 'examSession' => $examSession, 'today' => $today])
     @endcomponent
 @endsection

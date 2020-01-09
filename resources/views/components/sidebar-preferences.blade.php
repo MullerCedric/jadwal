@@ -5,7 +5,7 @@
                 <form action="{{ route('send_preferences.send', ['preference' => $preference->id, 'token' => $token]) }}"
                       method="POST" class="link c-side-nav__link">
                     @csrf
-                    <button type="submit" class="link">@svg('send', 'c-side-nav__icon')Envoyer le message</button>
+                    <button type="submit" class="link">@svg('send', 'c-side-nav__icon')Envoyer ces préférences</button>
                 </form>
             @endif
             <a href="{{ route('preferences.show', ['preference' => $preference->id, 'token' => $token]) }}"
