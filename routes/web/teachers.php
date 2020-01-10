@@ -6,7 +6,7 @@ Route::get('/teachers', [
 Route::get('/teachers/create', [
     'as' => 'teachers.create',
     'uses' => 'TeacherController@create'
-]);
+])->middleware('requiredBeforeCreate:teachers');
 Route::post('/teachers', [
     'as' => 'teachers.store',
     'uses' => 'TeacherController@store'

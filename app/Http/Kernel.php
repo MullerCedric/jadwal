@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'editIfDraft' => \App\Http\Middleware\EditIfDraft::class,
         'editIfExists' => \App\Http\Middleware\EditIfExists::class,
         'showIfSent' => \App\Http\Middleware\ShowIfSent::class,
+        'requiredBeforeCreate' => \App\Http\Middleware\RequiredBeforeCreate::class,
     ];
 
     /**

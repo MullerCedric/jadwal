@@ -6,7 +6,7 @@ Route::get('/exam_sessions', [
 Route::get('/exam_sessions/create', [
     'as' => 'exam_sessions.create',
     'uses' => 'ExamSessionController@create'
-]);
+])->middleware('requiredBeforeCreate:exam_sessions');
 Route::post('/exam_sessions', [
     'as' => 'exam_sessions.store',
     'uses' => 'ExamSessionController@store'

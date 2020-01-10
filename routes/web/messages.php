@@ -6,7 +6,7 @@ Route::get('/messages', [
 Route::get('/messages/create', [
     'as' => 'messages.create',
     'uses' => 'MessageController@create'
-]);
+])->middleware('requiredBeforeCreate:messages');
 Route::post('/messages', [
     'as' => 'messages.store',
     'uses' => 'MessageController@store'
