@@ -18,7 +18,7 @@ Route::get('/preferences/{preference}/{token?}', [
 Route::get('/preferences/{preference}/edit/{token?}', [
     'as' => 'preferences.edit',
     'uses' => 'PreferenceController@edit'
-])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}']);
+])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}'])->middleware('showIfSent:preferences');
 
 // Copy Preferences
 Route::post('/preferences/{token}/copy/{preference}', [

@@ -5,7 +5,7 @@
             @svg('eye', 'c-side-nav__icon')Voir la session
         </a>
     @endif
-    @if(Route::has('exam_sessions.edit') && is_null($examSession->deleted_at))
+    @if(Route::has('exam_sessions.edit') && is_null($examSession->deleted_at) && !$examSession->isSent())
         <a href="{{ route('exam_sessions.edit', ['exam_session' => $examSession->id]) }}"
            class="c-side-nav__link{{ $current === 'edit' ? ' c-side-nav__link--current' : '' }}">
             @svg('edit-3', 'c-side-nav__icon')Modifier la session

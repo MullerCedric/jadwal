@@ -18,7 +18,7 @@ Route::get('/messages/{message}', [
 Route::get('/messages/{message}/edit', [
     'as' => 'messages.edit',
     'uses' => 'MessageController@edit'
-])->where('message', '[0-9]+');
+])->where('message', '[0-9]+')->middleware('showIfSent:messages');
 Route::delete('/messages/{message}', [
     'as' => 'messages.destroy',
     'uses' => 'MessageController@destroy'
