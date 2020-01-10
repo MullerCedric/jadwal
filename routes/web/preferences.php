@@ -6,7 +6,7 @@ Route::get('/preferences/{token}', [
 Route::get('/preferences/{token}/create/{exam_session}', [
     'as' => 'preferences.create',
     'uses' => 'PreferenceController@create'
-])->where(['token' => '\w{5}\d{7}\w{4}', 'exam_session' => '[0-9]+']);
+])->where(['token' => '\w{5}\d{7}\w{4}', 'exam_session' => '[0-9]+'])->middleware('editIfExists:preferences');
 Route::post('/preferences', [
     'as' => 'preferences.store',
     'uses' => 'PreferenceController@store'

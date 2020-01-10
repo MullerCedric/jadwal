@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'createIfEmpty' => \App\Http\Middleware\CreateIfEmpty::class,
         'editIfDraft' => \App\Http\Middleware\EditIfDraft::class,
+        'editIfExists' => \App\Http\Middleware\EditIfExists::class,
     ];
 
     /**
