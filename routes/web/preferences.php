@@ -14,7 +14,7 @@ Route::post('/preferences', [
 Route::get('/preferences/{preference}/{token?}', [
     'as' => 'preferences.show',
     'uses' => 'PreferenceController@show'
-])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}']);
+])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}'])->middleware('editIfDraft:preferences');
 Route::get('/preferences/{preference}/edit/{token?}', [
     'as' => 'preferences.edit',
     'uses' => 'PreferenceController@edit'

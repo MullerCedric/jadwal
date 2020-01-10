@@ -14,7 +14,7 @@ Route::post('/messages', [
 Route::get('/messages/{message}', [
     'as' => 'messages.show',
     'uses' => 'MessageController@show'
-])->where('message', '[0-9]+');
+])->where('message', '[0-9]+')->middleware('editIfDraft:messages');
 Route::get('/messages/{message}/edit', [
     'as' => 'messages.edit',
     'uses' => 'MessageController@edit'

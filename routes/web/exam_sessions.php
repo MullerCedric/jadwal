@@ -14,7 +14,7 @@ Route::post('/exam_sessions', [
 Route::get('/exam_sessions/{id}', [
     'as' => 'exam_sessions.show',
     'uses' => 'ExamSessionController@show'
-])->where('id', '[0-9]+');
+])->where('id', '[0-9]+')->middleware('editIfDraft:exam_sessions');
 Route::get('/exam_sessions/{exam_session}/edit', [
     'as' => 'exam_sessions.edit',
     'uses' => 'ExamSessionController@edit'
