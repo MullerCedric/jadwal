@@ -113,7 +113,9 @@ class PreferenceController extends Controller
     {
         $preference->load([
             'teacher',
-            'examSession'
+            'examSession' => function ($query) {
+                $query->withTrashed();
+            }
         ]);
         $examSession = $preference->examSession;
         $examSession->load('location');
@@ -155,12 +157,11 @@ class PreferenceController extends Controller
 
     protected function getEmptySession($teacher, $paginate = false)
     {
-        $sessions = ExamSession::with([
+        $sessions = ExamSession::withTrashed()->with([
             'location',
             'preferences' => function ($query) use ($teacher) {
                 $query->where('teacher_id', $teacher->id);
             }])
-            ->whereNull('deleted_at')
             ->whereHas('location', function ($query) use ($teacher) {
                 foreach ($teacher->locations as $index => $location) {
                     if ($index === 0) {
