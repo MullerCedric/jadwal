@@ -21,7 +21,7 @@ class ShowIfSent
         $notifications = session('notifications') ?? [];
         switch ($model) {
             case 'exam_sessions':
-                $resource = ExamSession::withTrashed()->findOrFail($request->route()->parameter('id'));
+                $resource = $request->route()->parameter('exam_session');
                 $notifications[] = 'Vous ne pouvez plus modifier une session qui a déjà été envoyée';
                 break;
             case 'messages':
