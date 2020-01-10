@@ -2,7 +2,7 @@
 Route::get('/locations', [
     'as' => 'locations.index',
     'uses' => 'LocationController@index'
-]);
+])->middleware('createIfEmpty:locations');
 Route::get('/locations/create', [
     'as' => 'locations.create',
     'uses' => 'LocationController@create'

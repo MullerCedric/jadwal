@@ -2,7 +2,7 @@
 Route::get('/teachers', [
     'as' => 'teachers.index',
     'uses' => 'TeacherController@index'
-]);
+])->middleware('createIfEmpty:teachers');
 Route::get('/teachers/create', [
     'as' => 'teachers.create',
     'uses' => 'TeacherController@create'

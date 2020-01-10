@@ -2,7 +2,7 @@
 Route::get('/exam_sessions', [
     'as' => 'exam_sessions.index',
     'uses' => 'ExamSessionController@index'
-]);
+])->middleware('createIfEmpty:exam_sessions');
 Route::get('/exam_sessions/create', [
     'as' => 'exam_sessions.create',
     'uses' => 'ExamSessionController@create'

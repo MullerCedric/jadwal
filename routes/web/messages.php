@@ -2,7 +2,7 @@
 Route::get('/messages', [
     'as' => 'messages.index',
     'uses' => 'MessageController@index'
-]);
+])->middleware('createIfEmpty:messages');
 Route::get('/messages/create', [
     'as' => 'messages.create',
     'uses' => 'MessageController@create'
