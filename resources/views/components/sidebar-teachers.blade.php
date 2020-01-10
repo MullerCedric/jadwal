@@ -61,6 +61,7 @@
         <a href="{{ route('messages.index') }}" class="c-side-nav__link">
             @svg('mail', 'c-side-nav__icon')Gérer les messages
         </a>
+    @endif
     @if(Route::has('exam_sessions.index'))
         <a href="{{ route('exam_sessions.index') }}" class="c-side-nav__link">
             @svg('activity', 'c-side-nav__icon')Gérer les sessions

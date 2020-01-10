@@ -75,7 +75,7 @@ class TeacherController extends Controller
 
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'teacher', 'value' => $teacher]]);
         Session::flash('notifications', $notifications);
-        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'exam_sessions.create' );
+        return redirect()->route('teachers.show', ['teacher' => $teacher->id]);
     }
 
     public function show(Teacher $teacher)

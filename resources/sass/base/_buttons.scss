@@ -49,6 +49,10 @@ button.cta, .cta {
     color: white;
     border: none;
 
+    &:not(.button--small) {
+        margin-top: 1.5em;
+    }
+
     &:not([disabled]) {
         &:focus, &:hover {
             color: $white;

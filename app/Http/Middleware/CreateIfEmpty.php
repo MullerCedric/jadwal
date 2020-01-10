@@ -22,7 +22,7 @@ class CreateIfEmpty
     {
         switch ($model) {
             case 'exam_sessions':
-                if (is_null(ExamSession::first())) {
+                if (is_null(ExamSession::withTrashed()->first())) {
                     return redirect()->route('exam_sessions.create');
                 }
                 break;

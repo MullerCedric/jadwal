@@ -13,7 +13,7 @@
     </div>
 
     <p>
-        <b>Message {{ $message->isSent() ? 'a été' : 'sera' }} envoyé à</b> l'implantation
+        Ce message {{ $message->isSent() ? 'a été' : 'sera' }} envoyé à l'implantation
         <a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}">
             {{ $message->examSession->location->name }}
         </a> regroupant <i
@@ -22,15 +22,22 @@
         'total_count' => $message->examSession->location->teachers->count(),
         'teachers' => $message->examSession->location->teachers])
             @slot('none')
-                aucun professeur.
+                aucun professeur (<a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}">
+                    {{ $message->examSession->location->name }}
+                </a> ne contient pas encore de professeurs)
             @endslot
-            @slot('singular')@endslot
-            @slot('plural')@endslot
+            @slot('singular')
+                de l'implantation <a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}">
+                    {{ $message->examSession->location->name }}
+                </a>.
+            @endslot
+            @slot('plural') @if($message->examSession->location->teachers->count() > 3) professeurs @endif de l'implantation <a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}">
+                {{ $message->examSession->location->name }}
+            </a>. @endslot
         @endcomponent
         @if($message->examSession->location->teachers->count() > 3)
-            <a href="{{ route('locations.show', ['location' => $message->examSession->location->id]) }}"
-               class="button button--small">
-                Voir l'ensemble des professeurs
+            <a href="{{ route('locations.show', ['location' =>$message->examSession->location->id]) }}">
+                Cliquez ici pour voir la liste complète
             </a>
         @endif
     </p>

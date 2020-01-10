@@ -32,7 +32,6 @@ class LocationController extends Controller
     {
         $notifications = [];
         $hasAddedTeachers = false;
-        $redirectTo = 'teachers.create';
         $location = new Location();
         $location->name = request('name');
 
@@ -108,7 +107,6 @@ class LocationController extends Controller
                 'Les professeurs sélectionnés ont été ajoutés à l\'implantation ' . $location->name,
                 'Vous pouvez maintenant lui planifier une session d\'examens'
             );
-            $redirectTo = 'exam_sessions.create';
         } else {
             $notifications[] = 'Vous pouvez maintenant créer un professeur';
         }
@@ -117,7 +115,10 @@ class LocationController extends Controller
 
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'location', 'value' => $location]]);
         Session::flash('notifications', $notifications);
-        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : $redirectTo);
+        if (!$hasAddedTeachers && is_null(Teacher::all())) {
+            return redirect()->route('teachers.create');
+        }
+        return redirect()->route('locations.show', ['location' => $location->id]);
     }
 
     public function show(Location $location)

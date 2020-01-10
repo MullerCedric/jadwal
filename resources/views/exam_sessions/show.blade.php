@@ -3,12 +3,12 @@
 @section('title', $examSession->title)
 
 @section('content')
-    <p>
-        Concerne l'implantation <a href="{{ route('locations.show', ['location' =>$examSession->location->id]) }}">
-            {{ $examSession->location->name }}
-        </a>
-    </p>
     @if($examSession->isValidated() && $examSession->isSent())
+        <p>
+            Concerne l'implantation <a href="{{ route('locations.show', ['location' =>$examSession->location->id]) }}">
+                {{ $examSession->location->name }}
+            </a>
+        </p>
         @component('components/timeline', [
         'sent_at' => $examSession->sent_at,
         'today' => $today,
@@ -19,46 +19,70 @@
             {{ $examSession->sent_preferences_count }} des {{ $examSession->location->teachers->count() }} professeurs
             ont complété leurs préférences pour cette session.
         </p>
+        <table>
+            <thead class="sr-only">
+            <tr>
+                <th scope="col">Nom du professeur</th>
+                <th scope="col">Statut des préférences</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($examSession->location->teachers as $teacher)
+                <tr>
+                    <td><a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}">{{ $teacher->name }}</a></td>
+                    @if($teacher->preferences_are_sent)
+                        <td>Complété</td>
+                        <td>
+                            <a href="{{ route('preferences.show', ['preference' => $teacher->preferences->first()->id]) }}"
+                               class="button button--small">
+                                Consulter
+                            </a>
+                        </td>
+                    @elseif($teacher->preferences_are_draft)
+                        <td>En cours de complétion</td>
+                        <td>/</td>
+                    @else
+                        <td>Non complété</td>
+                        <td>/</td>
+                    @endif
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     @else
         <p>
             Cette session est à l'état de brouillon. Vous pouvez encore la
             <a href="{{ route('exam_sessions.edit', ['exam_session' => $examSession->id]) }}">modifier</a>
         </p>
         <p>
-            Cette session comporte actuellement {{ $examSession->location->teachers->count() }} professeurs
+            Cette session est
+            <i title="La liste affichée ici est une liste dynamique et affiche donc l'état actuel de l'implantation">actuellement</i>
+            adressée à
+            @component('components/listing-teachers', [
+            'total_count' => $examSession->location->teachers->count(),
+            'teachers' => $examSession->location->teachers])
+                @slot('none')
+                    aucun professeur (<a href="{{ route('locations.show', ['location' => $examSession->location->id]) }}">
+                        {{ $examSession->location->name }}
+                    </a> ne contient pas encore de professeurs)
+                @endslot
+                @slot('singular')
+                        de l'implantation <a href="{{ route('locations.show', ['location' => $examSession->location->id]) }}">
+                            {{ $examSession->location->name }}
+                        </a>.
+                    @endslot
+                @slot('plural') @if($examSession->location->teachers->count() > 3) professeurs @endif de l'implantation <a href="{{ route('locations.show', ['location' => $examSession->location->id]) }}">
+                        {{ $examSession->location->name }}
+                    </a>. @endslot
+            @endcomponent
+            @if($examSession->location->teachers->count() > 3)
+                <a href="{{ route('locations.show', ['location' =>$examSession->location->id]) }}">
+                    Cliquez ici pour voir la liste complète
+                </a>
+            @endif
         </p>
     @endif
-    <table>
-        <thead class="sr-only">
-        <tr>
-            <th scope="col">Nom du professeur</th>
-            <th scope="col">Statut des préférences</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($examSession->location->teachers as $teacher)
-            <tr>
-                <td><a href="{{ route('teachers.show', ['teacher' => $teacher->id]) }}">{{ $teacher->name }}</a></td>
-                @if($teacher->preferences_are_sent)
-                    <td>Complété</td>
-                    <td>
-                        <a href="{{ route('preferences.show', ['preference' => $teacher->preferences->first()->id]) }}"
-                           class="button button--small">
-                            Consulter
-                        </a>
-                    </td>
-                @elseif($teacher->preferences_are_draft)
-                    <td>En cours de complétion</td>
-                    <td>/</td>
-                @else
-                    <td>Non complété</td>
-                    <td>/</td>
-                @endif
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
     <section>
         <h3>Messages liés à cette session</h3>
         @if($examSession->messages->isNotEmpty())

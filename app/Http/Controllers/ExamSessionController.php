@@ -58,6 +58,7 @@ class ExamSessionController extends Controller
 
     public function store(ExamSessionStoreRequest $request)
     {
+        $notifications = [];
         $id = request('id') ?? null;
         $examSession = Auth::user()->examSessions()->updateOrCreate(
             ['id' => $id],
@@ -71,8 +72,16 @@ class ExamSessionController extends Controller
             ]
         );
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'examSession', 'value' => $examSession]]);
-        Session::flash('notifications', ['La session a été enregistrée', 'Vous pouvez maintenant y associer un message']);
-        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'messages.create');
+        $notifications[] = 'La session a été enregistrée';
+
+        if ($examSession->messages()->get()->isEmpty()) {
+            $notifications[] = 'Vous pouvez maintenant y associer un message';
+            Session::flash('notifications', $notifications);
+            return redirect()->route('messages.create');
+        }
+
+        Session::flash('notifications', $notifications);
+        return redirect()->route('exam_sessions.show', ['id' => $examSession->id]);
     }
 
     public function show($id)
