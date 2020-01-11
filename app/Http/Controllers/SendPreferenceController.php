@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PreferenceCreatedJob;
 use App\Mail\PreferenceCreated;
 use App\Preference;
 use Carbon\Carbon;
@@ -16,8 +17,10 @@ class SendPreferenceController extends Controller
         $preference->sent_at = Carbon::now();
         $preference->save();
 
-        Mail::to($preference->teacher)
-            ->send(new PreferenceCreated());
+        dispatch((new PreferenceCreatedJob($preference->teacher)));
+
+        /*Mail::to($preference->teacher)
+            ->send(new PreferenceCreated());*/
 
         Session::flash('notifications', ['Vos préférences ont été envoyées']);
         return redirect()->route('preferences.show', ['preference' => $preference->id, 'token' => $token]);
