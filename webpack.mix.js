@@ -15,4 +15,5 @@ mix.disableNotifications();
 
 mix.js('resources/js/app.js', 'public/js')
     .copyDirectory('resources/images', 'public/images')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/pdf.scss', 'public/css');

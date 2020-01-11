@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\PreferenceCreated;
-use App\Teacher;
+use App\Preference;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,19 +14,17 @@ use Illuminate\Support\Facades\Mail;
 class PreferenceCreatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    /**
-     * @var Teacher
-     */
-    protected $teacher;
+
+    protected $preference;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Preference $preference
      */
-    public function __construct(Teacher $teacher)
+    public function __construct(Preference $preference)
     {
-        $this->teacher = $teacher;
+        $this->preference = $preference;
     }
 
     /**
@@ -36,7 +34,7 @@ class PreferenceCreatedJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->teacher)
-            ->send(new PreferenceCreated());
+        $preferenceMailable = new PreferenceCreated($this->preference);
+        Mail::to($this->preference->teacher)->send($preferenceMailable);
     }
 }
