@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ExamSession;
 use App\Http\Requests\LocationStoreRequest;
 use App\Location;
 use App\Teacher;
@@ -108,14 +109,16 @@ class LocationController extends Controller
                 'Vous pouvez maintenant lui planifier une session d\'examens'
             );
         } else {
-            $notifications[] = 'Vous pouvez maintenant créer un professeur';
+            if ($location->teachers->isEmpty()) {
+                $notifications[] = 'Vous pouvez maintenant créer un professeur';
+            }
         }
 
         array_unshift($notifications, 'L\'implantation a été enregistrée');
 
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'location', 'value' => $location]]);
         Session::flash('notifications', $notifications);
-        if (!$hasAddedTeachers && is_null(Teacher::all())) {
+        if ($location->teachers->isEmpty()) {
             return redirect()->route('teachers.create');
         }
         return redirect()->route('locations.show', ['location' => $location->id]);
@@ -140,9 +143,24 @@ class LocationController extends Controller
 
     public function update(LocationStoreRequest $request, Location $location)
     {
+        $detachFailed = '';
+        Teacher::all()->each(function ($teacher) use ($request, $location, &$detachFailed) {
+            if ($request->has('teacher' . $teacher->id)) {
+                $teacher->locations()->syncWithoutDetaching($location->id);
+            } else {
+                if ($location->teachers()->find($teacher->id)) {
+                    if ($location->examSessions->isNotEmpty()) {
+                        $surname = explode(' ',trim($teacher->name))[0];
+                        $detachFailed .= $detachFailed ? ', ' . $surname : $surname;
+                    } else {
+                        $teacher->locations()->detach($location->id);
+                    }
+                }
+            }
+        });
+
         $notifications = [];
         $location->name = request('name');
-        $location->teachers()->detach();
         if ($request->file('from_file') && $request->file('from_file')->isValid()) {
             $teachersFile = fopen($request->file('from_file'), 'r');
             while (!feof($teachersFile)) {
@@ -202,11 +220,10 @@ class LocationController extends Controller
             $location->save();
         }
 
-        Teacher::all()->each(function ($teacher) use ($request, $location) {
-            if ($request->has('teacher' . $teacher->id)) {
-                $teacher->locations()->syncWithoutDetaching($location->id);
-            }
-        });
+        if ($detachFailed) {
+            return redirect()->back()
+                ->withErrors(['teachers' => 'Les professeurs suivants n\'ont pas pu être retirés de l\'implantation car elle est liée à une session ouverte : ' . $detachFailed . '. Le reste des informations ont cependant été mises à jour']);
+        }
 
         array_unshift($notifications, 'L\'implantation a bien été modifiée');
 
@@ -218,6 +235,12 @@ class LocationController extends Controller
     public function destroy(Location $location)
     {
         $title = $location->name;
+
+        if (ExamSession::withTrashed()->where('location_id', $location->id)->whereNotNull('sent_at')->get()->isNotEmpty()) {
+            Session::flash('notifications', ['Vous ne pouvez pas supprimer cette implantation car elle est liée à une session d\'examen']);
+            return redirect()->back();
+        }
+
         $location->delete();
         Session::flash('notifications', ['L\'implantation "' . $title . '" a été définitivement supprimée']);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'locations.index' );

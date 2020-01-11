@@ -10,7 +10,7 @@
                class="o-form__input @error('name') is-invalid @enderror"
                placeholder="Myriam Dupont" required autofocus>
         @error('name')
-        <span class="o-form__error" role="alert">
+            <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
@@ -20,23 +20,34 @@
                class="o-form__input @error('email') is-invalid @enderror"
                placeholder="myriam.dupont@hepl.be" required>
         @error('email')
-        <span class="o-form__error" role="alert">
+            <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
 
         @if($allLocations && $allLocations->isNotEmpty())
             <div class="o-form__label">Fais partie des implantations</div>
-            <ul style="max-height: 175px; overflow: auto; padding: 0; margin: 0;">
-                @foreach($allLocations as $location)
+            <ul class="c-small-list">
+            @foreach($allLocations as $location)
                     <li>
                         <input type="checkbox" name="location{{ $location->id }}" id="location{{ $location->id }}"
                                class="o-form__input"
-                            {{ old('location' . $location->id) ? 'checked' : '' }}>
+                            {{ (old('location' . $location->id) ?? ($allLocations->count() === 1 ||
+                                (session('lastAction')
+                                && session('lastAction')['resource']['type'] === 'location'
+                                && session('lastAction')['resource']['value']->id === $location->id)))
+                            ? 'checked' : '' }}>
                         <label for="location{{ $location->id }}">{{ $location->name }}</label>
                     </li>
                 @endforeach
             </ul>
+            @foreach($allLocations as $location)
+                @error('location' . $location->id)
+                    <span class="o-form__error" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            @endforeach
         @endif
 
         <div class="o-form__label">ou</div>

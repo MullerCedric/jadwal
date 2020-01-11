@@ -11,7 +11,7 @@
                class="o-form__input @error('name') is-invalid @enderror"
                placeholder="Myriam Dupont" required autofocus>
         @error('name')
-        <span class="o-form__error" role="alert">
+            <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
@@ -21,14 +21,14 @@
                class="o-form__input @error('email') is-invalid @enderror"
                placeholder="myriam.dupont@hepl.be" required>
         @error('email')
-        <span class="o-form__error" role="alert">
+            <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
 
         @if($allLocations && $allLocations->isNotEmpty())
             <div class="o-form__label">Fais partie des implantations</div>
-            <ul style="max-height: 175px; overflow: auto; padding: 0; margin: 0;">
+            <ul class="c-small-list">
                 @foreach($allLocations as $location)
                     <li>
                         <input type="checkbox" name="location{{ $location->id }}" id="location{{ $location->id }}"
@@ -38,6 +38,11 @@
                     </li>
                 @endforeach
             </ul>
+            @error('locations')
+            <span class="o-form__error" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         @endif
 
         <button type="submit" class="o-form__submit cta">

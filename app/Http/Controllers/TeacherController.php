@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ExamSession;
 use App\Http\Requests\TeacherStoreRequest;
 use App\Http\Requests\TeacherUpdateRequest;
 use App\Location;
@@ -102,14 +103,27 @@ class TeacherController extends Controller
             $request->validate(['email' => 'unique:teachers']);
             $teacher->email = request('email');
         }
-        $teacher->locations()->detach();
         $teacher->save();
 
-        Location::all()->each(function ($location) use ($request, $teacher) {
+        $detachFailed = '';
+        Location::all()->each(function ($location) use ($request, $teacher, &$detachFailed) {
             if ($request->has('location' . $location->id)) {
-                $location->teachers()->attach($teacher->id);
+                $location->teachers()->syncWithoutDetaching($teacher->id);
+            } else {
+                if ($location->teachers()->find($teacher->id)) {
+                    if ($location->examSessions->isNotEmpty()) {
+                        $detachFailed .= $detachFailed ? ', ' . $location->name : $location->name;
+                    } else {
+                        $teacher->locations()->detach($location->id);
+                    }
+                }
             }
         });
+
+        if ($detachFailed) {
+            return redirect()->back()
+                ->withErrors(['locations' => 'Le professeur n\'a pas pu être retiré des implantations suivantes : ' . $detachFailed . ' car elles sont liées à une session ouverte. Le reste des informations ont cependant été mises à jour']);
+        }
 
         Session::flash('notifications', ['Les informations du professeur ont bien été modifiées']);
         return redirect()->route('teachers.show', ['teacher' => $teacher->id]);
@@ -118,9 +132,15 @@ class TeacherController extends Controller
     public function destroy(Teacher $teacher)
     {
         $title = $teacher->name;
+
+        if ($teacher->examSessions()->get()->isNotEmpty()) {
+            Session::flash('notifications', ['Vous ne pouvez pas supprimer ce professeur car il est lié à une session ouverte']);
+            return redirect()->back();
+        }
+
         $teacher->delete();
         Session::flash('notifications', ['Les données sur "' . $title . '"" ont été définitivement supprimées']);
-        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index' );
+        return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index');
     }
 
     protected function countAlphaTeachers()

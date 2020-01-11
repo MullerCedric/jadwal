@@ -1,6 +1,6 @@
 .o-form {
     display: grid;
-    grid-template-columns: max-content minmax(auto, 2fr);
+    grid-template-columns: minmax(min-content, 1fr) minmax(auto, 2fr);
     grid-gap: 1.75em 1em;
     align-items: start;
     margin-bottom: 1.75em;
