@@ -171,6 +171,7 @@ class PreferenceController extends Controller
                     }
                 }
             })
+            ->whereNotNull('sent_at')
             ->orderBy('deadline', 'asc');
         if ($paginate && is_int($paginate) && $paginate > 0) {
             $sessions = $sessions->paginate($paginate);
