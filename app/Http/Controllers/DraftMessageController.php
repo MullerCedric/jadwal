@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DraftMessageStoreRequest;
 use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class DraftMessageController extends Controller
@@ -12,7 +13,7 @@ class DraftMessageController extends Controller
     public function store(DraftMessageStoreRequest $request)
     {
         $id = request('id') ?? null;
-        $message = Message::updateOrCreate(
+        $message = Auth::user()->messages()->updateOrCreate(
             ['id' => $id],
             [
                 'exam_session_id' => request('exam_session'),

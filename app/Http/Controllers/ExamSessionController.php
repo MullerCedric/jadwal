@@ -86,7 +86,7 @@ class ExamSessionController extends Controller
 
     public function show($id)
     {
-        $examSession = ExamSession::withTrashed()
+        $examSession = Auth::user()->examSessions()->withTrashed()
             ->with([
                 'messages',
                 'location',
@@ -126,7 +126,7 @@ class ExamSessionController extends Controller
 
     public function copy(ExamSessionCopyRequest $request, $id)
     {
-        $examSession = ExamSession::withTrashed()->with('messages')->findOrFail($id);
+        $examSession = Auth::user()->examSessions()->withTrashed()->with('messages')->findOrFail($id);
 
         $newExamSession = new ExamSession();
         $newExamSession->location_id = $examSession->location_id;

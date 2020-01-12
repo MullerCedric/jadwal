@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function messages()
     {
-        return $this->hasManyThrough('App\Message', 'App\ExamSession');
+        return $this->hasMany('App\Message');
     }
 }

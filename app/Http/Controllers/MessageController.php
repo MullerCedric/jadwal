@@ -14,7 +14,7 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::with(['examSession', 'examSession.location'])
+        $messages = Auth::user()->messages()->with(['examSession', 'examSession.location'])
             ->orderBy('updated_at', 'desc')
             ->paginate(15);
         return view('messages.index', compact('messages'));
@@ -32,7 +32,7 @@ class MessageController extends Controller
     public function store(MessageStoreRequest $request)
     {
         $id = request('id') ?? null;
-        $message = Message::updateOrCreate(
+        $message = Auth::user()->messages()->updateOrCreate(
             ['id' => $id],
             [
                 'exam_session_id' => request('exam_session'),
@@ -55,7 +55,7 @@ class MessageController extends Controller
     public function edit(Message $message)
     {
         $email = $message; // renaming to avoid conflict with Laravel's variables
-        $examSessions = ExamSession::with('location')->get();
+        $examSessions = Auth::user()->examSessions()->with('location')->get();
         return view('messages.edit', compact('email', 'examSessions'));
     }
 

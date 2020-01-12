@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     protected $fillable = [
-        'exam_session_id', 'title', 'body', 'is_validated', 'sent_at'
+        'user_id', 'exam_session_id', 'title', 'body', 'is_validated', 'sent_at'
     ];
 
     protected $dates = [
@@ -20,6 +20,11 @@ class Message extends Model
     protected $casts = [
         'is_validated' => 'boolean',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function examSession()
     {

@@ -15,6 +15,7 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exam_session_id');
             $table->string('title');
             $table->text('body');
@@ -22,6 +23,7 @@ class CreateMessagesTable extends Migration
             $table->dateTime('sent_at')->nullable();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('exam_session_id')->references('id')->on('exam_sessions')->onDelete('cascade');
         });
     }
