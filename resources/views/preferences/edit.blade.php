@@ -145,7 +145,7 @@
             <input type="hidden" name="id" value="{{ $preference->id }}">
 
             <button type="submit" class="o-form__submit cta">
-                Prévisualiser
+                {{ $preference->isSent() ? 'Modifier' : 'Prévisualiser'}}
             </button>
             <p class="o-form__full">
                 ou

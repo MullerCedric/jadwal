@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ExamSession;
 use App\Http\Requests\PreferenceCopyRequest;
 use App\Http\Requests\PreferenceStoreRequest;
+use App\Jobs\PreferenceModifiedJob;
 use App\Preference;
 use App\Teacher;
 use Illuminate\Http\Request;
@@ -88,6 +89,11 @@ class PreferenceController extends Controller
                 'is_validated' => true,
             ]
         );
+
+        if ($preference->sent_at) {
+            $username = strval(auth()->user()->name);
+            dispatch(new PreferenceModifiedJob($preference, $username));
+        }
 
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'preference', 'value' => $preference]]);
         Session::flash('notifications', ['Vos préférences ont bien été enregistrées et envoyées']);
