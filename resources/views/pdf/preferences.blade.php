@@ -20,7 +20,9 @@
     Nom du professeur : {{ $teacher->name }}
 </p>
     <p>
-        Ces préférences ont été envoyées le {{ $currDate }}
+        @if($preference->sent_at)
+            Ces préférences ont été envoyées le {{ $preference->sent_at->format('d/m/y')  }} et ce @else Ce
+        @endif PDF a été généré le {{ $currDate }}
     </p>
 @if($examSession->indications)
     <div class="c-message">

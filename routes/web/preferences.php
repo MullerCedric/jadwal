@@ -15,6 +15,10 @@ Route::get('/preferences/{preference}/{token?}', [
     'as' => 'preferences.show',
     'uses' => 'PreferenceController@show'
 ])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}'])->middleware('editIfDraft:preferences');
+Route::get('/preferences/{preference}/pdf/{token?}', [
+    'as' => 'preferences.showPDF',
+    'uses' => 'PreferenceController@showPDF'
+])->where(['preference' => '[0-9]+', 'token' => '\w{5}\d{7}\w{4}'])->middleware('editIfDraft:preferences');
 Route::get('/preferences/{preference}/edit/{token?}', [
     'as' => 'preferences.edit',
     'uses' => 'PreferenceController@edit'

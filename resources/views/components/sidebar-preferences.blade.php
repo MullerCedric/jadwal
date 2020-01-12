@@ -15,6 +15,12 @@
                     @svg('eye', 'c-side-nav__icon')Voir ces préférences
                 </a>
             @endif
+            @if(Route::has('preferences.showPDF') && $current === 'show' && $preference->isSent())
+                <a href="{{ route('preferences.showPDF', ['preference' => $preference->id, 'token' => $token]) }}"
+                   class="c-side-nav__link">
+                    @svg('file-text', 'c-side-nav__icon')Exporter ces préférences en PDF
+                </a>
+            @endif
             @if(Route::has('preferences.edit') && !$preference->isSent())
                 <a href="{{ route('preferences.edit', ['preference' => $preference->id, 'token' => $token]) }}"
                    class="c-side-nav__link{{ $current === 'edit' ? ' c-side-nav__link--current' : '' }}">

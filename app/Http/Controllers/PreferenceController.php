@@ -9,6 +9,7 @@ use App\Preference;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class PreferenceController extends Controller
 {
@@ -107,6 +108,16 @@ class PreferenceController extends Controller
         $teacher = $preference->teacher;
         $emptyExamSessions = $this->getEmptySession($teacher);
         return view('preferences.show', compact('preference', 'examSession', 'teacher', 'emptyExamSessions', 'token'));
+    }
+
+    public function showPDF(Preference $preference, $token = null)
+    {
+        $preference->load('examSession');
+        $fileName = 'preferences-';
+        $fileName .= Str::slug($preference->teacher->name, '-');
+        $fileName .= '-' . $preference->examSession->slug . '.pdf';
+
+        return (new PdfController())->preferenceToPDF($preference)->download($fileName);
     }
 
     public function edit(Preference $preference, $token = null)

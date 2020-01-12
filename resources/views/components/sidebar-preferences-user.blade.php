@@ -6,6 +6,12 @@
                     title="{{ $teacher->name }}">{{ explode(' ',trim($teacher->name))[0] }}</i></span>
         </a>
     @endif
+    @if(Route::has('preferences.showPDF') && $current === 'show' && $preference->isSent())
+        <a href="{{ route('preferences.showPDF', ['preference' => $preference->id]) }}"
+           class="c-side-nav__link">
+            @svg('file-text', 'c-side-nav__icon')Exporter ces préférences en PDF
+        </a>
+    @endif
     @if(Route::has('confirm.show') && Route::has('preferences.edit') && $preference->isSent())
         <a href="{{ route('confirm.show', ['confirmBoxId' => 'UpdatePreference' . $preference->id]) }}"
            class="c-side-nav__link{{ $current === 'edit' ? ' c-side-nav__link--current' : '' }}">
@@ -18,7 +24,7 @@
                         Voulez-vous vraiment modifier les préférences envoyées par ce professeur ?
                     </p>
                     <p class="c-smaller">
-                        Note : le professeur concerné sera averti par e-mail des modifications que vous avez apportée !
+                        Note : le professeur concerné sera averti par e-mail des modifications que vous avez apportées !
                     </p>
                     @slot('actions')
                         <a href="{{ route('preferences.edit', ['preference' => $preference->id]) }}"
