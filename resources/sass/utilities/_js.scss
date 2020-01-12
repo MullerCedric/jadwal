@@ -1,0 +1,17 @@
+.js-only {
+    display: none;
+}
+
+.js {
+    & .js-only {
+        display: block !important;
+    }
+
+    & .js-only--inline {
+        display: inline !important;
+    }
+
+    & .no-js-only {
+        display: none !important;
+    }
+}

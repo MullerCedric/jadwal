@@ -14,7 +14,17 @@
         {{ $examSession->title }}
     </p>
     <p>
-        Nom du professeur : {{ $teacher->name }}
+        Nom du professeur : <span class="no-js-only">{{ $teacher->name }}</span>
+        @if(auth()->user() && $examSession->id === auth()->user()->id)
+            <select id="redirectSelector" class="js-only js-only--inline">
+                @foreach($examSession->preferences as $otherPreference)
+                    <option value="{{ $otherPreference->id }}"
+                        {{ $preference->id === $otherPreference->id ? 'selected':'' }}>
+                        {{ $otherPreference->teacher->name }}
+                    </option>
+                @endforeach
+            </select>
+        @endif
     </p>
     @if($preference->isSent())
         <p>

@@ -9,16 +9,13 @@
 
     <title>@yield('title') - {{ config('app.name', 'Jadwal') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="no-js">
 @if(!empty(session('confirmBoxId')) && session('confirmBoxId') !== 'none')
     @if(View::hasSection(session('confirmBoxId')))
         @yield(session('confirmBoxId'))
@@ -57,5 +54,9 @@
         @endcomponent
     </footer>
 @endauth
+
+<!-- Scripts -->
+@routes
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

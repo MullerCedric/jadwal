@@ -104,7 +104,10 @@ class PreferenceController extends Controller
     {
         $preference->load([
             'teacher',
-            'examSession'
+            'examSession',
+            'examSession.preferences' => function ($query) {
+                $query->whereNotNull('sent_at')->where('is_validated', true);
+            }
         ]);
         $examSession = $preference->examSession;
         $examSession->load('location');
