@@ -3,6 +3,7 @@
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,7 +17,8 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Cédric Jadwal',
             'email' => 'cedric@jadwal.be',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'api_token' => Str::random(80),
         ]);
         factory(User::class, 3)->create();
 

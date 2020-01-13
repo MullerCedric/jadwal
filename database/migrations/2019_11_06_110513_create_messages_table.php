@@ -17,8 +17,8 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exam_session_id');
-            $table->string('title');
-            $table->text('body');
+            $table->string('title')->default('Brouillon');
+            $table->text('body')->nullable();
             $table->boolean('is_validated')->default(false);
             $table->dateTime('sent_at')->nullable();
             $table->timestamps();

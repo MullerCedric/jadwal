@@ -1,5 +1,5 @@
 @section('fromSession' . $examSession->id)
-    @if( $preference)
+    @if($preference)
         @component('components/confirm-box', [
             'action' => route('preferences.copy', ['token' => $token, 'preference' => $preference->id])
         ])

@@ -43,7 +43,7 @@
         <input id="title" type="text" name="title" value="{{ old('title') }}"
                class="o-form__input @error('title') is-invalid @enderror"
                placeholder="Complétez vos préférences pour la prochaine session d\'examen"
-               required autofocus>
+               autofocus>
         @error('title')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>

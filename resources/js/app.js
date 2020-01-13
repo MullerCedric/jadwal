@@ -41,5 +41,13 @@ const pageIsLoaded = function () {
     document.body.classList.add("js");
 
     custom.changePreferenceOnSelect();
+
+    custom.getApiToken()
+        .then((userApiToken) => {
+            custom.draftAutoSave(userApiToken);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 };
 window.addEventListener("load", pageIsLoaded, false);

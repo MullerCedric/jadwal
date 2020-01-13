@@ -21,7 +21,7 @@
         @csrf
         <ul>
             <li class="o-form">
-                <input type="hidden" name="count0" value="true">
+                <input type="hidden" name="count0" id="count0" value="true">
                 <label for="course_name0" class="o-form__label">Intitulé EXACT du cours</label>
                 <input id="course_name0" type="text" name="course_name0" value="{{ old('course_name0') }}"
                        class="o-form__input @error('course_name0') is-invalid @enderror"
@@ -120,11 +120,11 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-            <input type="hidden" name="token" value="{{ $token }}">
-            <input type="hidden" name="exam_session" value="{{ $examSession->id }}">
+            <input type="hidden" name="token" id="teacherToken" value="{{ $token }}">
+            <input type="hidden" name="exam_session" id="examSessionId" value="{{ $examSession->id }}">
 
             <button type="submit" class="o-form__submit cta">
-                Prévisualier
+                Prévisualiser
             </button>
             <p class="o-form__full">
                 ou

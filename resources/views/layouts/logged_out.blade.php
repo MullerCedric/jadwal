@@ -9,9 +9,6 @@
 
     <title>@yield('title') - {{ config('app.name', 'Jadwal') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
@@ -38,5 +35,14 @@
         </main>
     </div>
 </div>
+
+<!-- Scripts -->
+@routes
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script type="text/javascript">
+    if (localStorage.getItem('userApiToken')) {
+        localStorage.removeItem('userApiToken');
+    }
+</script>
 </body>
 </html>

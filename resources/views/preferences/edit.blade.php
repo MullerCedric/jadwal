@@ -32,7 +32,7 @@
                                 Laissez l'ensemble des champs vides pour ignorer
                             </div>
                         @endif
-                        <input type="hidden" name="count{{ $i }}" value="true">
+                        <input type="hidden" name="count{{ $i }}" id="count{{ $i }}" value="true">
                         <label for="course_name{{ $i }}" class="o-form__label">Intitulé EXACT du cours</label>
                         <input id="course_name{{ $i }}" type="text" name="course_name{{ $i }}"
                                value="{{ old('course_name' . $i) ?? $preference->values[$i]->course_name ?? '' }}"
@@ -140,9 +140,9 @@
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
-            <input type="hidden" name="token" value="{{ $token }}">
-            <input type="hidden" name="exam_session" value="{{ $examSession->id }}">
-            <input type="hidden" name="id" value="{{ $preference->id }}">
+            <input type="hidden" name="token" id="teacherToken" value="{{ $token }}">
+            <input type="hidden" name="exam_session" id="examSessionId" value="{{ $examSession->id }}">
+            <input type="hidden" name="id" id="preferenceId" value="{{ $preference->id }}">
 
             <button type="submit" class="o-form__submit cta">
                 {{ $preference->isSent() ? 'Modifier' : 'Prévisualiser'}}

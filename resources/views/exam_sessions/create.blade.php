@@ -24,7 +24,7 @@
         <label for="title" class="o-form__label">Nom de la session</label>
         <input id="title" type="text" name="title" value="{{ old('title') }}"
                class="o-form__input @error('title') is-invalid @enderror"
-               placeholder="Session d'examens de janvier 2020" required>
+               placeholder="Session d'examens de janvier 2020">
         @error('title')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
         <label for="deadline" class="o-form__label">Date limite</label>
         <input id="deadline" type="date" name="deadline" value="{{ old('deadline') }}"
                class="o-form__input @error('deadline') is-invalid @enderror"
-               placeholder="Liste et modalités examens de janvier 2020" required>
+               placeholder="Liste et modalités examens de janvier 2020">
         @error('deadline')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>

@@ -25,12 +25,11 @@ class DraftExamSessionStoreRequest extends FormRequest
     {
         return [
             'id' => 'nullable|integer|min:0',
-            'user_id' => 'nullable|integer|min:0',
-            'location_id' => 'nullable|integer|min:0',
+            'location' => 'exists:locations,id',
             'title' => 'nullable|string',
-            'slug' => 'nullable|string',
             'indications' => 'nullable|string',
-            'deadline' => 'nullable|date'
+            'deadline' => 'nullable|date',
+            'sent_at' => 'nullable|date',
         ];
     }
 }

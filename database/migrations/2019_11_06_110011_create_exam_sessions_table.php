@@ -20,7 +20,7 @@ class CreateExamSessionsTable extends Migration
             $table->string('title')->default('Brouillon');
             $table->string('slug')->default('brouillon');
             $table->text('indications')->nullable();
-            $table->dateTime('deadline');
+            $table->dateTime('deadline')->nullable();
             $table->boolean('is_validated')->default(false);
             $table->dateTime('sent_at')->nullable();
             $table->softDeletes();

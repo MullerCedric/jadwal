@@ -84,7 +84,7 @@ class PreferenceController extends Controller
             [
                 'teacher_id' => $teacher->id,
                 'exam_session_id' => request('exam_session'),
-                'values' => json_encode($values),
+                'values' => $values ? json_encode($values) : null,
                 'about' => request('about'),
                 'is_validated' => true,
             ]

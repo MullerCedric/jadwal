@@ -11,7 +11,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Session;
 
 Auth::routes();
 
@@ -25,7 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [
         'as' => 'dashboard',
         'uses' => 'ExamSessionController@index'
-    ]);
+    ])->middleware('createIfEmpty:exam_sessions');
 
     // Exam Sessions
     require 'web/exam_sessions.php';
@@ -38,4 +37,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Teachers
     require 'web/teachers.php';
+
+    // Users
+    Route::get('/users/fetchToken', [
+        'as' => 'user.fetchApiToken',
+        'uses' => 'UserController@fetchApiToken'
+    ]);
 });

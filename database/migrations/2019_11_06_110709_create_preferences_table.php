@@ -17,7 +17,7 @@ class CreatePreferencesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('teacher_id');
             $table->unsignedBigInteger('exam_session_id');
-            $table->jsonb('values');
+            $table->jsonb('values')->nullable();
             $table->text('about')->nullable();
             $table->boolean('is_validated')->default(false);
             $table->dateTime('sent_at')->nullable();

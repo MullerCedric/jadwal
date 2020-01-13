@@ -36,6 +36,7 @@
             @markdown($examSession->indications)
         </div>
     @endif
+    @if($preference->values)
     <table class="table table-striped">
         <thead>
         <tr>
@@ -66,6 +67,9 @@
         @endforeach
         </tbody>
     </table>
+    @else
+        <p><strong>Aucune préférence n'a été enregistrée</strong></p>
+    @endif
     @if($preference->about)
         <section>
             <h2>Demandes particulières/indisponibilités/contraintes</h2>

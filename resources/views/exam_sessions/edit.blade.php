@@ -24,7 +24,7 @@
         <label for="title" class="o-form__label">Nom de la session</label>
         <input id="title" type="text" name="title" value="{{ old('title') ?? $examSession->title }}"
                class="o-form__input @error('title') is-invalid @enderror"
-               placeholder="Session d'examens de janvier 2020" required>
+               placeholder="Session d'examens de janvier 2020">
         @error('title')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
@@ -43,15 +43,15 @@
         @enderror
 
         <label for="deadline" class="o-form__label">Date limite</label>
-        <input id="deadline" type="date" name="deadline" value="{{ old('deadline') ?? $examSession->deadline->format('Y-m-d') }}"
+        <input id="deadline" type="date" name="deadline" value="{{ old('deadline') ?? ($examSession->deadline ? $examSession->deadline->format('Y-m-d') : '') }}"
                class="o-form__input @error('deadline') is-invalid @enderror"
-               placeholder="Liste et modalités examens de janvier 2020" required>
+               placeholder="Liste et modalités examens de janvier 2020">
         @error('deadline')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <input type="hidden" name="id" value="{{ $examSession->id }}">
+        <input type="hidden" name="id" id="examSessionId" value="{{ $examSession->id }}">
 
         <button type="submit" class="o-form__submit cta">
             Passer à l'étape suivante

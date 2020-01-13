@@ -25,7 +25,7 @@
         <input id="title" type="text" name="title" value="{{ old('title')  ?? $email->title}}"
                class="o-form__input @error('title') is-invalid @enderror"
                placeholder="[Important] Session de janvier 2020"
-               required autofocus>
+               autofocus>
         @error('title')
         <span class="o-form__error" role="alert">
                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <input type="hidden" name="id" value="{{ $email->id }}">
+        <input type="hidden" name="id" id="messageId" value="{{ $email->id }}">
 
         <button type="submit" class="o-form__submit cta">
             Enregistrer les modifications
