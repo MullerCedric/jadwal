@@ -92,12 +92,10 @@ function sendData() {
             headers: {'Content-Type': 'multipart/form-data'}
         })
             .then((response) => {
-                //handle success
-                console.log(response);
+                console.log('Vos modifications ont été enregistrées en tant que brouillon');
             })
             .catch((response) => {
-                //handle error
-                console.log(response);
+                console.error(response);
             });
 
         context.lastUpdated = new Date();
