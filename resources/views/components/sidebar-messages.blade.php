@@ -1,10 +1,13 @@
+<div class="sr-only-focusable__container">
+    <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
+</div>
 @if(isset($message))
     <div class="c-side-nav__group">
         @if(Route::has('send_messages.send') && $message->examSession->isValidated() && $message->isValidated() && !$message->isSent())
             <form action="{{ route('send_messages.send', ['message' => $message->id]) }}"
                   method="POST" class="link c-side-nav__link">
                 @csrf
-                <button type="submit" class="link">@svg('send', 'c-side-nav__icon')Envoyer le message</button>
+                @svg('send', 'c-side-nav__icon')<button type="submit" class="link">Envoyer le message</button>
             </form>
         @endif
         @if(Route::has('messages.show'))
@@ -76,3 +79,13 @@
         </a>
     @endif
 </div>
+@auth()
+    <div class="c-side-nav__group">
+        @if(Route::has('logout'))
+            <form action="{{ route('logout') }}" method="POST" class="c-side-nav__link">
+                @csrf
+                @svg('log-out', 'c-side-nav__icon')<button type="submit" class="link">{{ __('auth.logout') }}</button>
+            </form>
+        @endif
+    </div>
+@endauth

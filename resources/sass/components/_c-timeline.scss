@@ -70,6 +70,10 @@ $offset: $timelineMargin + $timelineHeight + $infoDiam / 2 + $labelHeight;
     &__texts {
         position: relative;
         margin-bottom: $labelHeight + 2.5rem;
+
+        @include mq('tablet') {
+            display: none;
+        }
     }
 
     &__text {
@@ -88,11 +92,16 @@ $offset: $timelineMargin + $timelineHeight + $infoDiam / 2 + $labelHeight;
 
     &__captions {
         display: none;
+
+        @include mq('tablet') {
+            display: block;
+        }
     }
 
-    // ---- MEDIA QUERIES petit écran
     &__caption {
         display: block;
+        margin-top: 2rem;
+
 
         & + .c-timeline__caption {
             margin-top: 1rem;

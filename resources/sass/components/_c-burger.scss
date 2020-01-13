@@ -1,0 +1,97 @@
+.c-burger {
+    &__content {
+        @include mq('laptop') {
+            display: none;
+        }
+    }
+
+    &__lines, &__check {
+        position: absolute;
+    }
+
+    &__check {
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        opacity: 0;
+        z-index: z('burger-check');
+        -webkit-touch-callout: none;
+
+        &:hover ~ {
+            & .c-burger__lines {
+                opacity: 1;
+            }
+        }
+
+        &:checked {
+            position: fixed;
+            &, & ~ .c-burger__lines {
+                top: 24px;
+                right: 24px;
+            }
+            & ~ .c-burger__lines {
+                position: fixed;
+                & .c-burger__line {
+                    opacity: .9;
+
+                    &:nth-child(1) {
+                        transform: rotate(45deg) translate(3px, -2px);
+                    }
+
+                    &:nth-child(2) {
+                        opacity: 0;
+                        transform: rotate(0deg) scale(0.2, 0.2);
+                    }
+
+                    &:nth-child(3) {
+                        transform: rotate(-45deg) translate(2px, 3px);
+                    }
+                }
+            }
+
+            & ~ .c-burger__content {
+                display: block;
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: $lightGrey;
+                padding: 2em 1.25em 3em;
+            }
+        }
+    }
+
+    &__lines {
+        z-index: z('burger-lines');
+        background-color: $grey;
+        border: 1px solid $white;
+        padding: 10px 8px 6px;
+        border-radius: 100%;
+        opacity: .6;
+        transition: opacity 0.55s ease;
+
+        & .c-burger__line {
+            width: 18px;
+            height: 2px;
+            margin-bottom: 4px;
+            background: $black;
+            border-radius: 3px;
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+            background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+            opacity 0.55s ease;
+
+            &:nth-child(1) {
+                transform-origin: top left;
+            }
+
+            &:nth-child(2) {
+                transform-origin: 4px 0;
+            }
+
+            &:nth-child(3) {
+                transform-origin: bottom left;
+            }
+        }
+    }
+}

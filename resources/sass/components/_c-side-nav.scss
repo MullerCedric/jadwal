@@ -1,5 +1,5 @@
 .c-side-nav {
-    z-index: z('main-content');
+    z-index: z('nav');
 
     &__link {
         display: flex;
@@ -17,6 +17,11 @@
             border-left-color: $secondary;
         }
 
+        & button {
+            text-align: left;
+            padding: 0;
+        }
+
         &--current {
             background-color: $white;
             border-color: $lightGrey;
@@ -30,7 +35,9 @@
 
     &__icon {
         height: 1em;
-        margin-right: .25em;
+        width: 1em;
+        min-width: 1em;
+        margin-right: .5em;
     }
 
     &__group {

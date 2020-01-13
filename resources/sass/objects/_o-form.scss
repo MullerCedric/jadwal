@@ -6,6 +6,11 @@
     margin-bottom: 1.75em;
     text-align: left;
 
+    @include mq('laptop') {
+        grid-template-columns: minmax(190px, 1fr);
+        grid-row-gap: .75em;
+    }
+
     &__group {
         display: flex;
         align-items: center;
@@ -15,6 +20,22 @@
     &__label {
         text-align: right;
         padding: .75em 0;
+
+        @include mq('laptop') {
+            text-align: left;
+        }
+
+        &:first-of-type {
+            @include mq('laptop') {
+                padding: 0;
+            }
+        }
+
+        &:nth-of-type(n+2) {
+            @include mq('laptop') {
+                padding: 1.25em 0 0;
+            }
+        }
     }
 
     &__input {

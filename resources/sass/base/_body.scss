@@ -5,6 +5,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     user-select: none;
+    @include mq('tablet') {
+        font-size: $smallerBaseSize;
+    }
 }
 
 body {

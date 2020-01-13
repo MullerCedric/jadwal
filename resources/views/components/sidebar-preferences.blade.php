@@ -1,3 +1,6 @@
+<div class="sr-only-focusable__container">
+    <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
+</div>
 @if(($current === 'show' || $current === 'edit') && isset($preference))
     <div class="c-side-nav__group">
         @if($token)
@@ -6,7 +9,7 @@
                     action="{{ route('send_preferences.send', ['preference' => $preference->id, 'token' => $token]) }}"
                     method="POST" class="link c-side-nav__link">
                     @csrf
-                    <button type="submit" class="link">@svg('send', 'c-side-nav__icon')Envoyer ces préférences</button>
+                    @svg('send', 'c-side-nav__icon')<button type="submit" class="link">Envoyer ces préférences</button>
                 </form>
             @endif
             @if(Route::has('preferences.show'))

@@ -1,0 +1,18 @@
+@mixin push--auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+@mixin mq($width, $type: max) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == min {
+            $width: $width + 1px;
+        }
+        @media all and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}

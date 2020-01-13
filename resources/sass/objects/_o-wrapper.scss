@@ -1,8 +1,7 @@
 .o-wrapper {
     width: 90%;
     max-width: $wrapper;
-    margin-left: auto;
-    margin-right: auto;
+    @include push--auto();
 
     &--smaller {
         max-width: $wrapperSmaller;

@@ -1,3 +1,6 @@
+<div class="sr-only-focusable__container">
+    <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
+</div>
 @if(isset($location))
     <div class="c-side-nav__group">
         @if(Route::has('locations.show'))
@@ -91,3 +94,13 @@
         </a>
     @endif
 </div>
+@auth()
+    <div class="c-side-nav__group">
+        @if(Route::has('logout'))
+            <form action="{{ route('logout') }}" method="POST" class="c-side-nav__link">
+                @csrf
+                @svg('log-out', 'c-side-nav__icon')<button type="submit" class="link">{{ __('auth.logout') }}</button>
+            </form>
+        @endif
+    </div>
+@endauth

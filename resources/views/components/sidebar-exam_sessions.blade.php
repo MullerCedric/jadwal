@@ -1,3 +1,6 @@
+<div class="sr-only-focusable__container">
+    <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
+</div>
 @if(isset($examSession))
     @if(Route::has('exam_sessions.show'))
         <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
@@ -17,9 +20,10 @@
                   action="{{ route('closed_exam_sessions.store', ['exam_session' => $examSession->id]) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="link"
-                        title="Clôturer définitivement cette session">
-                    @svg('x-octagon', 'c-side-nav__icon')Clôturer
+                @svg('x-octagon', 'c-side-nav__icon')<button
+                    type="submit" class="link"
+                    title="Clôturer définitivement cette session">
+                    Clôturer
                 </button>
             </form>
         @endif
@@ -110,3 +114,13 @@
         </a>
     @endif
 </div>
+@auth()
+    <div class="c-side-nav__group">
+        @if(Route::has('logout'))
+            <form action="{{ route('logout') }}" method="POST" class="c-side-nav__link">
+                @csrf
+                @svg('log-out', 'c-side-nav__icon')<button type="submit" class="link">{{ __('auth.logout') }}</button>
+            </form>
+        @endif
+    </div>
+@endauth
