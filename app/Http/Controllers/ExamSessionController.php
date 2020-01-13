@@ -141,6 +141,7 @@ class ExamSessionController extends Controller
         if (request('keep_message')) {
             foreach ($examSession->messages as $message) {
                 $newMessage = new Message();
+                $newMessage->user_id = Auth::user()->id;
                 $newMessage->title = $message->title . ' - copie';
                 $newMessage->body = $message->body;
                 $newMessage->is_validated = false;
