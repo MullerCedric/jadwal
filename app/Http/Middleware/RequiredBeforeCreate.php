@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\ExamSession;
 use App\Location;
 use App\Teacher;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class RequiredBeforeCreate
@@ -34,7 +34,7 @@ class RequiredBeforeCreate
                 }
                 break;
             case 'messages':
-                if (is_null(ExamSession::first())) {
+                if (is_null(Auth::user()->examSessions()->first())) {
                     $modelToCreate = 'exam_sessions';
                     $notifications[] = 'Veuillez créer une session d\'examens avant d\'écrire un message';
                 }
