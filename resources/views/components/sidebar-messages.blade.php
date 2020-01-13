@@ -10,7 +10,7 @@
                 @svg('send', 'c-side-nav__icon')<button type="submit" class="link">Envoyer le message</button>
             </form>
         @endif
-        @if(Route::has('messages.show'))
+        @if(Route::has('messages.show') && $message->isValidated())
             <a href="{{ route('messages.show', ['message' => $message->id]) }}"
                class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
                 @svg('eye', 'c-side-nav__icon')Voir le message

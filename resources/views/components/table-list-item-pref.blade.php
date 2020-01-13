@@ -66,10 +66,12 @@
                     Modifier
                 </a>
             @endif
-            <a href="{{ route('preferences.show', ['preference' => $preference->id, 'token' => $token]) }}"
-               class="button button--small">
-                Voir
-            </a>
+            @if($preference->isValidated())
+                <a href="{{ route('preferences.show', ['preference' => $preference->id, 'token' => $token]) }}"
+                   class="button button--small">
+                    Voir
+                </a>
+            @endif
         </form>
     @else
         <div class="c-table-list__actions">

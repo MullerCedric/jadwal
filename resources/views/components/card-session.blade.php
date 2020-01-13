@@ -97,10 +97,12 @@
                         </a>
                     @endif
                 @endif
-                <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
-                   class="button button--small">
-                    Voir
-                </a>
+                @if($examSession->isValidated())
+                    <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
+                       class="button button--small">
+                        Voir
+                    </a>
+                @endif
             </form>
         </div>
     </footer>

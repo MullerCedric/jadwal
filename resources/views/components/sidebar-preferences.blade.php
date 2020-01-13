@@ -12,7 +12,7 @@
                     @svg('send', 'c-side-nav__icon')<button type="submit" class="link">Envoyer ces préférences</button>
                 </form>
             @endif
-            @if(Route::has('preferences.show'))
+            @if(Route::has('preferences.show') && $preference->isValidated())
                 <a href="{{ route('preferences.show', ['preference' => $preference->id, 'token' => $token]) }}"
                    class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
                     @svg('eye', 'c-side-nav__icon')Voir ces préférences

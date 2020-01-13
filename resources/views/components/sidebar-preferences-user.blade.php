@@ -2,14 +2,14 @@
     <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
 </div>
 @if(isset($preference) && $teacher)
-    @if(Route::has('preferences.show'))
+    @if(Route::has('preferences.show') && $examSession->isValidated())
         <a href="{{ route('preferences.show', ['preference' => $preference->id]) }}"
            class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
             @svg('eye', 'c-side-nav__icon')<span>Voir les préférences de <i
                     title="{{ $teacher->name }}">{{ explode(' ',trim($teacher->name))[0] }}</i></span>
         </a>
     @endif
-    @if(Route::has('preferences.showPDF') && $current === 'show' && $preference->isSent())
+    @if(Route::has('preferences.showPDF') && $current === 'show' && $preference->isValidated() && $preference->isSent())
         <a href="{{ route('preferences.showPDF', ['preference' => $preference->id]) }}"
            class="c-side-nav__link">
             @svg('file-text', 'c-side-nav__icon')Exporter ces préférences en PDF

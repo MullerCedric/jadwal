@@ -2,7 +2,7 @@
     <a class="sr-only-focusable" href="#content">Revenir au contenu</a>
 </div>
 @if(isset($examSession))
-    @if(Route::has('exam_sessions.show'))
+    @if(Route::has('exam_sessions.show') && $examSession->isValidated())
         <a href="{{ route('exam_sessions.show', ['id' => $examSession->id]) }}"
            class="c-side-nav__link{{ $current === 'show' ? ' c-side-nav__link--current' : '' }}">
             @svg('eye', 'c-side-nav__icon')Voir la session

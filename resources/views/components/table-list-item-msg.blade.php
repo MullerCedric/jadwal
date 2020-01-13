@@ -45,10 +45,12 @@
                     Modifier
                 </a>
             @endif
-            <a href="{{ route('messages.show', ['message' => $message->id]) }}"
-               class="button button--small">
-                Voir
-            </a>
+            @if($message->isValidated())
+                <a href="{{ route('messages.show', ['message' => $message->id]) }}"
+                   class="button button--small">
+                    Voir
+                </a>
+            @endif
         </form>
     @endif
 </div>
