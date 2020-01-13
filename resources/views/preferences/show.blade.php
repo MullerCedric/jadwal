@@ -13,9 +13,9 @@
     <p>
         {{ $examSession->title }}
     </p>
-    <p>
-        Nom du professeur : <span class="no-js-only">{{ $teacher->name }}</span>
-        @if(auth()->user() && $examSession->id === auth()->user()->id)
+    @if(auth()->user() && $examSession->id === auth()->user()->id && $examSession->preferences->isNotEmpty())
+        <p>
+            Nom du professeur : <span class="no-js-only">{{ $teacher->name }}</span>
             <select id="redirectSelector" class="js-only js-only--inline">
                 @foreach($examSession->preferences as $otherPreference)
                     <option value="{{ $otherPreference->id }}"
@@ -24,8 +24,12 @@
                     </option>
                 @endforeach
             </select>
-        @endif
-    </p>
+        </p>
+    @else
+        <p>
+            Nom du professeur : <span>{{ $teacher->name }}</span>
+        </p>
+    @endif
     @if($preference->isSent())
         <p>
             Ces préférences ont été envoyées le {{ $preference->sent_at->format('d/m/y') }}
