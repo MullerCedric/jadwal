@@ -9,6 +9,7 @@ use App\Jobs\PreferenceModifiedJob;
 use App\Preference;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -111,9 +112,9 @@ class PreferenceController extends Controller
         ]);
         $examSession = $preference->examSession;
         $examSession->load('location');
-        if ($token && $preference->teacher->token !== $token) { // TODO put this on a gate
-            return 'Vous n\'êtes pas ' . $preference->teacher->name . ' ! Vous n\'avez donc pas accès à ces préférences';
-        }
+
+        Gate::authorize('crud-preference', [$preference, $token]);
+
         $teacher = $preference->teacher;
         $emptyExamSessions = $this->getEmptySession($teacher);
         return view('preferences.show', compact('preference', 'examSession', 'teacher', 'emptyExamSessions', 'token'));
@@ -139,9 +140,9 @@ class PreferenceController extends Controller
         ]);
         $examSession = $preference->examSession;
         $examSession->load('location');
-        if ($token && $preference->teacher->token !== $token) { // TODO put this on a gate
-            return 'Vous n\'êtes pas ' . $preference->teacher->name . ' ! Vous n\'avez donc pas accès à ces préférences';
-        }
+
+        Gate::authorize('crud-preference', [$preference, $token]);
+
         $teacher = $preference->teacher;
         $teacher->load([
             'preferences' => function ($query) {
@@ -157,6 +158,8 @@ class PreferenceController extends Controller
     {
         $examSession = ExamSession::findOrFail(request('targeted_exam_session'));
         $teacher = Teacher::where('token', $token)->firstOrFail();
+
+        Gate::authorize('crud-preference', [$preference, $token]);
 
         $newPreference = Preference::updateOrCreate(
             [

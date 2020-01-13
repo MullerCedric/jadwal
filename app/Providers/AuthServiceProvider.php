@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Preference;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('crud-preference', function ($user, Preference $preference, $token = null) {
+            if ($token) {
+                return $preference->teacher->token === $token;
+            } else {
+                return $preference->isSent() && ($preference->examSession->user_id === $user->id);
+            }
+        });
     }
 }
