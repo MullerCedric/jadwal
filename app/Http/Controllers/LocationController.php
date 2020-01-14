@@ -241,6 +241,7 @@ class LocationController extends Controller
             return redirect()->back();
         }
 
+        $location->teachers()->detach();
         $location->delete();
         Session::flash('notifications', ['L\'implantation "' . $title . '" a été définitivement supprimée']);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'locations.index' );

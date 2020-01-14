@@ -6,6 +6,7 @@ use App\Http\Requests\DraftPreferenceStoreRequest;
 use App\Preference;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class DraftPreferenceController extends Controller
@@ -16,6 +17,7 @@ class DraftPreferenceController extends Controller
         $token = request('token') ?? null;
         if ($id) {
             $pref = Preference::with('teacher')->findOrFail($id);
+            Gate::authorize('u-preference', [$pref, $token]);
             $teacher = $pref->teacher;
         } else {
             $teacher = Teacher::where('token', $token)->firstOrFail();

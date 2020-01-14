@@ -138,6 +138,7 @@ class TeacherController extends Controller
             return redirect()->back();
         }
 
+        $teacher->locations()->detach();
         $teacher->delete();
         Session::flash('notifications', ['Les données sur "' . $title . '"" ont été définitivement supprimées']);
         return redirect()->route((isset($_GET['redirect_to']) && Route::has($_GET['redirect_to'])) ? $_GET['redirect_to'] : 'teachers.index');

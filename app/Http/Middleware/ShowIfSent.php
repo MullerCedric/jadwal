@@ -33,7 +33,7 @@ class ShowIfSent
                 if ($token = $request->route()->parameter('token')) {
                     if ($resource->isSent()) {
                         Session::flash('notifications', $notifications);
-                        return redirect()->route('preferences.edit', [
+                        return redirect()->route('preferences.show', [
                             'preference' => $resource->id,
                             'token' => $token
                         ]);

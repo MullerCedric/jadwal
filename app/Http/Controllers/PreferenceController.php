@@ -43,6 +43,7 @@ class PreferenceController extends Controller
         $token = request('token') ?? null;
         if ($id) {
             $pref = Preference::with('teacher')->findOrFail($id);
+            Gate::authorize('u-preference', [$pref, $token]);
             $teacher = $pref->teacher;
         } else {
             $teacher = Teacher::where('token', $token)->firstOrFail();
@@ -97,7 +98,9 @@ class PreferenceController extends Controller
         }
 
         Session::flash('lastAction', ['type' => 'store', 'isDraft' => false, 'resource' => ['type' => 'preference', 'value' => $preference]]);
-        Session::flash('notifications', ['Vos préférences ont bien été enregistrées et envoyées']);
+        $notifications = ['Les préférences ont bien été enregistrées'];
+        if ($token) $notifications[] = 'Pensez à les envoyer !';
+        Session::flash('notifications', $notifications);
         return redirect()->route('preferences.show', ['preference' => $preference->id, 'token' => $token]);
     }
 
@@ -113,7 +116,7 @@ class PreferenceController extends Controller
         $examSession = $preference->examSession;
         $examSession->load('location');
 
-        Gate::authorize('crud-preference', [$preference, $token]);
+        Gate::authorize('r-preference', [$preference, $token]);
 
         $teacher = $preference->teacher;
         $emptyExamSessions = $this->getEmptySession($teacher);
@@ -123,6 +126,9 @@ class PreferenceController extends Controller
     public function showPDF(Preference $preference, $token = null)
     {
         $preference->load('examSession');
+
+        Gate::authorize('r-preference', [$preference, $token]);
+
         $fileName = 'preferences-';
         $fileName .= Str::slug($preference->teacher->name, '-');
         $fileName .= '-' . $preference->examSession->slug . '.pdf';
@@ -141,7 +147,7 @@ class PreferenceController extends Controller
         $examSession = $preference->examSession;
         $examSession->load('location');
 
-        Gate::authorize('crud-preference', [$preference, $token]);
+        Gate::authorize('u-preference', [$preference, $token]);
 
         $teacher = $preference->teacher;
         $teacher->load([
@@ -159,7 +165,7 @@ class PreferenceController extends Controller
         $examSession = ExamSession::findOrFail(request('targeted_exam_session'));
         $teacher = Teacher::where('token', $token)->firstOrFail();
 
-        Gate::authorize('crud-preference', [$preference, $token]);
+        Gate::authorize('r-preference', [$preference, $token]);
 
         $newPreference = Preference::updateOrCreate(
             [

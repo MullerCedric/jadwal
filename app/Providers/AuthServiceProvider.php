@@ -26,9 +26,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('crud-preference', function ($user, Preference $preference, $token = null) {
+        Gate::define('r-preference', function ($user, Preference $preference, $token = null) {
             if ($token) {
                 return $preference->teacher->token === $token;
+            } else {
+                return $preference->isSent() && ($preference->examSession->user_id === $user->id);
+            }
+        });
+
+        Gate::define('u-preference', function ($user, Preference $preference, $token = null) {
+            if ($token) {
+                return !$preference->isSent() && ($preference->teacher->token === $token);
             } else {
                 return $preference->isSent() && ($preference->examSession->user_id === $user->id);
             }
