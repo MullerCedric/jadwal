@@ -11,7 +11,7 @@
             Bon à savoir : La date limite ainsi que l'URL vers la complétion du formulaire seront ajoutés à la fin du message automatiquement
         </p>
     </div>
-    <form method="post" action="{{ route('messages.store') }}" class="o-form">
+    <form method="post" action="{{ route('messages.store') }}" class="o-form" id="storeForm">
         @csrf
         @if(session('lastAction') && session('lastAction')['resource']['type'] === 'examSession')
             <div class="o-form__label">Session d'examens concernée</div>

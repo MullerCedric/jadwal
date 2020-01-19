@@ -21,7 +21,7 @@
             @markdown($examSession->indications)
         </div>
     @endif
-    <form method="POST" action="{{ route('preferences.store') }}">
+    <form method="POST" action="{{ route('preferences.store') }}" id="storeForm">
         @csrf
         <ul>
             @for($i = 0; $i < (count($preference->values) + 1); $i++)
@@ -142,7 +142,7 @@
             @enderror
             <input type="hidden" name="token" id="teacherToken" value="{{ $token }}">
             <input type="hidden" name="exam_session" id="examSessionId" value="{{ $examSession->id }}">
-            <input type="hidden" name="id" id="preferenceId" value="{{ $preference->id }}">
+            <input type="hidden" name="id" id="currentId" value="{{ $preference->id }}">
 
             <button type="submit" class="o-form__submit cta">
                 {{ $preference->isSent() ? 'Modifier' : 'Prévisualiser'}}

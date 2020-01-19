@@ -3,7 +3,7 @@
 @section('title', 'Créer une nouvelle session')
 
 @section('content')
-    <form method="post" action="{{ route('exam_sessions.store') }}" class="o-form">
+    <form method="post" action="{{ route('exam_sessions.store') }}" class="o-form" id="storeForm">
         @csrf
         <label for="location" class="o-form__label">Implantation</label>
         <select id="location" name="location" required autofocus

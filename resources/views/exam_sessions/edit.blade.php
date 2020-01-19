@@ -3,7 +3,7 @@
 @section('title', 'Modifier la session "' . $examSession->title . '"')
 
 @section('content')
-    <form method="post" action="{{ route('exam_sessions.store') }}" class="o-form">
+    <form method="post" action="{{ route('exam_sessions.store') }}" class="o-form" id="storeForm">
         @csrf
         <label for="location" class="o-form__label">Implantation</label>
         <select id="location" name="location" required autofocus
@@ -51,7 +51,7 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <input type="hidden" name="id" id="examSessionId" value="{{ $examSession->id }}">
+        <input type="hidden" name="id" id="currentId" value="{{ $examSession->id }}">
 
         <button type="submit" class="o-form__submit cta">
             Passer à l'étape suivante

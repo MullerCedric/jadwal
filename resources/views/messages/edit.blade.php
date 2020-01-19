@@ -3,7 +3,7 @@
 @section('title', 'Modifier le message "' . $email->title . '"')
 
 @section('content')
-    <form method="post" action="{{ route('messages.store') }}" class="o-form">
+    <form method="post" action="{{ route('messages.store') }}" class="o-form" id="storeForm">
         @csrf
         <label for="exam_session" class="o-form__label">Session d'examen concernée</label>
         <select id="exam_session" name="exam_session" required
@@ -42,7 +42,7 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <input type="hidden" name="id" id="messageId" value="{{ $email->id }}">
+        <input type="hidden" name="id" id="currentId" value="{{ $email->id }}">
 
         <button type="submit" class="o-form__submit cta">
             Enregistrer les modifications

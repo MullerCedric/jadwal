@@ -17,7 +17,7 @@
             @markdown($examSession->indications)
         </div>
     @endif
-    <form method="POST" action="{{ route('preferences.store') }}">
+    <form method="POST" action="{{ route('preferences.store') }}" id="storeForm">
         @csrf
         <ul>
             <li class="o-form">
