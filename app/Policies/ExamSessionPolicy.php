@@ -10,7 +10,7 @@ class ExamSessionPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, ExamSession $examSession)
+    public function crudExisting(User $user, ExamSession $examSession)
     {
         return $user->id === $examSession->user_id;
     }

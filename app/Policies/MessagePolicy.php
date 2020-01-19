@@ -10,12 +10,7 @@ class MessagePolicy
 {
     use HandlesAuthorization;
 
-    public function view(User $user, Message $message)
-    {
-        return $user->id === $message->user_id;
-    }
-
-    public function update(User $user, Message $message)
+    public function crudExisting(User $user, Message $message)
     {
         return $user->id === $message->user_id;
     }
