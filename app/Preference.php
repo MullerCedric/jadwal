@@ -32,7 +32,7 @@ class Preference extends Model
     }
 
     public function getValuesAttribute($value) {
-        return json_decode($value);
+        return json_decode($value) ?? [];
     }
 
     public function isValidated()
